@@ -1,0 +1,80 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()      
+    }
+}
+<nav role="navigation" class="navbar navbar-inverse">
+    <div class="container123">
+				<i class="fa fa-globe nav-globe" ></i>
+        <div class="navbar-header bk-navbar-header"
+				style="
+		
+				left: 50%;
+				position: absolute;
+				margin-left: -69px;
+				margin-top: -15px
+
+		">
+
+            <!-- @{ Html.RenderAction("PageLogo", "customization"); } -->
+			<a href="/guestservice_design/"> <img id="img_logo" src="@Url.Content("~/images/new/logo.png")" style="height: 49px;margin-top:12px;"></a>
+            <button data-target=".navbar-ex1-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+                <span class="sr-only">@SharedStrings.ResourceManager.Get("NavigatorTitle")</span>
+                <img src="@Url.Content("~/images/menu.png")" />
+            </button> 
+        </div>  
+        <div class="collapse navbar-collapse navbar-ex1-collapse">         
+            <ul class="nav navbar-nav navbar-right">
+            @{ Html.RenderAction("PageNavigation", "customization"); }
+            @{
+                var languages = Sm.System.Mvc.Language.UrlLanguage.SupportedLanguages;
+                var language = Sm.System.Mvc.Language.UrlLanguage.CurrentLanguage;
+                var values = Sm.System.Mvc.HttpRequestBaseExtensions.QueryStringAsRouteValues(Request);   
+                if (languages != null && languages.Length > 1)
+                {
+                <li class="dropdown bk-navbar-language">
+                    <a data-toggle="dropdown" class="dropdown-toggle"  href="#"><img src="@Url.Content(string.Format("~/images/flags/{0}.png", language))" />&nbsp;<b class="caret"></b></a>
+                        <ul class="dropdown-menu" style="min-width:0;">
+                        @foreach (var lang in languages.Where(m => m != language))
+                        {
+                            values["language"] = lang;
+                            <li>
+                                <a href="@Url.RouteUrl(values)">
+                                    <img src="@Url.Content(string.Format("~/images/flags/{0}.png", lang))" />
+                                </a>
+                            </li>
+                        }
+                        </ul>
+                </li>                  
+                }          
+            }
+            @if (User.Identity.IsAuthenticated)
+            {        
+            <li class="dropdown bk-navbar-user">
+                <a data-toggle="dropdown" class="dropdown-toggle"  href="#">@User.Identity.Name <b class="caret"></b></a>                                                         
+                <ul class="dropdown-menu" style="min-width:0;">
+                    <li><a href="@Url.Action("order", "guest")">@SharedStrings.ResourceManager.Get("ToolbarGuestOrderLink")</a></li>
+                    <li class="divider" />
+                    <li><a href="javascript: $('#logoutForm').submit();">@SharedStrings.ResourceManager.Get("NavigatorLogout")</a></li>
+                </ul>
+            </li>
+            }
+            else
+            {
+                <li>
+                    <a  href="@Url.Action("login", "account", new { returnUrl = Url.Action("index") })">@SharedStrings.ResourceManager.Get("ToolbarSignIn")</a>
+                </li>
+            }
+              
+          
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+    

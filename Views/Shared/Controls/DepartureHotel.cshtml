@@ -1,0 +1,160 @@
+﻿@model GuestService.Data.DepartureHotel     
+   
+<h2 style="margin-top:0;">@Model.name</h2>
+       
+@foreach (var t in Model.transfers)
+{    
+    <div class="media">
+        <span class="pull-left">
+            <img class="media-object pull-left" src="@Url.Content("~/images/bus.png")">
+        </span> 
+        <div class="media-body">          
+            <h3 class="media-heading" style="color: #777777; margin-bottom:0; text-transform: uppercase;">                      
+                @if (t.pickup != null)
+                {
+                    <text>@SharedStrings.ResourceManager.Get("DepartureHotel_TransferTime")</text> @t.pickup.Value.ToString("d MMM yyyy HH:mm")     
+                }
+                else
+                { 
+                    <text>@SharedStrings.ResourceManager.Get("DepartureHotel_TransferTime")</text> @t.date.ToString("d MMM yyyy")
+                }
+            </h3>
+            <div style="color: #777777;">                             
+                @if (!string.IsNullOrEmpty(t.ident))
+                {
+                    <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("DepartureHotel_TransferBus")</span>@t.ident
+                }  
+                @if (t.indiviadual)
+                {
+                    <br /> <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("DepartureHotel_TransferIndividual")</span>@t.servicename      
+                }                                 
+               @if (!string.IsNullOrEmpty(t.note))
+               {
+                    <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("DepartureHotel_TransferNote")</span> @t.note
+               }
+            </div>
+        </div>                                                      
+    </div>  
+       
+    if (t.flight != null)
+    {
+        <div class="media">
+            <span class="pull-left">
+                <img class="media-object pull-left" src="@Url.Content("~/images/air.png")">
+            </span> 
+            <div class="media-body">          
+                <div style="color: #777777;">  
+                    <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("DepartureHotel_Flight")</span>@t.flight.name
+                    @if (t.flight.source != null)
+                    {
+                        <br /> <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("DepartureHotel_FlightSource")</span> @t.flight.source.name 
+                        if (t.flight.source.town != null)
+                        {
+                            <text>&nbsp;/&nbsp;</text>@t.flight.source.town.name
+                        }
+
+                    }   
+                    @if (t.flight.target != null)
+                    {
+                         <br /> <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("DepartureHotel_FlightSource")</span> @t.flight.target.name 
+                        if (t.flight.target.town != null)
+                        {
+                                <text>&nbsp;/&nbsp;</text>@t.flight.target.town.name
+                        }
+
+                    }       
+                </div>
+            </div>
+        </div>
+    }
+
+    if (t.hotel != null)
+    {            
+        <div class="media">
+            <span class="pull-left">
+                <img class="media-object pull-left" src="@Url.Content("~/images/hotel.png")">
+            </span> 
+            <div class="media-body">          
+                <div style="color: #777777;">  
+                    <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("DepartureHotel_Hotel")</span>@t.hotel.name
+                    @if (t.hotel.town != null)
+                    {
+                        <br /> <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("DepartureHotel_HotelTown")</span>@t.hotel.town.name                       
+                    }   
+                    @if (t.hotel.region != null)
+                    {
+                         <br /> <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("DepartureHotel_HotelRegion")</span> @t.hotel.region.name              
+                    }       
+                </div>
+            </div>
+        </div>    
+    }
+
+    if (t.guide != null || t.guide2 != null)
+    {
+        <div class="media">
+            <span class="pull-left">
+                <img class="media-object pull-left" src="@Url.Content("~/images/guide.png")">
+            </span> 
+            <div class="media-body">          
+                <div style="color: #777777;">  
+                     @if (t.guide != null)
+                     {                   
+                        <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("DepartureHotel_Guide")</span>@t.guide.name                      
+
+                         if (!string.IsNullOrEmpty(t.guide.phone))
+                         {
+                             <br /> <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("DepartureHotel_GuidePhone")</span> @t.guide.phone
+                                   
+                         }
+                     }   
+                       @if (t.guide2 != null)
+                       {
+                             if (t.guide == null)
+                             {
+                                <br /> <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("DepartureHotel_Guide")</span> @t.guide2.name
+                             }
+                             else
+                             {
+                                <br /> <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("DepartureHotel_Guide2")</span> @t.guide2.name
+                             }
+                           
+                       }
+                       @if (!string.IsNullOrEmpty(t.guide2.phone))
+                {
+                        <br /> <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("DepartureHotel_GuidePhone")</span>@t.guide2.phone
+            
+                }
+              
+                </div>
+            </div>
+        </div>    
+    
+
+               }
+
+               if (t.people != null && t.people.Count > 0)
+               {
+        <div class="media">
+            <span class="pull-left">
+                <img class="media-object pull-left" src="@Url.Content("~/images/reservlist.png")">
+            </span> 
+            <div class="media-body">          
+                <h3 class="media-heading" style="color: #777777; margin-bottom:0; text-transform: uppercase;">
+                @SharedStrings.ResourceManager.Get("DepartureHotel_GuestList")
+                </h3>
+                  @foreach (var people in t.people)
+                  {
+                    <div class="row" style="color: #777777;">
+                        <span class="col-xs-1">@people.human</span>
+                        <span class="col-xs-11">@people.name</span>
+                    </div>
+                  }
+            </div>                 
+
+     
+        </div>
+               }
+
+}
+

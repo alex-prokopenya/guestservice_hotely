@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="String1" xml:space="preserve">
+    <value>Anmeldung Informationen</value>
+  </data>
+  <data name="MenuDepartureTitle" xml:space="preserve">
+    <value>Informationen zum Check-out</value>
+  </data>
+  <data name="FindOrderModel_N_Passport" xml:space="preserve">
+    <value>Passnummer</value>
+  </data>
+  <data name="PrintOrderNotFound" xml:space="preserve">
+    <value>Eine Anwendung mit dieser Parameter wurde nicht gefunden</value>
+  </data>
+  <data name="FindOrderNotFound" xml:space="preserve">
+    <value>Kann nicht Anwendung mit den Parametern finden</value>
+  </data>
+  <data name="FindOrderOrderTitle" xml:space="preserve">
+    <value>BESTELLEN</value>
+  </data>
+  <data name="OrderDoPaymentButton" xml:space="preserve">
+    <value>Kasse</value>
+  </data>
+  <data name="MoreOrdersFindButton" xml:space="preserve">
+    <value>Snap Bestellungen</value>
+  </data>
+  <data name="SummaryNameLabel_1" xml:space="preserve">
+    <value>(Wie es in dem Gutschein geschrieben)</value>
+  </data>
+  <data name="MenuDepartureAlt" xml:space="preserve">
+    <value>Überprüfen</value>
+  </data>
+  <data name="PrintOrderModel_Name_2" xml:space="preserve">
+    <value>(Wie angegeben bei Buchung)</value>
+  </data>
+  <data name="PrintOrderModel_Name_1" xml:space="preserve">
+    <value>Name der touristischen</value>
+  </data>
+  <data name="GuestServicesFindOrder_3" xml:space="preserve">
+    <value>um die Liste der ihre Anwendungen zugreifen.</value>
+  </data>
+  <data name="GuestServicesFindOrder_2" xml:space="preserve">
+    <value>Log</value>
+  </data>
+  <data name="GuestServicesFindOrder_1" xml:space="preserve">
+    <value>Eine Anwendung mit Nummer, Name und Vorname, bzw.</value>
+  </data>
+  <data name="FindOrderFindButton" xml:space="preserve">
+    <value>Finden</value>
+  </data>
+  <data name="PrintOrderModel_N_Name" xml:space="preserve">
+    <value>Vor- und Nachname</value>
+  </data>
+  <data name="MenuDepartureText" xml:space="preserve">
+    <value>Dieser Abschnitt enthält Informationen über Ihr Abreisedatum und die Zeit für die Übertragung sowie der Flugnummer.</value>
+  </data>
+  <data name="MenuOrdersText" xml:space="preserve">
+    <value>In diesem Bereich können Sie ordnen die zuvor reservierten die Anwendung, zahlen die Anwendung oder drucken Sie die Rechnung dafür bezahlen.</value>
+  </data>
+  <data name="MenuOrdersTitle" xml:space="preserve">
+    <value>Informationen zu Bestellungen</value>
+  </data>
+  <data name="FindOrderDeleteButton" xml:space="preserve">
+    <value>Ausschließen aus der Liste meiner Aufträge</value>
+  </data>
+  <data name="FindOrderChoose_1" xml:space="preserve">
+    <value>... Oder versuchen Sie, Ihre Aufträge zu finden</value>
+  </data>
+  <data name="FindOrderChoose_2" xml:space="preserve">
+    <value>Name und Nummer des Reisepasses</value>
+  </data>
+  <data name="PrintOrderTitle" xml:space="preserve">
+    <value>Bildung Gutschein</value>
+  </data>
+  <data name="GuestServicesExcursionDepartureTitle" xml:space="preserve">
+    <value>Ausflug</value>
+  </data>
+  <data name="MenuInformationAlt" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="SummaryReservationLabel" xml:space="preserve">
+    <value>Anmeldenummer</value>
+  </data>
+  <data name="MoreOrdersListOrderAlt" xml:space="preserve">
+    <value>Bestellen</value>
+  </data>
+  <data name="MenuBookingTitle" xml:space="preserve">
+    <value>Führungen buchen</value>
+  </data>
+  <data name="HotelTitle" xml:space="preserve">
+    <value>Führt im Hotel</value>
+  </data>
+  <data name="FindOrderLinkOrderButton" xml:space="preserve">
+    <value>Bind-Anwendung</value>
+  </data>
+  <data name="MenuExcursionAlt" xml:space="preserve">
+    <value>Reservierung</value>
+  </data>
+  <data name="PrintOrderModel_R_Name" xml:space="preserve">
+    <value>Name erforderlich</value>
+  </data>
+  <data name="FindOrderModel_R_Passport" xml:space="preserve">
+    <value>Nummer des Reisepasses verpflichtet, füllen</value>
+  </data>
+  <data name="SummaryCheckAnother" xml:space="preserve">
+    <value>Überprüfen Sie für andere Anwendungen</value>
+  </data>
+  <data name="MenuExcursionText" xml:space="preserve">
+    <value>Hier erhalten Sie detaillierte Beschreibungen, Fotos, Preise und Touren können auch Sie Ihre Bestellung zu finden.</value>
+  </data>
+  <data name="FindOrderPassSer" xml:space="preserve">
+    <value>(Ohne-Serie)</value>
+  </data>
+  <data name="DepartureNotFound" xml:space="preserve">
+    <value>Information zu Ihrer Abreise aus dem Hotel gefunden.</value>
+  </data>
+  <data name="FindOrderModel_N_ClaimName" xml:space="preserve">
+    <value>Vor- und Nachname</value>
+  </data>
+  <data name="SummaryNotFound" xml:space="preserve">
+    <value>Kann nicht Anwendung mit den Parametern finden</value>
+  </data>
+  <data name="FindOrderName" xml:space="preserve">
+    <value>Vor- und Nachname</value>
+  </data>
+  <data name="FindOrderModel_R_ClaimName" xml:space="preserve">
+    <value>Name erforderlich</value>
+  </data>
+  <data name="MenuBookingText" xml:space="preserve">
+    <value>Hier erhalten Sie detaillierte Beschreibungen, Fotos, Preise und Touren können auch Sie Ihre Bestellung zu finden.</value>
+  </data>
+  <data name="PrintOrderModel_R_Claim" xml:space="preserve">
+    <value>Referenz-Nummer benötigt, um zu füllen</value>
+  </data>
+  <data name="PrintOrderModel_D_Claim" xml:space="preserve">
+    <value>Der Wert muss eine digitale Anwendung Zahl sein</value>
+  </data>
+  <data name="HotelAlt" xml:space="preserve">
+    <value>Führt im Hotel</value>
+  </data>
+  <data name="PrintOrderModel_Claim" xml:space="preserve">
+    <value>Anmeldenummer</value>
+  </data>
+  <data name="HotelDepartureTitle" xml:space="preserve">
+    <value>Informationen zum Check-out</value>
+  </data>
+  <data name="HotelNotFound_Link" xml:space="preserve">
+    <value>Anfrage</value>
+  </data>
+  <data name="FindOrderFound" xml:space="preserve">
+    <value>Angriffspunkt</value>
+  </data>
+  <data name="FindOrderClaim" xml:space="preserve">
+    <value>Anmeldenummer</value>
+  </data>
+  <data name="FindOrderTitle" xml:space="preserve">
+    <value>Suche</value>
+  </data>
+  <data name="FindOrderNameSmall" xml:space="preserve">
+    <value>(Wie es in dem Gutschein geschrieben)</value>
+  </data>
+  <data name="DepartureNotFoundNote_1" xml:space="preserve">
+    <value>Vielleicht ist die Anwendung noch nicht auf Ihrem Konto verknüpft ist, zu versuchen, es zu finden</value>
+  </data>
+  <data name="DepartureNotFoundNote_2" xml:space="preserve">
+    <value>hier</value>
+  </data>
+  <data name="FindOrderKnow_1" xml:space="preserve">
+    <value>Kennen Sie die Anmeldenummer?</value>
+  </data>
+  <data name="FindOrderKnow_2" xml:space="preserve">
+    <value>Geben Sie ihn hier.</value>
+  </data>
+  <data name="DepartureBack" xml:space="preserve">
+    <value>Rückkehr</value>
+  </data>
+  <data name="MenuInformationText" xml:space="preserve">
+    <value>In diesem Abschnitt finden Sie die Informationen Bestandteil der Bestellung und Ihre Kasse.</value>
+  </data>
+  <data name="MoreOrdersInstruction" xml:space="preserve">
+    <value>Sie können Ihre anderen Aufträgen, die noch nicht in die Liste aufgenommen wurden binden</value>
+  </data>
+  <data name="SummaryFindButton" xml:space="preserve">
+    <value>Finden</value>
+  </data>
+  <data name="GuestServicesTitle" xml:space="preserve">
+    <value>Informationen zu Bestellungen</value>
+  </data>
+  <data name="OrderTotal" xml:space="preserve">
+    <value>Nur</value>
+  </data>
+  <data name="OrderToPay" xml:space="preserve">
+    <value>Zur Zahlung</value>
+  </data>
+  <data name="MenuInformationTitle" xml:space="preserve">
+    <value>Bestellinformationen</value>
+  </data>
+  <data name="SummaryFindReservationTitle" xml:space="preserve">
+    <value>Geben Sie Ihre Anfrage-Nummer</value>
+  </data>
+  <data name="FindOrderModel_D_Claim" xml:space="preserve">
+    <value>Der Wert muss eine digitale Anwendung Zahl sein</value>
+  </data>
+  <data name="MoreOrderTitle" xml:space="preserve">
+    <value>Andere Aufträge</value>
+  </data>
+  <data name="DepartureTitle" xml:space="preserve">
+    <value>Informationen zum Check-out</value>
+  </data>
+  <data name="HotelNotFound" xml:space="preserve">
+    <value>Wir konnten das Hotel, wo Sie sich aufhalten im Moment nicht mehr zu finden.</value>
+  </data>
+  <data name="MenuExcursionTitle" xml:space="preserve">
+    <value>Führungen buchen</value>
+  </data>
+  <data name="PrintVoucherButton" xml:space="preserve">
+    <value>Generieren Sie einen Gutschein</value>
+  </data>
+  <data name="OrderInfoTitle" xml:space="preserve">
+    <value>Bestellinformationen</value>
+  </data>
+  <data name="Authenticate_3" xml:space="preserve">
+    <value>können wir Ihnen weitere Informationen zur Verfügung</value>
+  </data>
+  <data name="Authenticate_2" xml:space="preserve">
+    <value>Genehmigung</value>
+  </data>
+  <data name="Authenticate_1" xml:space="preserve">
+    <value>Nach</value>
+  </data>
+  <data name="FindOrderNoLinkedOrders" xml:space="preserve">
+    <value>Sie haben keinen Zusammenhang bestellen.</value>
+  </data>
+  <data name="HotelNotFound_1" xml:space="preserve">
+    <value>Vielleicht ist keiner der Aufträge noch nicht mit Ihrem Konto verknüpft.</value>
+  </data>
+  <data name="PrintOrderModel_N_Claim" xml:space="preserve">
+    <value>Anmeldenummer</value>
+  </data>
+  <data name="PrintOrderConfirmCaption" xml:space="preserve">
+    <value>Zum Schutz Ihrer Privatsphäre, geben Sie bitte Ihre Vor- und Nachnamen einer der Touristen bei der Buchung</value>
+  </data>
+  <data name="MenuBookingAlt" xml:space="preserve">
+    <value>Reservierung</value>
+  </data>
+  <data name="MoreOrderAlt" xml:space="preserve">
+    <value>Andere Aufträge</value>
+  </data>
+  <data name="FindOrderModel_R_Claim" xml:space="preserve">
+    <value>Referenz-Nummer benötigt, um zu füllen</value>
+  </data>
+  <data name="GuestServiceTitle" xml:space="preserve">
+    <value>Personal Area</value>
+  </data>
+  <data name="GuestServicesLink" xml:space="preserve">
+    <value>Personal Area</value>
+  </data>
+  <data name="DepartureNoTransferFound" xml:space="preserve">
+    <value>Heute gibt es keine Abfahrt vom Hotel</value>
+  </data>
+  <data name="PrintOrderBuildVoucherButton" xml:space="preserve">
+    <value>Generieren Sie einen Gutschein</value>
+  </data>
+  <data name="MenuOrdersAlt" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="HotelDepartureNoInformation" xml:space="preserve">
+    <value>Zur Zeit gibt es keine Informationen bei der Abreise.</value>
+  </data>
+  <data name="SummaryNameLabel" xml:space="preserve">
+    <value>Vor- und Nachname</value>
+  </data>
+  <data name="FindOrderModel_N_Claim" xml:space="preserve">
+    <value>Anmeldenummer</value>
+  </data>
+
+</root>

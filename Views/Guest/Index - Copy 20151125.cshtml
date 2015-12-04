@@ -1,0 +1,61 @@
+﻿@model GuestService.Models.Guest.GuestContext
+@{
+    ViewBag.Title = GuestStrings.Get("GuestServiceTitle");
+
+}
+@section head_scripts {
+    @Scripts.Render("~/js/json2.js")
+}  
+
+@if (!User.Identity.IsAuthenticated)
+{  
+	Response.Redirect(Url.Action("login", "account", new { returnUrl = Url.Action("index") }));	
+}
+
+<div class="container">
+    <div class="row bk-main"> 	            
+        <div class="col-lg-12 col-md-12">
+		    <h1 class="page-header">Agent personal area</h1>		
+			  <h1 class="page-header">Hello, @User.Identity.Name (@Model.GuestPartnerName)!</h1>			
+	    </div>
+        <div class="col-sm-7">
+            <div class="media" style="margin-bottom: 15px;">
+                <a class="pull-left" href="@Url.Action("order", "guest")" >
+                    <img class="media-object" src="@Url.Content("~/images/info.png")" alt="@GuestStrings.Get("MenuOrdersAlt")">
+                </a>
+                <div class="media-body">
+                    <h3 class="media-heading"> <a href="@Url.Action("order", "guest")">Order list</a></h3>                     
+                    Check all your orders, their state, commissions, and mark orders paid with cash.
+                </div>
+            </div>
+			<div class="media" style="margin-bottom: 15px;">
+                <a class="pull-left" href="@Url.Action("report", "guest")" >
+                    <img class="media-object" src="@Url.Content("~/images/info.png")" alt="@GuestStrings.Get("MenuOrdersAlt")">
+                </a>
+                <div class="media-body">
+                    <h3 class="media-heading"> <a href="@Url.Action("report", "guest")">Agent account balance</a></h3>                     
+                    Get report for the specified period about orders, commissions and payments.
+                </div>
+            </div>
+        </div>       
+        <div class="col-sm-5">
+            @if (GuestService.Settings.IsShowHotelGuideInfo)
+            {
+            <div class="media">
+                <div class="pull-left visible-xs">
+                    <img class="media-object" src="@Url.Content("~/images/hotel.png")" alt="@GuestStrings.Get("HotelAlt")">
+                </div>
+                <div class="media-body">
+                    @if (Model.ShowAuthenticationMessage)
+                    {                        
+                        <span>@GuestStrings.Get("Authenticate_1")&nbsp;<a  href="@Url.Action("login", "account", new { returnUrl = Url.Action("index") })">@GuestStrings.Get("Authenticate_2")</a>&nbsp;@GuestStrings.Get("Authenticate_3")</span>
+                    }
+                    else
+                    {
+                    }
+                </div>
+            </div>                
+            }
+        </div>
+    </div>
+</div>

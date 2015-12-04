@@ -1,0 +1,86 @@
+﻿@model GuestService.Models.Guest.UserBalanceContext
+@{
+    ViewBag.Title = GuestStrings.Get("GuestServicesTitle"); 
+}
+<div class="container">
+   <div class="row bk-main">             
+        <div class="col-lg-12">
+          @if (GuestService.Settings.IsShowBreadCrumb)
+          {
+          <ol class="breadcrumb">          
+             <li><a href="@Context.Request.ApplicationPath.ToString()">@GuestStrings.Get("GuestServicesLink")</a></li>
+             <li class="active">@ViewBag.Title</li>
+          </ol>
+		  <h2>Agent account balance</h2>
+          }
+        </div>             
+    </div>      
+    
+    <div class="row"> 	     
+      
+           <style>
+               .orders_table td {
+                   border: 1px solid #bebebe;
+                   padding: 5px;
+
+               }
+               .orders_table th {
+                   border: 1px solid #bebebe;
+                   padding: 5px;
+                   background:#cecece
+               }
+           </style>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+        <script>
+            jQuery(function (e) {
+                var dates = jQuery('#date-from-filter, #date-to-filter').datepicker(
+                {
+                    onSelect:
+                           function (selectedDate) {
+                               var $this = $(this),
+                                   option = $this.hasClass("minDate") ? "minDate" : "maxDate",
+                                   adjust = $this.hasClass("maxDate") ? 1 : -1,
+                                   base_date = new Date(selectedDate),
+                                   new_date = new Date();
+                               new_date.setDate(base_date.getDate());// + (1 * adjust));
+                               dates.not(this).datepicker("option", option, new_date);
+
+                           },
+                    dateFormat: "yy-mm-dd"
+                }
+                    );
+            });
+        </script>
+        <div class="col-sm-12">
+            <div class="media" style="margin-bottom:20px;">
+                <div class="media-body">
+                    <form method="get" target="_blank" action="http://exgo.com:8081/MyReportPerpetuum.aspx">
+
+                        <input type="hidden" name="usr_id" value="@Model.UserId" >
+                        <input type="hidden" name="sid" value="@Model.UserAuth" >
+                        <input type="hidden" name="ReportFormat" value="html">
+                        <input type="hidden" name="ReportName" value="agent_balance.rst">
+
+                        <div class="col-sm-3 col-md-3">
+                            <div class="dates-filter">
+                                 <label>
+                                     Period:
+                                     <input type="text" id="date-from-filter" style="width:120px" class="form-control minDate" name="date_from" value="@Model.FilterDateFrom">
+                                 </label>
+                                <label>&nbsp;
+                                     <input type="text" id="date-to-filter" style="width:120px" class="form-control maxDate" name="date_till" value="@Model.FilterDateTo">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3  col-md-3">
+                            <div class="btn-filter" style="margin-top:20px">
+                                <button class="btn btn-primary" type="submit" value="">Show report</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>

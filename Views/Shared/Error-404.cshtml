@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = SharedStrings.ResourceManager.Get("Error404_Title");
+}
+
+<div class="container"> 	  
+	<div class="row bk-error-main"> 	      
+        <div class="col-lg-12 col-md-12">
+			<h1 class="page-header">@ViewBag.Title</h1>			       
+		</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+          <p class="error-404">404</p>
+          <p class="lead">@SharedStrings.ResourceManager.Get("Error404_Title")</p>
+          <p>@SharedStrings.ResourceManager.Get("Error404_Text")</p>
+          <ul style="list-style: none; padding-left:0;">
+            <li><a href="@Url.Action("index", "welcome")">@SharedStrings.ResourceManager.Get("Error404_GuestService")</a></li>
+            <li><a href="@Url.Action("index", "excursion")">@SharedStrings.ResourceManager.Get("Error404_Excursion")</a></li>        
+            <li><a href="@Url.Action("order", "guest")">@SharedStrings.ResourceManager.Get("Error404_Reservation")</a></li>        
+            <li><a href="@Url.Action("departure", "guest")">@SharedStrings.ResourceManager.Get("Error404_Departure")</a></li>        
+          </ul>
+        </div>
+
+      </div>
+</div>

@@ -1,0 +1,31 @@
+﻿@model GuestService.Models.Guest.BriefContext
+@{
+    ViewBag.Title = @GuestStrings.Get("GuestServiceTitle");
+}
+<div class="container">
+    <div class="row bk-main"> 	            
+        <div class="col-lg-12 col-md-12">
+		    <h1 class="page-header">@ViewBag.Title</h1>				         
+	    </div>
+        <div class="col-sm-7">
+            <div class="media" style="margin-bottom: 15px;">
+                <a class="pull-left" href="@Url.Action("summary", "guest")" >
+                    <img class="media-object" src="@Url.Content("~/images/info.png")" alt="@GuestStrings.Get("MenuInformationAlt")">
+                </a>
+                <div class="media-body">
+                    <h3 class="media-heading"> <a href="@Url.Action("summary", "guest")">@GuestStrings.Get("MenuInformationTitle")</a></h3>                     
+                    @GuestStrings.Get("MenuInformationText")
+                </div>
+            </div>
+            <div class="media" style="margin-bottom: 15px;">
+                <a class="pull-left" href="@Url.Action("index", "excursion")" >
+                    <img class="media-object" src="@Url.Content("~/images/excursion.png")" alt="@GuestStrings.Get("MenuBookingAlt")">
+                </a>
+                <div class="media-body">
+                   <h3 class="media-heading"><a href="@Url.Action("index", "excursion")">@GuestStrings.Get("MenuBookingTitle")</a></h3>                     
+                   @GuestStrings.Get("MenuBookingText")
+                </div>
+            </div>
+        </div>       
+    </div>
+</div>

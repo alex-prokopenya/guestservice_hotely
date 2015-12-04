@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "Голосование"; // BookingStrings.ResourceManager.Get("Title");
+}
+
+<div class="container">      
+        @if (ViewBag.NotFound == true)
+        {
+            <h1>К сожалению, указанное голосование не найдено</h1>
+        }
+    
+        @if (ViewBag.Invitation != null )
+        {
+            GuestService.Data.InvitationInfo invitation = ViewBag.Invitation;
+            if (invitation != null)
+            {
+                if (invitation.IsSurveyed)
+                {
+                    <h1>Указанное голосование уже было успешно завершено</h1>
+                }
+                if (invitation.IsExpired)
+                {
+                    <h1>Истек период указанного голосования</h1>
+                }
+        
+                List<GuestService.Data.QuestionnaireGroup> questionnaire =  ViewBag.Questionnaire;
+                if( questionnaire != null )
+                {
+                    <h1>Ваши ответы помогут нам оценить "@invitation.ObjectName"</h1>
+                    <form role="form" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="accesscode" value="@invitation.AccessCode" />
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                  <div class="form-group" >
+                                    <label for="guest.name">Укажите Ваше имя</label>
+                                    <input type="text" class="form-control" name="guest.name" required="required" placeholder="Введите Ваше имя">
+                                  </div>  
+                            </div>
+                        </div>
+
+                        @foreach (var group in questionnaire)
+                        {
+                            <div class="row">
+                            @if (group.ContainsQuestions())
+                            {
+                            <div class="col-lg-12">
+                                <h3>@group.Caption</h3>
+
+                                @foreach (var question in group.Questions)
+                                {
+                                    if (question.ContainsIssues() || question.IsNote)
+                                    {
+                                        int textLength = 0;
+                                        question.Issues.ForEach(q => { textLength += string.IsNullOrEmpty(q.Text) ? 0 : q.Text.Length; });
+                                    
+                                        <h4>@question.Text</h4>
+
+                                        if (question.IsMultiple)
+                                        {
+                                            foreach (var issue in question.Issues)
+                                            {
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="@string.Format("questions[{0}].marks[{1}]", question.Id, issue.Id)" > @issue.Text
+                                                    </label>
+                                                </div>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            foreach (var issue in question.Issues)
+                                            {
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="questions[@question.Id].issue" value="@issue.Id"> @issue.Text
+                                                    </label>
+                                                </div>
+                                            }
+                                        }
+                                    
+                                        if( question.IsNote ) 
+                                        {
+                                            <div class="form-group">
+                                                @if(!string.IsNullOrEmpty(question.NoteCaption)) 
+                                                {
+                                                    <label class="control-label" for="questions[@question.Id].note">@question.NoteCaption</label>
+                                                }
+                                                <input type="text" class="form-control" name="questions[@question.Id].note" maxlength="4000">
+                                            </div>
+                                        }
+                                    }
+                                }
+                            </div>     
+                            }
+                            </div>
+                        }
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">			                    
+                                <hr style="margin-top:0;"/>
+		                    </div>                  
+                            <div class="col-lg-12 col-md-12">       
+                                <input type="submit" class="btn btn-large btn-primary" value="Оценить" />
+                            </div>
+                        </div>
+
+                    </form>
+                }
+            
+            }
+        }
+        
+        @if (ViewBag.Thanks != null)
+        {
+            <h1>Спасибо за предоставленный отзыв!</h1>
+        }
+</div>

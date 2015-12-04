@@ -1,0 +1,49 @@
+﻿@model GuestService.Data.ExcursionTransfer   
+
+<div class="container">  
+    <div class="row">   
+    @if (Model != null) 
+    {
+        <div class="media" style="margin-bottom: 15px;">
+            <span class="pull-left">
+                <img class="media-object" src="@Url.Content("~/images/bus.png")" alt="@SharedStrings.ResourceManager.Get("ReservationOrder_TransferAlt")" />
+            </span> 
+            <div class="media-body">  
+                <h3 class="media-heading" style="color: #777777; margin-bottom:0; text-transform: uppercase;">@Model.excursion</h3>                     
+                <div style="color: #777777;">
+                    <strong>@Model.date.ToString("dd.MM.yyyy")</strong>
+                    @if (!string.IsNullOrEmpty(Model.excursiontime))
+                    {
+                        <strong>@Model.excursiontime</strong>
+                    }
+                    <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ExcursionTransfer_Date")</span> @Model.date.ToString("dd.MM.yyyy")
+                    @if (Model.pickup != null)
+                    {
+                        <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ExcursionTransfer_PickupTime")</span> @Model.pickup.Value.ToString("hh:mm")
+                    }
+                    @if (!string.IsNullOrEmpty(Model.pickupplace))
+                    {
+                        <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ExcursionTransfer_PickupPlace")</span> @Model.pickupplace
+                    }
+                    @if (Model.guide != null)
+                    {
+                        <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ExcursionTransfer_GuideName")</span> @Model.guide.name
+                        if (!string.IsNullOrEmpty(Model.guide.phone))
+                        {
+                            <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ExcursionTransfer_GuidePhone")</span> @Model.guide.phone
+                        }
+                    }
+                    @if (Model.guide2 != null)
+                    {
+                        <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ExcursionTransfer_Guide2Name")</span> @Model.guide2.name
+                        if (!string.IsNullOrEmpty(Model.guide2.phone))
+                        {
+                            <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ExcursionTransfer_Guide2Phone")</span> @Model.guide2.phone
+                        }
+                    }
+                </div>
+            </div>                                                      
+        </div>  
+    }
+    </div>
+</div>

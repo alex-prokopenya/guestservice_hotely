@@ -1,0 +1,129 @@
+﻿@model GuestService.Models.Guest.FindOrderContext
+@{
+    ViewBag.Title = @GuestStrings.Get("FindOrderTitle");
+}  
+<div class="container">  
+   <div class="row bk-main">           
+        <div class="col-lg-12">
+          <h1 class="page-header">@ViewBag.Title</h1>
+          @if (GuestService.Settings.IsShowBreadCrumb)
+          {
+          <ol class="breadcrumb">          
+            <li><a href="@Context.Request.ApplicationPath.ToString()">@GuestStrings.Get("GuestServiceTitle")</a></li>
+            <li>@Html.ActionLink(GuestStrings.Get("GuestServicesTitle"), "Order")</li>            
+            <li class="active">@ViewBag.Title</li>
+          </ol>
+          }
+        </div>             
+    </div>   
+	<div class="row"> 	 
+        <div class="col-md-6">               
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken() 
+                @Html.HiddenFor(m => m.Form.RequestType, "claim")                     
+                if (Model.Form != null && Model.Form.RequestType == "claim")
+                {
+                    @Html.Partial("Form/ValidationSummary")                 
+                }   
+                <h3>@GuestStrings.Get("FindOrderKnow_1")<br />@GuestStrings.Get("FindOrderKnow_2")</h3>
+                              
+                <div class="form-group">
+                    <label class="control-label" for="@Html.NameFor(m => m.Form.Claim)">@GuestStrings.Get("FindOrderModel_N_Claim")</label>
+                    <div class="controls">     
+                        @Html.TextBoxFor(m => m.Form.Claim, new { @class = "form-control", placeholder = Html.DisplayNameFor(m=>m.Form.Claim) })
+                        @Html.ValidationMessageFor(m => m.Form.Claim)
+                    </div>
+                </div>       
+                <div class="form-group">
+                    <label class="control-label" for="@Html.NameFor(m => m.Form.ClaimName)">@GuestStrings.Get("FindOrderName") <small style="color:#b7b7b7;">@GuestStrings.Get("FindOrderNameSmall")</small></label>
+                    <div class="controls">     
+                        @Html.TextBoxFor(m => m.Form.ClaimName, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.Form.ClaimName) })
+                        @Html.ValidationMessageFor(m => m.Form.ClaimName)
+                    </div>
+                </div>                                   
+                <div class="clearfix" style="margin-bottom:10px;"></div>				
+			    <button name="submit" id="submit" value="" type="submit" class="btn btn-large btn-primary">@GuestStrings.Get("FindOrderFindButton")</button>       
+            }    
+        </div>      
+        <div class="col-md-6">    
+            <div class="clearfix visible-sm visible-md visible-xs" style="margin-bottom:10px;"></div>                
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()                         
+                @Html.HiddenFor(m => m.Form.RequestType, "passport")
+                if (Model.Form != null && Model.Form.RequestType == "passport")
+                {
+                    @Html.Partial("Form/ValidationSummary")                  
+                } 
+                <h3>@GuestStrings.Get("FindOrderChoose_1")<br />
+                @GuestStrings.Get("FindOrderChoose_2")</h3>
+                               
+                <div class="form-group">
+                    <label class="control-label" for="@Html.NameFor(m => m.Form.PassportName)">@GuestStrings.Get("FindOrderName") <small style="color:#b7b7b7;">@GuestStrings.Get("FindOrderNameSmall")</small></label>
+                    <div class="controls">     
+                        @Html.TextBoxFor(m => m.Form.PassportName, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.Form.PassportName) })
+                        @Html.ValidationMessageFor(m => m.Form.PassportName)
+                    </div>
+                </div>               
+                <div class="form-group">
+                    <label class="control-label" for="@Html.NameFor(m => m.Form.Passport)">@GuestStrings.Get("FindOrderModel_N_Passport") <small style="color:#b7b7b7;">@GuestStrings.Get("FindOrderPassSer")</small></label>
+                    <div class="controls">     
+                        @Html.TextBoxFor(m => m.Form.Passport, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.Form.Passport) })
+                        @Html.ValidationMessageFor(m => m.Form.Passport)
+                    </div>
+                </div>            
+                <div class="clearfix" style="margin-bottom:10px;"></div>				
+			    <button name="submit" id="submit" value="" type="submit" class="btn btn-large btn-primary">@GuestStrings.Get("FindOrderFindButton")</button>           
+            }
+         </div>
+    @if (Model.Claims != null && Model.Claims.Count > 0)
+    {
+        <div class="clearfix" style="margin-bottom:10px;"></div>
+	    <div class="col-lg-12">
+            <h3 class="page-header" style="color:#8c8c8c;">@GuestStrings.Get("FindOrderFound")</h3>
+        </div>		
+		<div class="col-lg-12">
+          @foreach (var claim in Model.Claims)
+          {
+              foreach (var order in claim.orders)
+              {                        
+                <div class="media" style="margin-bottom: 15px;">
+                    <span class="pull-left" style="background: #777777;">
+                        <img class="media-object" src="@Url.Content("~/images/reserv.png")" alt="" />
+                    </span> 
+                    <div class="media-body">                                
+                        <h4 class="media-heading" style="text-transform: uppercase;">@order.title</h4>                     
+                        <h5 style="color: #777777;">@order.period.begin.Value.ToString("dd.MM.yyyy")
+                        @if(order.description != null )
+                        {
+                            <text>, @order.description</text>
+                        }
+                        </h5>
+                    </div>                    
+                    <div class="pull-left">
+                    @using (Html.BeginForm("linkorder", "guest"))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.Link.Claim, claim.claim.ToString())
+                        @Html.HiddenFor(m => m.Link.Name, (Model.Form.ClaimName != null ? Model.Form.ClaimName : Model.Form.PassportName))                         
+                        <a href="#" onclick="$(this).closest('form').submit()">@GuestStrings.Get("FindOrderLinkOrderButton")</a>
+                    }                    
+                    </div>
+                </div>     
+              }
+          }            
+        </div>
+    } 
+ 
+     @if (Model.NotFound)
+     {  
+           <div class="clearfix" style="margin-bottom:10px;"></div>
+	       <div class="col-lg-12">
+                <h3 style="color:#8c8c8c;">@GuestStrings.Get("FindOrderNotFound")</h3>
+           </div>		    	
+     }           
+    </div>
+ </div>
+
+

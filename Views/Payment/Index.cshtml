@@ -1,0 +1,160 @@
+﻿@model GuestService.Models.Payment.PaymentContext
+
+@{
+    ViewBag.Title = PaymentStrings.Get("PaymentTitle");
+}
+<div class="container">    
+    <div class="row bk-main">           
+        <div class="col-lg-12">              
+            <h1 class="page-header">@ViewBag.Title</h1>
+            @if (GuestService.Settings.IsShowBreadCrumb)
+            {
+            <ol class="breadcrumb">          
+                <li><a href="@Context.Request.ApplicationPath.ToString()">@PaymentStrings.Get("PaymentGuestService")</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ol>
+            }
+        </div>                      
+
+        @if (Model.Reservation != null && Model.Reservation.claimId != null)
+        {
+            <div class="col-lg-12">  
+                <div class="form-inline">
+                    <div class="form-group" style="vertical-align: baseline;">
+                        <h4 style="color:#b7b7b7;">@PaymentStrings.Get("PaymentOrderTitle")</h4>
+                    </div>
+                    <div class="form-group" style="vertical-align: baseline;">
+                    <h2 class="media-heading" style="color: #777777;">@Model.Reservation.claimId</h2>                     
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-12">
+            @if (Model.Reservation.orders != null)
+            {
+                foreach (var order in Model.Reservation.orders)
+                {
+                    if (order.status != null && order.status.id == 1)
+                    {
+                        Html.RenderPartial("Controls\\ReservationOrder2", order);
+                    }
+                }
+            }
+            </div>
+            
+            if (Model.Reservation.action != null && Model.Reservation.action.canshowprice == true)
+            {
+                <div class="col-lg-12">     
+                    <h3 class="panel-title price" style="font-size: 2em;">
+                        <span style="color:#b7b7b7;">@PaymentStrings.Get("PaymentTotal")</span>        
+                        <span style="color:#777777;">@Model.Reservation.price.total.ToString("### ### ### ##0.00") @Model.Reservation.price.currency</span>
+                    </h3>
+                </div>
+                <div class="col-lg-12">  
+                    <h3 class="panel-title price" style="font-size: 2em;">
+                        <span style="color:#b7b7b7;">@PaymentStrings.Get("PaymentToPay")</span>       
+                        <span style="color:#777777;">@Model.Reservation.price.topay.ToString("### ### ### ##0.00") @Model.Reservation.price.currency</span>
+                    </h3>  
+                </div>
+                <div class="clearfix" style="margin-bottom:20px;"></div>	
+                <div class="col-lg-12">  
+
+                @if (Model.Reservation.price != null && Model.Reservation.price.topay <= 0)
+                {
+                    <div><h3 style="color:#8c8c8c; margin-top:0;">@PaymentStrings.Get("PaymentAlreadyPaid")</h3></div>
+                    if (Model.Reservation != null && Model.Reservation.action != null && Model.Reservation.action.canprintvoucher == true)
+                    {
+                        <div>
+                            <a class="btn btn-large btn-primary" href="@Url.Action("printorder", "guest", new { id = Model.Reservation.claimId })">@GuestStrings.Get("PrintVoucherButton")</a>
+                        </div>  
+                    }
+                }
+                else if (Model.Reservation.confirmation != null && Model.Reservation.confirmation.id != 2)
+                {
+                    <div>
+                        <h2 style="color:#8c8c8c; margin-top:0;">@PaymentStrings.Get("PaymentReservationStatusTitle") @Model.Reservation.confirmation.description </h2>
+                        <h3 style="color:#8c8c8c; margin-top:0;">@PaymentStrings.Get("PaymentAfterConfirmationMessage")</h3>
+                    </div>
+                }
+                else if (Model.Reservation.action != null && Model.Reservation.action.canpay == true)
+                {
+                    if (Model.PaymentModes != null && Model.PaymentModes.Count > 0)
+                    {
+                        <h4 style="font-weight:bold;">@PaymentStrings.Get("PaymentMethod")</h4>  
+                
+                        foreach (var paymentMode in Model.PaymentModes)
+                        {
+                            if (!string.IsNullOrEmpty(paymentMode.processing))
+                            {
+                                using (Html.BeginForm("processing", "payment"))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("claimId", Model.Reservation.claimId)
+                                    @Html.Hidden("paymentId", paymentMode.id)
+                                    <div class="col-lg-6" style="padding-left:0;">
+                                        <div class="media" style="margin-bottom: 15px;">
+                                            <span class="pull-left" >
+                                                @if ((paymentMode.processing ?? "").ToLowerInvariant() == "paypal")
+                                                {
+                                                    <img class="media-object" src="@Url.Content("~/images/paypal.png")" alt="@paymentMode.name" />
+                                                }
+                                                else if ((paymentMode.processing ?? "").ToLowerInvariant() == "bank")
+                                                {
+                                                    <img class="media-object" src="@Url.Content("~/images/bank.png")" alt="@paymentMode.name" />
+                                                }
+                                                else if ((paymentMode.processing ?? "").ToLowerInvariant() == "uniteller")
+                                                {
+                                                    <img class="media-object" src="@Url.Content("~/images/uniteller.png")" alt="@paymentMode.name" />
+                                                }
+                                            </span> 
+
+                                            <div class="media-body">                                                                
+                                                <h3 class="media-heading" style="color: #777777; margin-bottom:0;  text-transform: uppercase;">@paymentMode.name</h3>                     
+                                                <div style="color: #777777;">                                        
+                                                    @if (paymentMode.comission != null)
+                                                    {
+                                                        <div style="color:#b7b7b7;">@PaymentStrings.Get("PaymentComission")&nbsp;@paymentMode.comission.total.ToString("### ### ### ##0.00") @paymentMode.comission.currency</div>
+                                                    }
+                                                    @if (paymentMode.payrest != null)
+                                                    {
+                                                        <strong>@PaymentStrings.Get("PaymentToPay")&nbsp;@paymentMode.payrest.total.ToString("### ### ### ##0.00") @paymentMode.payrest.currency</strong>                                        
+                                                    }       
+                                                    @if ((paymentMode.processing ?? "").ToLowerInvariant() == "paypal")
+                                                    {
+                                                        <br /><a href="#" onclick="$(this).closest('form').submit()" style="font-weight:bold;">@PaymentStrings.Get("PaymentPayButton")</a>
+                                                    }
+                                                    else if ((paymentMode.processing ?? "").ToLowerInvariant() == "bank")
+                                                    {
+                                                        <br /><a href="#" onclick="$(this).closest('form').submit()" style="font-weight:bold;">@PaymentStrings.Get("PaymentBankBill")</a>
+                                                    }
+                                                    else if ((paymentMode.processing ?? "").ToLowerInvariant() == "uniteller")
+                                                    {
+                                                        <br /><a href="#" onclick="$(this).closest('form').submit()" style="font-weight:bold;">@PaymentStrings.Get("PaymentPayButton")</a>
+                                                    }                                           
+                                                </div>
+                                            </div>
+                                                                              
+                                        </div>  
+                                    </div>                         
+                                }
+                            }
+                        }
+                    }
+                }
+                </div>
+            }
+            else
+            {
+                <div class="col-lg-12">
+                    <h3 style="color:#8c8c8c; margin-top:0;">@PaymentStrings.Get("PaymentReservationCannotPay")</h3>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-lg-12">
+                <h3 style="color:#8c8c8c; margin-top:0;">@PaymentStrings.Get("PaymentReservationNotFound")</h3>
+            </div>
+        }
+    </div>  
+</div>

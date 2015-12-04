@@ -1,0 +1,52 @@
+﻿@model GuestService.Models.RegisterModel
+@{
+    ViewBag.Title = AccountStrings.ResourceManager.Get("RegisterTitle");
+}  
+<div class="container"> 	  
+	<div class="row bk-main"> 	      
+        <div class="col-lg-12 col-md-12">
+			<h1 class="page-header">@ViewBag.Title</h1>			       
+		</div>
+        @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+        {
+            @Html.AntiForgeryToken() 
+                       
+            <div class="col-lg-12 col-md-12" style="margin-bottom:15px;">
+			    @AccountStrings.ResourceManager.Get("RegisterText")
+		    </div>        
+            <div class="col-lg-6">       
+                @Html.Partial("Form/ValidationSummary")
+            </div>
+            <div class="clearfix"></div> 
+            <div class="col-xs-6">       
+			    <form class="form-signin" method="post" action="" id="form-signin">       
+				    <div class="form-group">
+					    <label class="control-label" for="@Html.NameFor(m => m.UserName)">@AccountStrings.ResourceManager.Get("Register_Email")</label>
+					    <div class="controls">						        
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = AccountStrings.ResourceManager.Get("Register_Ph_Email") })
+                            @Html.ValidationMessageFor(m => m.UserName)
+					    </div>
+				    </div>
+				    <div class="form-group">
+					    <label class="control-label" for="@Html.NameFor(m => m.Password)">@AccountStrings.ResourceManager.Get("Register_Password")</label>
+					    <div class="controls">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = AccountStrings.ResourceManager.Get("Register_Ph_Password") })
+                            @Html.ValidationMessageFor(m => m.Password)						        
+					    </div>
+				    </div>				
+                    <div class="form-group">
+					    <label class="control-label" for="@Html.NameFor(m => m.ConfirmPassword)">@AccountStrings.ResourceManager.Get("Register_ConfirmPassword")</label>
+					    <div class="controls">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = AccountStrings.ResourceManager.Get("Register_Ph_ConfirmPassword") })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword)						        
+					    </div>
+				    </div>	     
+                    <div class="clearfix" style="margin-bottom:10px;"></div>
+                    <button name="submit" id="submit" value="" type="submit" class="btn btn-large btn-primary">@AccountStrings.ResourceManager.Get("Register_RegisterButton")</button>
+			    </form>
+            </div>                   
+        }
+    </div>
+</div>
+
+

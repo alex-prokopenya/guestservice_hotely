@@ -1,0 +1,49 @@
+﻿@model ICollection<AuthenticationClientData>
+
+@if (Model.Count == 0)
+{
+   
+}
+else
+{
+    using (Html.BeginForm("externallogin", "account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "social" }))
+    {
+        @Html.AntiForgeryToken()
+        <hr />    
+        <h5>
+            @AccountStrings.ResourceManager.Get("Login_Social")
+        </h5>
+       
+        <input type="hidden" name="provider" id="provider"/>            
+    
+        foreach (AuthenticationClientData p in Model)
+        {
+            string img, color;
+            switch (p.AuthenticationClient.ProviderName.ToLower())
+            {
+                case "twitter":
+                    img = Url.Content("~/images/twt.png"); color = "#2aacdd";
+                    break;
+                case "facebook":
+                    img = Url.Content("~/images/fb.png"); color = "#5873ac";
+                    break;
+                case "google":
+                    img = Url.Content("~/images/gplus.png"); color = "#ca3c14";
+                    break;
+                case "vkontakte":
+                    img = Url.Content("~/images/vk.png"); color = "#5f7fa1";
+                    break;
+                case "microsoft":
+                    img = Url.Content("~/images/ms.png"); color = "#0072c6";
+                    break;                    
+                default:
+                    img = ""; color = "";
+                    break;
+            }            
+            <!-- <input type="image" src="@img" name="provider" style="background: @color;" value="@p.AuthenticationClient.ProviderName" title="@p.DisplayName">                -->
+            <!-- <button type="submit" name="provider" value="@p.AuthenticationClient.ProviderName" title="Log in using your @p.DisplayName account">@p.DisplayName</button>-->    
+            <a href="javascript: $('#provider').val('@p.AuthenticationClient.ProviderName'); $('#social').submit();" onMouseOver="this.style.textDecoration='none'"><img src="@img" style="background: @color;" title="@p.DisplayName"></a>
+        }
+
+    }
+}

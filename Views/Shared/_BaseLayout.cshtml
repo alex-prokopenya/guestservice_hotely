@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,greek,latin-ext,cyrillic,greek-ext,cyrillic-ext,vietnamese' rel='stylesheet' type='text/css'>
+    @Styles.Render(string.Format("~/css/{0}/bootstrap.css", GuestService.Code.HttpPreferences.Current.VisualTheme))  
+    @Styles.Render("~/css/datepicker.css")
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>      
+          @Scripts.Render("~/js/html5shiv.js")
+          @Scripts.Render("~/js/respond.js")      
+    <![endif]-->
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    @Scripts.Render("~/js/jquery-1.9.1.js")
+
+    
+    @RenderSection("head_styles", required: false)
+
+    @Scripts.Render("~/js/sm.helpers.js")
+    @Scripts.Render("~/js/json2.js")
+    @Scripts.Render("~/js/knockout-3.0.0.js")
+    @Scripts.Render("~/js/knockout.mapping.js")
+    @Scripts.Render("~/js/datepicker.js")
+    @Scripts.Render("~/js/sm.site.service.js")
+    @Scripts.Render("~/js/sm.knockout.js") 
+    @Scripts.Render("~/js/moment.min.js") 
+    @Scripts.Render("~/js/history.min.js") 
+
+    <script type="text/javascript">
+        var baseimageurl = '@Url.Content("~/images/")';
+        var site = site || {};
+        site.vm = site.vm || {};
+/*
+        $(function () {
+            "use strict";
+
+            site.vm.shoppingcart = function () {
+                var 
+                showOrderCount = ko.observable(false),
+                orderCount = ko.observable(0),
+
+                setOrderCount = function (c) {
+                    if (c && c > 0) {
+                        orderCount(c);
+                        showOrderCount(true);
+                    } else {
+                        showOrderCount(false);
+                    }
+                };
+
+                return {
+                    showOrderCount: showOrderCount,
+                    orderCount: orderCount,
+                    setOrderCount: setOrderCount
+                };
+            } ();
+
+            ko.applyBindings(site.vm.shoppingcart, document.getElementById("shoppingcart_container"));
+        });  */
+    </script>
+    @RenderSection("head_scripts", required: false)
+  </head>
+  <body>  
+    @{ Html.RenderAction("PageSuperHeader", "customization"); }
+    @{ Html.RenderPartial(@"Controls\NavLanguageLogout"); }
+    @{ Html.RenderAction("PageSubHeader", "customization"); }
+    <div class="bk-container">
+        @RenderBody()        
+    </div>
+    @Scripts.Render("~/js/bootstrap.min.js")  
+
+    @RenderSection("scripts", required: false)     
+
+<script>
+$(document).ready(function(){
+if (document.body.clientWidth < 767 ) {
+	$("#ex_footer").animate({bottom: '-100px'});
+	$("#ex_footer").css('height','130px');
+	
+}
+
+$('#ex_width').html('width: '+document.body.clientWidth);
+	
+$( "#ex_footer" )
+  .mouseover(function() {
+	var num_bottom = $(this).css('bottom');
+	var footer_ok = $('#footer_ok').val();
+	if (num_bottom == '-90px' && footer_ok == 'ok' ) {
+	$(this).animate({bottom: '0px'});
+	} 
+
+  })
+  .mouseleave(function() {
+	var num_bottom = $(this).css('bottom');
+	var footer_ok = $('#footer_ok').val();
+	if (num_bottom == '0px' && footer_ok == 'ok' ) {
+	$(this).animate({bottom: '-90px'});
+	} 
+  });
+
+  
+  	$( "#img_footer_menu" )
+	.click(function() {
+	var bottom_footer = $('#ex_footer').css( "bottom" );
+	//alert(bottom_footer);
+	// alert(document.body.clientWidth);
+		if (bottom_footer == '0px' ) {
+			$("#ex_footer").animate({bottom: '-100px'});
+		} else {
+			$("#ex_footer").animate({bottom: '0px'});
+		}
+	});
+  
+});
+
+
+
+
+</script> 
+	<input type="hidden" value="" id="footer_ok">
+    <div class="container bk-footer open_sans_c_bold"  id="ex_footer" style="">    
+	<div id="tel_for_mobile" style="display: none;"> <span style="color: #ffbc23;"> Hotline DE: </span> 0800 - 154 75 875 </div>
+<center>
+ <img src="@Url.Content("~/images/menu.png")" id="img_footer_menu" style="display: none;"/>
+</center>
+
+        <div class="row">
+            <div class="col-lg-12">
+			<div class="container123">
+                  <div style="float: left;" class="footer_left">
+				  <table class="footer_tab">
+				  <tr>
+				  <td>
+				  <a href="/guestservice_design/en/countries" >Countries</a><br>
+				  <a href="/guestservice_design/en/countries/cyprus" >Regions</a><br>
+				  </td>
+				  <td>
+				  <a href="/guestservice_design/en/info/about" >About EXGO</a><br>
+				  <a href="/guestservice_design/en/info/partners" >Partners</a><br>
+				  <a href="/guestservice_design/en/info/partnership" >Become a Partner</a><br>
+				  <a href="/guestservice_design/en/info/vacancies" >Vacancies</a>
+				  </td>
+				  <td>
+				  <a href="/guestservice_design/en/info/terms-and-conditions" >Terms and conditions</a><br>
+				  <a href="/guestservice_design/en/info/privacy" >Privacy and cookies</a><br>
+				  <a href="/guestservice_design/en/info/contact" >Contact</a><br>
+				  </td>
+				  <td>
+				  <a href="/hotel_cabinet/en/guest/" >Agent area</a><br>
+				  <a href="/guestservice_dev/en/partner/" >Provider area</a><br>
+				  
+				  </td>
+				  </tr>
+				  </table>
+				  </div>
+				  
+				  <div style="float: right; vertical-align: top; padding: 10px; text-align: right;" class="footer_right">
+				  <span style="color: #ffbc23;"> Hotline: </span> +357-7000-5557<br>
+				  <span style="color: #ffbc23;"> Hotline Cyprus: </span> 7000-5557<br>
+				  <!-- <img src="@Url.Content("~/images/new/logos_footer.png")"> -->				  
+				  </div>
+
+                <!-- @{ Html.RenderAction("PageFooter", "customization"); } -->
+			</div>	
+            </div>   
+        </div>
+    </div>  </body>
+</html>

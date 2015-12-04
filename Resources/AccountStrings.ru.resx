@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Register_ToMyAccount" xml:space="preserve">
+    <value>Перейти в личный кабинет</value>
+  </data>
+  <data name="Register_RegisterButton" xml:space="preserve">
+    <value>Зарегистрироваться</value>
+  </data>
+  <data name="Login_Ph_Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="LocalPasswordModel_L_Password" xml:space="preserve">
+    <value>Пароль должен быть длиной не менее  {2} символов"</value>
+  </data>
+  <data name="ErrorDuplicateEmail" xml:space="preserve">
+    <value>акой почтовый адрес уже используется. Используйте другой почтовый адрес.</value>
+  </data>
+  <data name="Restore_Ph_Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Register_ErrorSocial" xml:space="preserve">
+    <value>Ошибка авторизации</value>
+  </data>
+  <data name="LoginTitle" xml:space="preserve">
+    <value>Авторизация</value>
+  </data>
+  <data name="Restore_MaimFormLink" xml:space="preserve">
+    <value>Продолжить</value>
+  </data>
+  <data name="LocalPasswordModel_C_ConfirmPassword" xml:space="preserve">
+    <value>Новый пароль и подтверждение пароля не совпадают</value>
+  </data>
+  <data name="AccountLogin_EmailNotConfirmed" xml:space="preserve">
+    <value>е-mail, указанный при регистрации, еще не подтвержден</value>
+  </data>
+  <data name="RestorePasswordChangedError" xml:space="preserve">
+    <value>Не удалось изменить пароль для учетной записи</value>
+  </data>
+  <data name="RegisterText" xml:space="preserve">
+    <value>Пожалуйста заполните форму регистрации</value>
+  </data>
+  <data name="Register_MainFormLink" xml:space="preserve">
+    <value>Продолжить</value>
+  </data>
+  <data name="Register_ConfirmPassword" xml:space="preserve">
+    <value>Повторение пароля</value>
+  </data>
+  <data name="Register_ErrorSocialS" xml:space="preserve">
+    <value>Ошибка авторизации при помощи стороннего сервиса.</value>
+  </data>
+  <data name="Login_RememberMe" xml:space="preserve">
+    <value>Запомнить меня</value>
+  </data>
+  <data name="Restore_SetPasswordButton" xml:space="preserve">
+    <value>Установить пароль</value>
+  </data>
+  <data name="ErrorProviderError" xml:space="preserve">
+    <value>Возникла проблема базы данных при извлечении данных.</value>
+  </data>
+  <data name="RegisterEmailNotConfirmed" xml:space="preserve">
+    <value>Адрес электронной почты, который вы ввели в процессе регистрации, еще не подтвержден.</value>
+  </data>
+  <data name="LoginModel_R_Mail" xml:space="preserve">
+    <value>Некорректный адрес электронной почты</value>
+  </data>
+  <data name="Restore_Btn" xml:space="preserve">
+    <value>Восстановить</value>
+  </data>
+  <data name="RestoreText" xml:space="preserve">
+    <value>Укажите новый пароль, который Вы будете использовать для входа</value>
+  </data>
+  <data name="Register_Ph_Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Register_ConfirmEmail" xml:space="preserve">
+    <value>Подтверждение адреса электронной почты</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Login_Ph_Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="RegisterEmailNote" xml:space="preserve">
+    <value>Мы отправили запрос подтверждения на указанный Вами e-mail. Откройте почтовое сообщение и кликните на указанной в нем ссылке.</value>
+  </data>
+  <data name="ResetPassword_CannotReset" xml:space="preserve">
+    <value>Невозможно изменить пароль</value>
+  </data>
+  <data name="Login_Social" xml:space="preserve">
+    <value>Войти через авторизацию в социальной сети</value>
+  </data>
+  <data name="LoginText_1" xml:space="preserve">
+    <value>Нет аккаунта?</value>
+  </data>
+  <data name="LoginText_2" xml:space="preserve">
+    <value>Зарегистрируйтесь</value>
+  </data>
+  <data name="RestoreTitle" xml:space="preserve">
+    <value>Восстановление пароля</value>
+  </data>
+  <data name="Login_Forget_2" xml:space="preserve">
+    <value>восстановлением пароля</value>
+  </data>
+  <data name="Login_Forget_1" xml:space="preserve">
+    <value>Если Вы забыли пароль, воспользуйтесь</value>
+  </data>
+  <data name="Restore_Email_Register" xml:space="preserve">
+    <value>Укажите e-mail адрес, используемый при регистрации</value>
+  </data>
+  <data name="Login_Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="AccountLogin_InvalidCredentails" xml:space="preserve">
+    <value>E-mail или пароль указаны неверно</value>
+  </data>
+  <data name="ErrorUserRejected" xml:space="preserve">
+    <value>Создание пользователя невозможно.</value>
+  </data>
+  <data name="ErrorInvalidAnswer" xml:space="preserve">
+    <value>Ответ, предоставленный Вами, неверен.</value>
+  </data>
+  <data name="Login_AlreadyUser" xml:space="preserve">
+    <value>Вы уже авторизованы как</value>
+  </data>
+  <data name="Register_Ph_ConfirmPassword" xml:space="preserve">
+    <value>Повторение пароля</value>
+  </data>
+  <data name="LoginModel_R_UserName" xml:space="preserve">
+    <value>Необходимо указать e-mail</value>
+  </data>
+  <data name="Restore_ConfirmPassword" xml:space="preserve">
+    <value>Повторение пароля</value>
+  </data>
+  <data name="ErrorInvalidPassword" xml:space="preserve">
+    <value>Неверный пароль.</value>
+  </data>
+  <data name="ErrorUnknownError" xml:space="preserve">
+    <value>Произошла неизвестная ошибка. </value>
+  </data>
+  <data name="RegisterEmailNotConfirmedNote" xml:space="preserve">
+    <value>Мы повторно отправили запрос подтверждения на указанный Вами e-mail. Откройте почтовое сообщение и кликните на указанной в нем ссылке.</value>
+  </data>
+  <data name="RestoreChangedOK" xml:space="preserve">
+    <value>Пароль успешно изменен</value>
+  </data>
+  <data name="Register_Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="ErrorDuplicateUserName" xml:space="preserve">
+    <value>Такой почтовый адрес уже используется. Используйте другой почтовый адрес.</value>
+  </data>
+  <data name="Restore_Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Register_Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Restore_Ph_ConfirmPassword" xml:space="preserve">
+    <value>Повторение пароля</value>
+  </data>
+  <data name="AccountResetPassword_CannotReset" xml:space="preserve">
+    <value>Невозможно изменить пароль</value>
+  </data>
+  <data name="LoginModel_L_Password" xml:space="preserve">
+    <value>Пароль должен быть длиной не менее  {2} символов"</value>
+  </data>
+  <data name="Register_ChangePassword" xml:space="preserve">
+    <value>На указанный адрес отправлено письмо с сcылкой для подтверждения смены пароля.</value>
+  </data>
+  <data name="LoginModel_C_ConfirmPassword" xml:space="preserve">
+    <value>Пароль и подтверждение пароля не совпадают</value>
+  </data>
+  <data name="AccountRecovery_CannotRecovery" xml:space="preserve">
+    <value>Не удалось восстановить пароль. Не найден указанный адрес.</value>
+  </data>
+  <data name="Register_Ph_Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="Register_EmailSuccess" xml:space="preserve">
+    <value>Ваш E-mail успешно подтвержден</value>
+  </data>
+  <data name="Login_LoginButton" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="Register_EmailUnsuccess" xml:space="preserve">
+    <value>Невозможно подтвердить указанный Вами E-mail</value>
+  </data>
+  <data name="ErrorInvalidEmail" xml:space="preserve">
+    <value>Неверный почтовый адрес.</value>
+  </data>
+  <data name="RecoveryModel_R_UserName" xml:space="preserve">
+    <value>Необходимо указать e-mail</value>
+  </data>
+  <data name="Login_LogoutButton" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="Register_As_2" xml:space="preserve">
+    <value>Пожалуйста введите e-mail и нажмите кнопку "Продолжить" для завершения авторизации</value>
+  </data>
+  <data name="Register_As_1" xml:space="preserve">
+    <value>Вы успешно прошли авторизацию под</value>
+  </data>
+  <data name="Register_Back" xml:space="preserve">
+    <value>Вернуться</value>
+  </data>
+  <data name="RegisterTitle" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
+  <data name="LoginModel_R_Password" xml:space="preserve">
+    <value>Необходимо указать пароль</value>
+  </data>
+  <data name="ErrorInvalidUserName" xml:space="preserve">
+    <value>Неверное имя пользователя.</value>
+  </data>
+  <data name="ErrorInvalidQuestion" xml:space="preserve">
+    <value>Неверный вопрос для изменения пароля.</value>
+  </data>
+</root>

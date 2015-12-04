@@ -1,0 +1,160 @@
+﻿@model GuestService.Data.ReservationOrder    
+
+<div class="row">  
+    <div class="col-lg-12">   
+@if (Model.hotel != null)
+{ 
+    <div class="media" style="margin-bottom: 15px;">
+        <span class="pull-left">
+            <img class="media-object" src="@Url.Content("~/images/hotel.png")" alt="@SharedStrings.ResourceManager.Get("ReservationOrder_HotelAlt")" />
+        </span> 
+        <div class="media-body">                                
+            <h3 class="media-heading" style="color: #777777; margin-bottom:0;  text-transform: uppercase;">@Model.hotel.name</h3>                     
+            <div style="color: #777777;">                                        
+                <strong> @Model.datefrom.ToString("dd.MM.yyyy") - @Model.datetill.ToString("dd.MM.yyyy") </strong>
+                <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_Room")</span> @Model.hotel.room.name (@Model.hotel.htplace.name)
+                <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_Meal")</span> @Model.hotel.meal.name
+                <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_Adult")</span> @Model.pax.adult@if (@Model.pax.child >= 0)
+                  {<text>, <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_Child")</span> </text>@Model.pax.child}@if (@Model.pax.infant >= 0)
+                  {<text>, <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_Infant")</span> </text>@Model.pax.infant}
+            </div>
+        </div>                                                      
+    </div>              
+}
+@if (Model.excursion != null) 
+{
+    <div class="media" style="margin-bottom: 15px;">
+        <span class="pull-left">
+            <img class="media-object" src="@Url.ApiActionLink("catalogimage", "excursion", new { id = Model.excursion.id, i = 0, w = 200, h = 130 })" alt="@SharedStrings.ResourceManager.Get("ReservationOrder_ExcursionAlt")" />
+        </span> 
+        
+        @if (Model.price != null)
+        {
+            <div class="pull-right">
+                @if (Model.price.total == 0)
+                {
+                    <span style="color: #777777;">@SharedStrings.ResourceManager.Get("ReservationOrder_PriceFree")</span>
+                }
+                else
+                {
+                    <span style="color: #777777;">@Model.price.total.ToString("# ##0.00") @Model.price.currency</span>
+                }     
+            </div>
+        }
+        
+        <div class="media-body">  
+            <h3 class="media-heading" style="color: #777777; margin-bottom:0; text-transform: uppercase;">@Model.excursion.name</h3>                     
+            <div style="color: #777777;">
+                <strong> @Model.datefrom.ToString("dd.MM.yyyy") - @Model.datetill.ToString("dd.MM.yyyy")@if (Model.excursion.grouptype != null){<text>, </text> @Model.excursion.grouptype.description } </strong>                                                                                                     
+                @if (Model.excursion.time != null)
+                {
+                    <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_ExcursionTime")</span> @Model.excursion.time.description
+                }
+                @if (Model.excursion.language != null)
+                {
+                    <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_ExcursionLang")</span> @Model.excursion.language.description
+                }               
+                <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_Adult")</span> @Model.pax.adult@if (@Model.pax.child >= 0)
+                                                                                    {<text>,</text> <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_Child")</span> @Model.pax.child}@if (@Model.pax.infant >= 0)
+                                                                                           {<text>,</text> <span style="color:#b7b7b7;">&nbsp;@SharedStrings.ResourceManager.Get("ReservationOrder_Infant")</span> @Model.pax.infant}                 
+
+                @if (Model.excursion.pickuppoint != null)
+                {
+                    <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_PickupPoint")</span> @Model.excursion.pickuppoint.name
+                }
+                @if (Model.excursion.pickuphotel != null)
+                {
+                    <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_PickupHotel")</span> @Model.excursion.pickuphotel.name
+                }
+                @if (!string.IsNullOrEmpty(Model.note))
+                {
+                    <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_Note")</span> @Model.note
+                }
+            </div>
+        </div>                                                      
+    </div>  
+}
+@if (Model.freight != null)
+{
+    <div class="media" style="margin-bottom: 15px;">
+        <span class="pull-left">
+            <img class="media-object" src="@Url.Content("~/images/air.png")" alt="@SharedStrings.ResourceManager.Get("ReservationOrder_FreightAlt")" />
+        </span> 
+        <div class="media-body">  
+            <h3 class="media-heading" style="color: #777777; margin-bottom:0; text-transform: uppercase;">@Model.freight.name</h3>                     
+            <div style="color: #777777;">
+            
+                <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_FreightDeparture")</span> @Model.freight.departure.date.ToString("g") @Model.freight.departure.port.name / @Model.freight.departure.port.town.name
+                <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_FreightArrival")</span> @Model.freight.arrival.date.ToString("g")@(Model.freight.arrival.date.Date > Model.freight.departure.date.Date ? "+1" : "") @Model.freight.arrival.port.name / @Model.freight.arrival.port.town.name
+                @if (Model.freight.bookingclass != null)
+                {
+                    <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_FreightClass")</span> @Model.freight.bookingclass.name
+                } 
+                @if (Model.freight.place != null)
+                {
+                    <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_FreightSeat")</span> @Model.freight.place.name
+                } 
+
+                <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_Adult")</span> @Model.pax.adult@if (@Model.pax.child >= 0)
+                                                                                                                                       {<text>,</text> <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_Child")</span>@Model.pax.child}@if (@Model.pax.infant >= 0)
+                                                                                                                                                                                                                     {<text>,</text> <span style="color:#b7b7b7;">&nbsp;@SharedStrings.ResourceManager.Get("ReservationOrder_Infant")</span>@Model.pax.infant}                 
+                @if (!string.IsNullOrEmpty(Model.note))
+                {
+                    <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_Note")</span> @Model.note
+                }
+            </div>
+        </div>                                                      
+    </div>  
+}
+@if (Model.transfer != null)
+{
+    <div class="media" style="margin-bottom: 15px;">
+        <span class="pull-left">
+            <img class="media-object" src="@Url.Content("~/images/bus.png")" alt="@SharedStrings.ResourceManager.Get("ReservationOrder_TransferAlt")" />
+        </span> 
+        <div class="media-body">  
+            <h3 class="media-heading" style="color: #777777; margin-bottom:0; text-transform: uppercase;">@Model.transfer.name</h3>                     
+            <div style="color: #777777;">
+            <strong> @Model.datefrom.ToString("dd.MM.yyyy") - @Model.datetill.ToString("dd.MM.yyyy") </strong>
+
+                <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_Adult")</span> @Model.pax.adult@if (@Model.pax.child >= 0)
+                                                                                                                                       {<text>,</text> <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_Child")</span>@Model.pax.child}@if (@Model.pax.infant >= 0)
+                                                                                                                                                                                                                     {<text>,</text> <span style="color:#b7b7b7;">&nbsp;@SharedStrings.ResourceManager.Get("ReservationOrder_Infant")</span>@Model.pax.infant}                 
+                @if (!string.IsNullOrEmpty(Model.note))
+                {
+                    <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_Note")</span> @Model.note
+                }
+            </div>
+        </div>                                                      
+    </div>  
+}
+@if (Model.service != null)
+{
+    <div class="media" style="margin-bottom: 15px;">
+        <span class="pull-left">
+            <img class="media-object" src="@Url.Content("~/images/service.png")" alt="@SharedStrings.ResourceManager.Get("ReservationOrder_ServiceAlt")" />
+        </span> 
+        <div class="media-body">  
+            <h3 class="media-heading" style="color: #777777; margin-bottom:0; text-transform: uppercase;">@Model.service.name</h3>                     
+            <div style="color: #777777;">
+            <strong> @Model.datefrom.ToString("dd.MM.yyyy") - @Model.datetill.ToString("dd.MM.yyyy")</strong>           
+                @if (Model.service.servicetype != null)
+                {
+                    <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_ServiceType")</span> @Model.service.servicetype.name
+                } 
+                
+                <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_Adult")</span> @Model.pax.adult@if (@Model.pax.child >= 0)
+                                                                                                                                       {<text>,</text> <span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_Child")</span>@Model.pax.child}@if (@Model.pax.infant >= 0)
+                                                                                                                                                                                                                     {<text>,</text> <span style="color:#b7b7b7;">&nbsp;@SharedStrings.ResourceManager.Get("ReservationOrder_Infant")</span>@Model.pax.infant}                 
+                @if (!string.IsNullOrEmpty(Model.note))
+                {
+                    <br /><span style="color:#b7b7b7;">@SharedStrings.ResourceManager.Get("ReservationOrder_Note")</span> @Model.note
+                }
+            </div>
+        </div>                                                      
+    </div>  
+}
+
+
+    </div>
+</div>

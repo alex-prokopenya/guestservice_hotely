@@ -1,0 +1,69 @@
+﻿@model GuestService.Models.LoginModel
+@{
+    ViewBag.Title = AccountStrings.ResourceManager.Get("LoginTitle");
+}
+<div class="container">
+	<div class="row bk-main"> 	     
+         <div class="col-lg-12 col-md-12">
+            <h1 class="page-header">@ViewBag.Title</h1>	            
+		</div>
+
+        @if(!User.Identity.IsAuthenticated)
+        {
+            using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="col-lg-12 col-md-12" style="margin-bottom:15px;">
+			        @AccountStrings.ResourceManager.Get("LoginText_1")&nbsp;<a href="@Url.Action("Register", new { returnUrl = ViewBag.ReturnUrl })">@AccountStrings.ResourceManager.Get("LoginText_2")</a>
+		        </div>        
+                <div class="col-sm-6">       
+                    @Html.Partial("Form/ValidationSummary")
+                </div>
+                <div class="clearfix"></div> 
+                <div class="col-sm-6">       
+			          
+				        <div class="form-group">
+					        <label class="control-label" for="@Html.NameFor(m => m.UserName)">@AccountStrings.ResourceManager.Get("Login_Email")</label>
+					        <div class="controls">
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = AccountStrings.ResourceManager.Get("Login_Ph_Email") })
+                                @Html.ValidationMessageFor(m => m.UserName)
+					        </div>
+				        </div>
+				        <div class="form-group">
+					        <label class="control-label" for="@Html.NameFor(m => m.Password)">@AccountStrings.ResourceManager.Get("Login_Password")</label>
+					        <div class="controls">
+						        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = @AccountStrings.ResourceManager.Get("Login_Ph_Password") })
+                                @Html.ValidationMessageFor(m => m.Password)
+					        </div>
+				        </div>                        
+                        <div class="checkbox">
+				            @Html.CheckBoxFor(m => m.RememberMe) <label for="RememberMe"></label>@AccountStrings.ResourceManager.Get("Login_RememberMe")
+                        </div>                        
+                         @AccountStrings.ResourceManager.Get("Login_Forget_1")&nbsp;<a href="@Url.Action("recovery", new { returnUrl = ViewBag.ReturnUrl })">@AccountStrings.ResourceManager.Get("Login_Forget_2")</a>
+				        <div class="clearfix" style="margin-bottom:10px;"></div>				
+				        <button name="submit" id="submit" value="" type="submit" class="btn btn-large btn-primary">@AccountStrings.ResourceManager.Get("Login_LoginButton")</button>
+			       
+                </div>   
+               
+            }
+                <div class="clearfix"></div>  
+                <div class="col-lg-12 col-md-12">       
+                    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+                </div>
+        }
+        else
+        {
+            <div class="col-lg-12 col-md-12" style="margin-bottom:15px;">
+            @using (Html.BeginForm("logoff", "account"))
+            {
+                @Html.AntiForgeryToken()
+                <h3 style="color:#8c8c8c; margin-top:0;">@AccountStrings.ResourceManager.Get("Login_AlreadyUser")&nbsp;<b>@User.Identity.Name</b></h3>
+                <div class="clearfix" style="margin-bottom:10px;"></div>
+                <button name="submit" id="submit" value="" type="submit" class="btn btn-large btn-primary">@AccountStrings.ResourceManager.Get("Login_LogoutButton")</button>
+            }        
+            </div>
+        }
+    </div>
+</div>
+

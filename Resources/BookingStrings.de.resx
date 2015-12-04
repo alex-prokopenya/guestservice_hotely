@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BookingAgreementConfirm" xml:space="preserve">
+    <value>Ich bin damit einverstanden</value>
+  </data>
+  <data name="BookingAgreementConfirmMessage_1" xml:space="preserve">
+    <value>Ich bin damit einverstanden</value>
+  </data>
+  <data name="BookingAgreementConfirmMessage_2" xml:space="preserve">
+    <value>Reservierungsbedingungen</value>
+  </data>
+  <data name="BookingErrorTitle" xml:space="preserve">
+    <value>Unglücklicherweise ist es unmöglich, das Buch auf Grund eines Fehlers zu beenden</value>
+  </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>Rückkehr</value>
+  </data>
+  <data name="RulesAccepted" xml:space="preserve">
+    <value>Sie müssen lesen und stimmen Sie den Bedingungen der Reservierung</value>
+  </data>
+  <data name="BookingResultTitle" xml:space="preserve">
+    <value>Ergebnis Buchungsauftrag</value>
+  </data>
+  <data name="BookingProcessing_Title" xml:space="preserve">
+    <value>Buchungsauftrag</value>
+  </data>
+  <data name="BookingModel_R_CustomerName" xml:space="preserve">
+    <value>Sie müssen einen Namen angeben</value>
+  </data>
+  <data name="BookingModel_R_UserEmail" xml:space="preserve">
+    <value>Sie müssen die E-Mail anzugeben</value>
+  </data>
+  <data name="BookingProcessing_OrderTitle_1" xml:space="preserve">
+    <value>Ihre Bestellung</value>
+  </data>
+  <data name="BookingProcessing_OrderTitle_2" xml:space="preserve">
+    <value>erfolgreich gebucht.</value>
+  </data>
+  <data name="BookingFormName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="BookingFormNote" xml:space="preserve">
+    <value>Kommentar zur Bestellung</value>
+  </data>
+  <data name="BookingFormMail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="BookingMenuTitle" xml:space="preserve">
+    <value>Führungen buchen</value>
+  </data>
+  <data name="BookingReturnToOrder" xml:space="preserve">
+    <value>Zurück zur Bestellung</value>
+  </data>
+  <data name="RemoveOrderConfirmText" xml:space="preserve">
+    <value>Sind Sie sicher, Sie wollen eine Tour durch die Bestellung löschen?</value>
+  </data>
+  <data name="BookingAgreementTitle" xml:space="preserve">
+    <value>Benutzervereinbarung</value>
+  </data>
+  <data name="RemoveOrderConfirmTitle" xml:space="preserve">
+    <value>Bestätigung für Entfernen</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Bestellungen</value>
+  </data>
+  <data name="ErrorMessageTitle" xml:space="preserve">
+    <value>Vorsicht</value>
+  </data>
+  <data name="BookingInProcess" xml:space="preserve">
+    <value>Bitte warten Sie, das Orderbuch ...</value>
+  </data>
+  <data name="BookingPayButton" xml:space="preserve">
+    <value>Kasse</value>
+  </data>
+  <data name="RemoveOrderLink" xml:space="preserve">
+    <value>Entfernen</value>
+  </data>
+  <data name="BookingResultText_2" xml:space="preserve">
+    <value>erfolgreich gebucht. Um die Zahlung zu bewegen, klicken Sie auf "Bezahlen".</value>
+  </data>
+  <data name="BookingResultText_1" xml:space="preserve">
+    <value>Ihre Bestellung</value>
+  </data>
+  <data name="EmptyCart_2" xml:space="preserve">
+    <value>Benutzer</value>
+  </data>
+  <data name="EmptyCart_1" xml:space="preserve">
+    <value>Die Bestell-Liste ist leer. Eine Tour buchen, gehen Sie zu</value>
+  </data>
+  <data name="BookNowButton" xml:space="preserve">
+    <value>Buch</value>
+  </data>
+  <data name="GuestServiceTitle" xml:space="preserve">
+    <value>Personal Area</value>
+  </data>
+  <data name="RemoveOrderCancelButton" xml:space="preserve">
+    <value>Nein, gehen Sie zurück zu der Bestellung</value>
+  </data>
+  <data name="OrderTotalLabel" xml:space="preserve">
+    <value>Total:</value>
+  </data>
+  <data name="BookingFormPhone" xml:space="preserve">
+    <value>
+Kontakt-Telefon</value>
+  </data>
+  <data name="RemoveOrderConfirmButton" xml:space="preserve">
+    <value>Ja, ich stimme Entfernung</value>
+  </data>
+  <data name="BookingAgreementCancel" xml:space="preserve">
+    <value>nicht übereinstimmen</value>
+  </data>
+  <data name="BookingFormAddress" xml:space="preserve">
+    <value>Adresse</value>
+  </data>
+  <data name="BookingModel_R_CustomerMobile" xml:space="preserve">
+    <value>Sie müssen das Telefon angeben</value>
+  </data>
+</root>

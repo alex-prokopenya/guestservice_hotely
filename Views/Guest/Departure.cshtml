@@ -1,0 +1,47 @@
+﻿@model GuestService.Models.Guest.DepartureContext
+
+@{
+    ViewBag.Title = GuestStrings.Get("DepartureTitle"); 
+}
+<div class="container">  
+    <div class="row bk-main">        
+        <div class="col-lg-12">
+            <h1 class="page-header">@ViewBag.Title</h1>
+            @if (GuestService.Settings.IsShowBreadCrumb)
+            {
+            <ol class="breadcrumb">          
+                <li><a href="@Context.Request.ApplicationPath.ToString()">@GuestStrings.Get("GuestServiceTitle")</a></li>
+                <li class="active">@ViewBag.Title</li>
+            </ol>
+            }
+        </div>           
+
+
+        @if (Model != null && Model.Hotels != null && Model.Hotels.Count > 0)
+        {
+             <div class="col-lg-12">
+            @foreach (var hotel in Model.Hotels)
+            {                 
+                 Html.RenderPartial(@"Controls\DepartureHotel", hotel);             
+            }
+              </div>
+        }
+        else
+        {             
+            <div class="col-lg-12 col-md-12">             
+                @if (WebSecurity.IsAuthenticated)
+                {            
+                    <h3 style="color:#8c8c8c;">@GuestStrings.Get("DepartureNotFound")
+                    <br />@GuestStrings.Get("DepartureNotFoundNote_1")&nbsp;<a href="@Url.Action("findorder")">@GuestStrings.Get("DepartureNotFoundNote_2")</a></h3>                      
+                }
+                else if (Model.Hotel != null)
+                {
+                    <h3 style="margin-top: 0px;">@Model.Hotel.name</h3>
+                    <h3 style="color:#8c8c8c;">@GuestStrings.Get("DepartureNoTransferFound")</h3>
+                }
+                <div class="clearfix" style="margin-bottom:10px;"></div>
+                <a href="@Context.Request.ApplicationPath.ToString()" data-bind="click: navigateBackClick">@GuestStrings.Get("DepartureBack")</a>        
+            </div>    
+        }
+    </div> 
+</div>

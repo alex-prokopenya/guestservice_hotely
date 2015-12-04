@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ErrorSummary" xml:space="preserve">
+    <value>Please fix the following errors</value>
+  </data>
+  <data name="DetailDateTitle" xml:space="preserve">
+    <value>Choose an expected excursion date</value>
+  </data>
+  <data name="AddReviewTitle" xml:space="preserve">
+    <value>Add review</value>
+  </data>
+  <data name="MapHideLink" xml:space="preserve">
+    <value>Collapse</value>
+  </data>
+  <data name="OrderAddShopCartButton" xml:space="preserve">
+    <value>Add to order</value>
+  </data>
+  <data name="DurationMin" xml:space="preserve">
+    <value>minute</value>
+  </data>
+  <data name="DurationAlt" xml:space="preserve">
+    <value>Excursion duration</value>
+  </data>
+  <data name="DurationDay" xml:space="preserve">
+    <value>day</value>
+  </data>
+  <data name="OrderFormHelp" xml:space="preserve">
+    <value>Choose the number of adults and children. If necessary, specify the name and telephone number.</value>
+  </data>
+  <data name="SortOrderByPrice" xml:space="preserve">
+    <value>by price</value>
+  </data>
+  <data name="DescriptionInfo_Partner" xml:space="preserve">
+    <value>Excursion partner:</value>
+  </data>
+  <data name="ReviewTitle" xml:space="preserve">
+    <value>Review notes</value>
+  </data>
+  <data name="DescriptionInfo_Language" xml:space="preserve">
+    <value>Language:</value>
+  </data>
+  <data name="ExcursionReviewCountTitle" xml:space="preserve">
+    <value>Total reviews:</value>
+  </data>
+  <data name="OrderName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="OrderNote" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="PriceFrom" xml:space="preserve">
+    <value>from</value>
+  </data>
+  <data name="DetailDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ReviewHintNegative" xml:space="preserve">
+    <value>Negative</value>
+  </data>
+  <data name="ExtraFiltersDirection" xml:space="preserve">
+    <value>Directions</value>
+  </data>
+  <data name="OrderPriceForService" xml:space="preserve">
+    <value>Price per tour</value>
+  </data>
+  <data name="DetailMapExpand" xml:space="preserve">
+    <value>Expand</value>
+  </data>
+  <data name="DescriptionInfo_Direction" xml:space="preserve">
+    <value>Direction:</value>
+  </data>
+  <data name="ShowMap" xml:space="preserve">
+    <value>Show on the map</value>
+  </data>
+  <data name="ReviewHintPositive" xml:space="preserve">
+    <value>Positive</value>
+  </data>
+  <data name="OrderGoShoppingCart" xml:space="preserve">
+    <value>Proceed to checkout</value>
+  </data>
+  <data name="PriceByPax" xml:space="preserve">
+    <value>per person</value>
+  </data>
+  <data name="MapShowLink" xml:space="preserve">
+    <value>Expand</value>
+  </data>
+  <data name="DetailExcursionDateTitle" xml:space="preserve">
+    <value>Excursion date:</value>
+  </data>
+  <data name="ExcursionLanguage" xml:space="preserve">
+    <value>Excursion language</value>
+  </data>
+  <data name="DetailInfant" xml:space="preserve">
+    <value>infant:</value>
+  </data>
+  <data name="OrderCloseButton" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ExcursionTitle" xml:space="preserve">
+    <value>Excursions</value>
+  </data>
+  <data name="OrderReturnExcursionList" xml:space="preserve">
+    <value>Back to the excursion list</value>
+  </data>
+  <data name="DetailServicePrice" xml:space="preserve">
+    <value>per tour</value>
+  </data>
+  <data name="OrderInfant" xml:space="preserve">
+    <value>Infant</value>
+  </data>
+  <data name="AddReviewYes" xml:space="preserve">
+    <value>Add review</value>
+  </data>
+  <data name="ExtraFilters" xml:space="preserve">
+    <value>Additional filters</value>
+  </data>
+  <data name="PriceNotFound" xml:space="preserve">
+    <value>No proposal for the selected date</value>
+  </data>
+  <data name="SearchTitle" xml:space="preserve">
+    <value>Select an excursion by the category or search by name</value>
+  </data>
+  <data name="OrderAddShopCartSuccess" xml:space="preserve">
+    <value>Excursion has been successfully added to the shopping cart</value>
+  </data>
+  <data name="ExtraFiltersLanguage" xml:space="preserve">
+    <value>Excursion language</value>
+  </data>
+  <data name="DescriptionInfo_Categories" xml:space="preserve">
+    <value>Categories:</value>
+  </data>
+  <data name="PriceByService" xml:space="preserve">
+    <value>per excursion</value>
+  </data>
+  <data name="PickupHotelHint" xml:space="preserve">
+    <value>There is no hotel in the list. Please specify hotel name at the note field.</value>
+  </data>
+  <data name="ExtraFiltersDate" xml:space="preserve">
+    <value>Excursion date</value>
+  </data>
+  <data name="DetailDeparture" xml:space="preserve">
+    <value>Departure</value>
+  </data>
+  <data name="DateTimeLanguage" xml:space="preserve">
+    <value>en</value>
+  </data>
+  <data name="AddReviewText" xml:space="preserve">
+    <value>Do you want to write review about excursion?</value>
+  </data>
+  <data name="AddReviewLink" xml:space="preserve">
+    <value>Add review</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Excursions booking</value>
+  </data>
+  <data name="DetailOnsaleTill" xml:space="preserve">
+    <value>Sale till</value>
+  </data>
+  <data name="ExcursionReviewTitle" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="ExcursionReviewNote1" xml:space="preserve">
+    <value>based on</value>
+  </data>
+  <data name="ExcursionReviewNote2" xml:space="preserve">
+    <value>reviews</value>
+  </data>
+  <data name="OrderAdult" xml:space="preserve">
+    <value>Adults</value>
+  </data>
+  <data name="OrderChild" xml:space="preserve">
+    <value>Children</value>
+  </data>
+  <data name="OrderCount" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="OrderPhone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="OrderTitle" xml:space="preserve">
+    <value>Add order</value>
+  </data>
+  <data name="OrderPickupHotel" xml:space="preserve">
+    <value>Pickup hotel</value>
+  </data>
+  <data name="DetailPrice" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="DetailAdult" xml:space="preserve">
+    <value>adult:</value>
+  </data>
+  <data name="DetailChild" xml:space="preserve">
+    <value>child:</value>
+  </data>
+  <data name="OrderPickUp" xml:space="preserve">
+    <value>Pickup point</value>
+  </data>
+  <data name="GeorgaphyTitle" xml:space="preserve">
+    <value>Geography</value>
+  </data>
+  <data name="NavigateExcursions" xml:space="preserve">
+    <value>All excursions</value>
+  </data>
+  <data name="DurationHour" xml:space="preserve">
+    <value>hour</value>
+  </data>
+  <data name="DurationMins" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="DurationDays" xml:space="preserve">
+    <value>days</value>
+  </data>
+  <data name="ErrorGuestCount" xml:space="preserve">
+    <value>Specify a valid number of tourists</value>
+  </data>
+  <data name="ReviewNoRanking" xml:space="preserve">
+    <value>No reviews</value>
+  </data>
+  <data name="NavigateCategory" xml:space="preserve">
+    <value>Excursion categories</value>
+  </data>
+  <data name="DepartureLabel" xml:space="preserve">
+    <value>Departure:</value>
+  </data>
+  <data name="ExcursionMapMarkerLocation" xml:space="preserve">
+    <value>excursion place</value>
+  </data>
+  <data name="DetailPriceTitle" xml:space="preserve">
+    <value>Prices</value>
+  </data>
+  <data name="SearchDeparture_AnyPoint" xml:space="preserve">
+    <value>Departure from any point</value>
+  </data>
+  <data name="ExcursionNotFound" xml:space="preserve">
+    <value>Unfortunately we could not find excursions on request. Try to change search criteria.</value>
+  </data>
+  <data name="FreeSeatsLabel" xml:space="preserve">
+    <value>seats left</value>
+  </data>
+  <data name="ErrorInvalidParams" xml:space="preserve">
+    <value>Uncertain parameters of the excursion</value>
+  </data>
+  <data name="ExtraFiltersCategory" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="DateTimeFormat" xml:space="preserve">
+    <value>mm/dd/yyyy</value>
+  </data>
+  <data name="DetailSelectedDateTitle" xml:space="preserve">
+    <value>Excursions for the date:</value>
+  </data>
+  <data name="OrderPriceForPax" xml:space="preserve">
+    <value>Price per person</value>
+  </data>
+  <data name="DurationHours" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Enter an excursion name or location</value>
+  </data>
+  <data name="ExtraFiltersAllDates" xml:space="preserve">
+    <value>All dates</value>
+  </data>
+  <data name="BookButton" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="ExcursionMapMarkerDeparture" xml:space="preserve">
+    <value>departure place,</value>
+  </data>
+  <data name="BookNowButton" xml:space="preserve">
+    <value>Read more</value>
+  </data>
+  <data name="GuestServiceTitle" xml:space="preserve">
+    <value>My account</value>
+  </data>
+  <data name="DetailReturnToExcursionDate" xml:space="preserve">
+    <value>Back to excursion</value>
+  </data>
+  <data name="DetailReturnToExcursionList" xml:space="preserve">
+    <value>Back to excursions list</value>
+  </data>
+  <data name="SortOrderByName" xml:space="preserve">
+    <value>by name</value>
+  </data>
+  <data name="PartnerAlt" xml:space="preserve">
+    <value>Excursion organizer</value>
+  </data>
+  <data name="ExcursionRegionTitle" xml:space="preserve">
+    <value>Locations</value>
+  </data>
+  <data name="HelpPlease" xml:space="preserve">
+    <value>Please</value>
+  </data>
+  <data name="DeatilGroupSize" xml:space="preserve">
+    <value>group:</value>
+  </data>
+  <data name="DescriptionInfo_Duration" xml:space="preserve">
+    <value>Duration:</value>
+  </data>
+  <data name="AddReviewNo" xml:space="preserve">
+    <value>No, thanks</value>
+  </data>
+  <data name="ExtraFiltersDepartures" xml:space="preserve">
+    <value>Departure from</value>
+  </data>
+</root>

@@ -1,0 +1,235 @@
+﻿@model GuestService.Models.Guest.OrderContext
+@{
+    ViewBag.Title = GuestStrings.Get("GuestServicesTitle"); 
+}
+<div class="container">
+   <div class="row bk-main">             
+        <div class="col-lg-12">
+          <h1 class="page-header">Orders information</h1>
+          @if (GuestService.Settings.IsShowBreadCrumb)
+          {
+          <ol class="breadcrumb">          
+             <li><a href="@Context.Request.ApplicationPath.ToString()">@GuestStrings.Get("GuestServicesLink")</a></li>
+             <li class="active">@ViewBag.Title</li>
+          </ol>
+          }
+        </div>             
+    </div>      
+    
+    @if (Model.ShowOrderFindForm == true)
+    {
+	    <div class="row">  
+            <div class="col-lg-12">
+                <h3 style="color:#8c8c8c; margin-top:10px;">@GuestStrings.Get("GuestServicesFindOrder_1")&nbsp;<a href="@Url.Action("login", "account", new { returnUrl = Url.Action("order") })">@GuestStrings.Get("GuestServicesFindOrder_2")</a>&nbsp;@GuestStrings.Get("GuestServicesFindOrder_3")</h3>
+            </div>
+            <div class="col-md-6">               
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken() 
+                    if (Model.OrderFindForm != null)
+                    {
+                        @Html.Partial("Form/ValidationSummary")                 
+                    }   
+                    <div class="form-group">
+                        <label class="control-label" for="@Html.NameFor(m => m.OrderFindForm.Claim)">@GuestStrings.Get("FindOrderClaim")</label>
+                        <div class="controls">     
+                            @Html.TextBoxFor(m => m.OrderFindForm.Claim, new { @class = "form-control", placeholder = Html.DisplayNameFor(m=>m.OrderFindForm.Claim) })
+                            @Html.ValidationMessageFor(m => m.OrderFindForm.Claim)
+                        </div>
+                    </div>       
+                    <div class="form-group">
+                        <label class="control-label" for="@Html.NameFor(m => m.OrderFindForm.ClaimName)">@GuestStrings.Get("FindOrderName")&nbsp;<small style="color:#b7b7b7;">@GuestStrings.Get("FindOrderNameSmall")</small></label>
+                        <div class="controls">     
+                            @Html.TextBoxFor(m => m.OrderFindForm.ClaimName, new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.OrderFindForm.ClaimName) })
+                            @Html.ValidationMessageFor(m => m.OrderFindForm.ClaimName)
+                        </div>
+                    </div>                                   
+                    <div class="clearfix" style="margin-bottom:10px;"></div>				
+			        <button style="display:none" name="submit" id="submit" value="" type="submit" class="btn btn-large btn-primary">@GuestStrings.Get("FindOrderFindButton")</button>       
+                }
+            </div> 
+            @if (Model.OrderFindNotFound)
+            {  
+                <div class="clearfix" style="margin-bottom:10px;"></div>
+	            <div class="col-lg-12">
+                    <h3 style="color:#8c8c8c;">@GuestStrings.Get("FindOrderNotFound")</h3>
+                </div>		    	
+            } 
+        </div>   
+    }    
+        
+    <div class="row"> 	     
+        @if (Model.ClaimsNotFound)
+        {
+            <div class="col-sm-6">
+                <h3 style="color:#8c8c8c;">@GuestStrings.Get("FindOrderNoLinkedOrders")</h3>
+                <div class="clearfix" style="margin-bottom:10px;"></div>	        
+                <button  style="display:none" name="submit" id="submit" value="" type="submit" class="btn btn-large btn-primary" onclick="window.location='@Url.Action("findorder")';">@GuestStrings.Get("FindOrderLinkOrderButton")</button>
+            </div>
+        }
+        
+        
+
+               
+        @if (Model.ShowOtherClaims)
+        {        
+            <div class="col-sm-5" style="border-right: 1px solid #eee;">
+            @if (Model.OtherClaims != null && Model.OtherClaims.Count > 0)
+            {
+                <div class="media">
+                    <a class="pull-left visible-xs" href="#" style="background: #777777;">
+                        <img class="media-object" src="@Url.Content("~/images/reservlist.png")" alt="@GuestStrings.Get("MoreOrderAlt")" />
+                    </a>
+                    <div class="media-body">
+                        <h3 class="media-heading" style="color: #777777;">Orders List</h3>       
+
+						<style>
+							tr.active_claim td {background:#f1fff1}
+						</style>
+<table cellpadding=7>
+<tr>
+<th> Order
+</th>	
+<th> Date
+</th>
+<th> Price
+</th>
+<th> Comission
+</th>
+<th> Status
+</th>
+</tr>		
+                        @foreach (var claim in Model.OtherClaims)
+                        {
+<tr style="border-top: 1px solid #eee;" @(claim.claim == Model.Claim.claimId?" class=active_claim":"")>
+<td>				
+				 <a href="@Url.Action("order", new { id = claim.claim })">@claim.claim</a>
+                        	 
+</td>
+
+<td>@String.Format("{0:dd.MM.yyyy}",claim.period.begin)</td>
+
+<td>@claim.price.ToString("# ##0.00") @claim.rate</td>
+
+<td>@Math.Round(Convert.ToDecimal(claim.price*0.15),2).ToString("# ##0.00") @claim.rate</td>
+
+<td>@claim.status</td>
+</tr>
+			    foreach (var order in claim.orders)
+                            {                        
+                                <div class="media" style="margin-bottom: 15px; display:none">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="@Url.Content("~/images/reserv_small.png")" alt="@GuestStrings.Get("MoreOrdersListOrderAlt")" />
+                                    </span> 
+                                    <div class="media-body">                                
+                                        <a href="@Url.Action("order", new { id = claim.claim })">
+                                            <h4 class="media-heading" style="text-transform: uppercase;">@order.title</h4>
+                                        </a>                     
+                                        <h5 style="color: #777777; margin:0;">@order.period.begin.Value.ToString("dd.MM.yyyy")@if (order.description != null)
+                                                                                                                              {<text>, @order.description</text>}</h5>
+                                    </div>                                      
+                                </div>     
+                            }
+				
+                        }
+
+</table>			
+			
+                    </div>
+                </div>   
+            }
+        
+            @if (!Model.ClaimsNotFound)
+            {
+                <h5 style="color:#8c8c8c; display:none">@GuestStrings.Get("MoreOrdersInstruction")</h5>
+                <div class="clearfix" style="margin-bottom:10px;"></div>	        
+                <button  style="display:none" name="submit" id="submit" value="" type="submit" class="btn btn-large btn-primary" onclick="window.location='@Url.Action("findorder")';">@GuestStrings.Get("MoreOrdersFindButton")</button> 
+            }
+        </div>
+        }
+
+
+<div class="col-sm-7" >
+        @if (Model.Claim != null)
+        {
+            var claim = Model.Claim;
+            <div class="form-inline">
+                <div class="form-group" style="vertical-align: baseline;">
+                    <h4 style="color:#b7b7b7;">Order</h4>
+                </div>
+                <div class="form-group" style="vertical-align: baseline;">
+                    <h2 class="media-heading" style="color: #777777;">@claim.claimId</h2> 
+                </div>
+				<div class="form-group" style="vertical-align: baseline;">
+                    <h4 style="color:#b7b7b7;">details</h4>
+                </div>
+		<br>
+		<div class="form-group" style="vertical-align: baseline;">
+                    <h4 style="color:#b7b7b7;">Status</h4>
+                </div>
+
+		<div class="form-group" style="vertical-align: baseline;">
+                    <h2 class="media-heading" style="color: #777777;">@claim.status.description</h2> 
+                </div>
+		<br>
+                <div class="form-group" style="vertical-align: baseline;">
+                    @using (Html.BeginForm("unlinkorder", "guest"))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.Unlink.Claim, claim.claimId.ToString())  
+                      <!--  <small><a href="#" onclick="$(this).closest('form').submit()">@GuestStrings.Get("FindOrderDeleteButton")</a></small>     -->                                       
+                    }
+                </div>                                    
+            </div>
+            if (claim.orders != null)
+            {
+                foreach (var order in claim.orders)
+                {
+                    if (order.status != null && order.status.id == 1)
+                    {
+                        Html.RenderPartial("Controls\\ReservationOrder", order);
+                    }
+                }
+            }
+                
+            if (claim.action != null & claim.action.canshowprice == true && claim.price != null)
+            {
+                <div style="margin-left:80px; margin-bottom:10px; margin-top:10px;">               
+                    <h3 class="panel-title price" style="font-size: 2em;">
+                        <span style="color:#b7b7b7;">Total price</span>        
+                        <span style="color:#777777;">@claim.price.total.ToString("# ##0.00") @claim.price.currency</span>
+                    </h3>
+   
+                        <h3 class="panel-title price" style="font-size: 2em;">
+                            <span style="color:#b7b7b7;">Comission</span>       
+                            <span style="color:#777777;">@Math.Round(claim.price.total *0.15M, 2).ToString("# ##0.00") @claim.price.currency</span>
+                        </h3>  
+    
+                        
+                  
+                </div>                    
+            }
+            
+            if(claim.price.topay > 0)
+            {
+                <div>
+                    <a class="btn btn-large btn-primary" href="@Url.Action("payorder", "guest", new { id = claim.claimId })">Pay order</a>
+                </div>  
+            }
+        }
+        
+        @if (Model.ExcursionTransfers != null && Model.ExcursionTransfers.Count > 0)
+        {
+            <div>
+                <br /><br />
+                <h1 class="page-header">@GuestStrings.Get("GuestServicesExcursionDepartureTitle")</h1>
+                @foreach (var transfer in Model.ExcursionTransfers)
+                {
+                    Html.RenderPartial("Controls\\ExcursionTransfer", transfer);
+                }
+            </div>
+        }
+        </div>
+
+    </div>
+</div>

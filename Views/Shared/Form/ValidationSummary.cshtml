@@ -1,0 +1,21 @@
+﻿@if (!Html.ViewData.ModelState.IsValid)
+{ 
+    var modelStates = ViewData.ModelState.Where(m => m.Key == "").Select(m => m.Value).ToList();
+    if (modelStates.Count > 0)
+    {
+       
+            <div class="bs-callout bs-callout-danger">           
+                <h4 style="margin-bottom:5px;">@SharedStrings.ResourceManager.Get("ValidationSummary_Title")</h4> 
+                @foreach (var state in modelStates)
+                {
+                    <ul style="list-style-type: none; padding-left: 0px;">
+                    @foreach (var error in state.Errors)
+                    {
+                        <li><small style='color: #8c8c8c;'>@error.ErrorMessage</small></li>
+                    }
+                    </ul>
+                }
+            </div>
+        
+    }
+}

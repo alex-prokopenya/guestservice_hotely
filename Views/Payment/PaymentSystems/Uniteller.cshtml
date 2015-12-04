@@ -1,0 +1,85 @@
+﻿@model GuestService.Models.Payment.ProcessingContext
+
+@{
+    ViewBag.Title = PaymentStrings.Get("PaymentTitle");
+}
+
+@section scripts {
+<script type="text/javascript">
+    $(document).ready(function () { setTimeout(function () { $("form[name='payment_form']").submit(); }, 700); });
+</script>
+}
+
+<div class="container">    
+    <div class="row">              
+    @if ( Model.PaymentMode != null && Model.BeforePaymentResult != null && Model.PaymentMode.payrest != null )
+    {
+        if (Model.PaymentMode.payrest.currency.Equals("RUR", StringComparison.InvariantCultureIgnoreCase) ||
+            Model.PaymentMode.payrest.currency.Equals("RUB", StringComparison.InvariantCultureIgnoreCase))
+        {
+            var paramsList = new Dictionary<string, string>();
+            paramsList.Add("Shop_IDP", System.Configuration.ConfigurationManager.AppSettings["unitellerShopId"]);
+            paramsList.Add("Order_IDP", Model.BeforePaymentResult.invoiceNumber);
+            paramsList.Add("Subtotal_P", Model.PaymentMode.payrest.total.ToString("#0.00", System.Globalization.NumberFormatInfo.InvariantInfo));
+            paramsList.Add("MeanType", "0");
+            paramsList.Add("EMoneyType", "0");
+            paramsList.Add("Lifetime", "3600");
+            paramsList.Add("Customer_IDP", String.Empty);
+            paramsList.Add("Card_IDP", String.Empty);
+            paramsList.Add("IData", String.Empty);
+            paramsList.Add("PT_Code", String.Empty);
+            paramsList.Add("password", System.Configuration.ConfigurationManager.AppSettings["unitellerPassword"]);
+
+
+            System.Text.StringBuilder signatureString = new System.Text.StringBuilder();
+            using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
+            {
+                System.Text.StringBuilder signature = new System.Text.StringBuilder();
+
+                foreach (var p in paramsList.Values)
+                {
+                    System.Text.StringBuilder paramHash = new System.Text.StringBuilder();
+                    foreach (var b in md5.ComputeHash(System.Text.Encoding.UTF8.GetBytes(p.ToString())))
+                    {
+                        paramHash.AppendFormat("{0:x2}", b);
+                    }
+
+                    signature.AppendFormat("{0}{1}", (signature.Length != 0 ? "&" : ""), paramHash);
+                }
+
+                foreach (var b in md5.ComputeHash(System.Text.Encoding.UTF8.GetBytes(signature.ToString())))
+                {
+                    signatureString.AppendFormat("{0:X2}", b);
+                }
+            }
+
+            <div class="col-lg-12">              
+                <h1 class="page-header">@PaymentStrings.Get("PaymentRedirectUniteller")</h1>
+            </div>    
+         
+            <form id="payment_form" name="payment_form" action="https://wpay.uniteller.ru/pay/" method="POST"> 
+                <input type="hidden" name="Shop_IDP" value="@paramsList["Shop_IDP"]"> 
+                <input type="hidden" name="Order_IDP" value="@paramsList["Order_IDP"]"> 
+                <input type="hidden" name="Subtotal_P" value="@paramsList["Subtotal_P"]"> 
+                <input type="hidden" name="Lifetime" value="@paramsList["Lifetime"]"> 
+                @*<input type="hidden" name="Customer_IDP" value="@paramsList["Customer_IDP"]">*@ 
+                @*<input type="hidden" name="Card_IDP" value="@paramsList["Card_IDP"]">*@ 
+                <input type="hidden" name="Signature" value="@signatureString.ToString()">               
+                <input type="hidden" name="URL_RETURN_OK" value="@(new Uri(Request.BaseServerAddress(), Url.Action("processingresult", new { id = "uniteller", success = true })).ToString())">
+                <input type="hidden" name="URL_RETURN_NO" value="@(new Uri(Request.BaseServerAddress(), Url.Action("processingresult", new { id = "uniteller", success = false })).ToString())">
+
+                <input type="hidden" name="MeanType" value="@paramsList["MeanType"]">
+                <input type="hidden" name="EMoneyType" value="@paramsList["EMoneyType"]">             
+           </form>
+        }
+        else
+        {
+            <div>Currency '@Model.PaymentMode.payrest.currency' is not supported by Uniteller.</div>   
+        }
+    }
+    else
+    {
+        <h2>@PaymentStrings.Get("PaymentCannotPayOrder")</h2>
+    }
+    </div>   
+</div>

@@ -1,0 +1,50 @@
+﻿@model GuestService.Models.Partner.PartnerContext
+@{
+    ViewBag.Title = GuestStrings.GuestServiceTitle;
+
+}
+@section head_scripts {
+    @Scripts.Render("~/js/json2.js")
+}  
+<div class="container">
+    <div class="row bk-main"> 	            
+        <div class="col-lg-12 col-md-12">
+		    <h1 class="page-header">&nbsp;</h1>
+            <h1 class="page-header">Hello, @Model.UserName (@Model.ProviderName)!</h1>				         
+	    </div>
+        <div class="col-sm-7">
+            <div class="media" style="margin-bottom: 15px;">
+                <a class="pull-left" href="@Url.Action("order", "partner")" >
+                    <img class="media-object" src="@Url.Content("~/images/info.png")" alt="@GuestStrings.Get("MenuOrdersAlt")">
+                </a>
+                <div class="media-body">
+                    <h3 class="media-heading"> <a href="@Url.Action("order", "partner")"> Orders list </a></h3>                     
+                    Orders list description text
+                </div>
+            </div>
+            <div class="media" style="margin-bottom: 15px;">
+                <a class="pull-left" href="@Url.Action("index", "partnerexcursion")" >
+                    <img class="media-object" src="@Url.Content("~/images/excursion.png")" alt="@GuestStrings.MenuExcursionAlt">
+                </a>
+                <div class="media-body">
+                   <h3 class="media-heading"><a href="@Url.Action("index", "partnerexcursion")">Check quotas</a></h3>                     
+                   Check quotas description text
+                </div>
+            </div>   
+
+            <div class="media" style="margin-bottom: 15px;">
+                <a class="pull-left" href="@Url.Action("balance", "partner")">
+                    <img class="media-object" src="@Url.Content("~/images/info.png")" alt="@GuestStrings.Get("MenuOrdersAlt")">
+                </a>
+                <div class="media-body">
+                    <h3 class="media-heading"> <a href="@Url.Action("balance", "partner")"> Balance </a></h3>
+                    Partner's balance
+                </div>
+            </div>
+
+        </div>       
+        <div class="col-sm-5">
+ 
+        </div>
+    </div>
+</div>

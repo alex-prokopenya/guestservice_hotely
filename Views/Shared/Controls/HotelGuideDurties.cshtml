@@ -1,0 +1,84 @@
+﻿@model List<GuestService.Data.HotelGuideResult>
+
+@* Нужно выводить какие-то надписи, если что-то не найдено *@
+
+@if (Model != null && Model.Count > 0)
+{
+    foreach (var hotel in Model)
+    {
+        if (hotel.hotel != null)
+        {
+            <h4 style="color:#8c8c8c;">@hotel.hotel.name, @hotel.hotel.town.name</h4>        
+        }
+
+        if (hotel.guides != null)
+        {
+            foreach (var guide in hotel.guides)
+            {
+            <div class="media" style="color:#8c8c8c;">
+                <img class='pull-left media-object' src="@Url.ApiActionLink("photo", "guide", new { id = @guide.id, w = 70, h = 70 })" />                
+                <div class="media-body">
+                    <h4 class="media-heading">@guide.name</h4>    
+                    @if (guide.mobile != null)
+                    {
+                        <span>@SharedStrings.ResourceManager.Get("HotelGuide_Phone")Тел:&nbsp;@guide.mobile</span>    
+                    }
+               
+                    @if (guide.durties.Count > 0)
+                    {
+                <table class="table table-striped" style="padding:2px; margin-bottom:0; color: #8c8c8c;">
+                    <thead>
+                        <tr>
+                            <th colspan="2" style="padding-left:0; color: #8c8c8c;">@SharedStrings.ResourceManager.Get("HotelGuide_HotelDuty")</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var durty in guide.durties)
+                        {
+                                <tr><td style="width:60%;">
+                                    @if (durty.workday != null)
+                                    {
+                                        if (durty.workday.begin != null)
+                                        {
+                                            if (durty.workday.begin != null)
+                                            {
+                                                <span>@durty.workday.begin.Value.ToString("dd.MM.yy")</span>
+                                            }
+                                            <span> - </span>
+                                            if (durty.workday.end != null)
+                                            {
+                                                <span>@durty.workday.end.Value.ToString("dd.MM.yy")</span>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span> - </span>
+                                        }
+                                    }
+                                </td>
+                                <td>                        
+                                    @if (durty.worktime != null)
+                                    {
+                                        if (durty.worktime.begin != null)
+                                        {
+                                            <span>@durty.worktime.begin.Value.ToString(@"hh\:mm")</span>
+                                        }
+                                        <span> - </span>
+                                        if (durty.worktime.end != null)
+                                        {
+                                            <span>@durty.worktime.end.Value.ToString(@"hh\:mm")</span>
+                                        }
+                                    }                         
+                                </td>
+                                </tr>
+                        }
+                        </tbody>
+                        </table>
+                    }
+                </div>
+            </div> 
+            }
+        }
+    }
+}
+

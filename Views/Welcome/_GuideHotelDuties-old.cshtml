@@ -1,0 +1,36 @@
+﻿@model GuestService.Models.Context.GuideHotelDutiesContext
+
+@foreach (var hotel in Model.HotelDuties)
+{
+    <div>
+        <div>@hotel.Hotel.name</div>
+        @if (!string.IsNullOrEmpty(hotel.Hotel.web))
+        {
+            <div><a href="@hotel.Hotel.web" target="_blank">web site</a></div>
+        }
+        @foreach (var guide in hotel.Guides)
+        {
+            <div>@guide.name</div>
+            <div>Mobile: <span>@guide.mobile</span></div>
+            if (guide.duties != null && guide.duties.Count > 0)
+            {
+                foreach (var duty in guide.duties)
+                {
+                    if (duty.period != null)
+                    {
+                        if (duty.period.begin.HasValue)
+                        {
+                            <span>@duty.period.begin.Value.ToString("dd.MM.yy")</span> 
+                        }
+                        
+                        if (duty.period.end.HasValue)
+                        {
+                            <span>@duty.period.end.Value.ToString("dd.MM.yy")</span>
+                        }
+                    }
+                }      
+            }
+        }
+        
+    </div>
+}
