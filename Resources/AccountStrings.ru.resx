@@ -333,4 +333,73 @@
   <data name="ErrorInvalidQuestion" xml:space="preserve">
     <value>Неверный вопрос для изменения пароля.</value>
   </data>
+  <data name="LoginModel_L_AboutCompany" xml:space="preserve">
+    <value>Пару строк о компании</value>
+  </data>
+  <data name="LoginModel_L_CompanyName" xml:space="preserve">
+    <value>Внесите название компании</value>
+  </data>
+  <data name="LoginModel_L_Contact" xml:space="preserve">
+    <value>Контакты!</value>
+  </data>
+  <data name="LoginModel_L_CountryRegion" xml:space="preserve">
+    <value>Заполните регион</value>
+  </data>
+  <data name="LoginModel_L_Date" xml:space="preserve">
+    <value>Внесите дату</value>
+  </data>
+  <data name="LoginModel_L_Fax" xml:space="preserve">
+    <value>Факс!</value>
+  </data>
+  <data name="LoginModel_L_Insurance" xml:space="preserve">
+    <value>Внесите инфо по страховке</value>
+  </data>
+  <data name="LoginModel_L_Phone" xml:space="preserve">
+    <value>Телефоны!</value>
+  </data>
+  <data name="LoginModel_L_Website" xml:space="preserve">
+    <value>Веб-сайт</value>
+  </data>
+  <data name="Register_Ph_CompanyName" xml:space="preserve">
+    <value>Company name</value>
+  </data>
+  <data name="LoginModel_L_Licenses" xml:space="preserve">
+    <value>Licenses</value>
+  </data>
+  <data name="Register_AboutCompany" xml:space="preserve">
+    <value>Short description of the company and services provided</value>
+  </data>
+  <data name="Register_CompanyName" xml:space="preserve">
+    <value>Company name</value>
+  </data>
+  <data name="Register_ConstitutiveDocs" xml:space="preserve">
+    <value>Constitutive documents of the company</value>
+  </data>
+  <data name="Register_Contact" xml:space="preserve">
+    <value>Contact person, position</value>
+  </data>
+  <data name="Register_CountryRegion" xml:space="preserve">
+    <value>Country, region, city</value>
+  </data>
+  <data name="Register_DateEstablish" xml:space="preserve">
+    <value>Date of establishment</value>
+  </data>
+  <data name="Register_Fax" xml:space="preserve">
+    <value>Fax numbers</value>
+  </data>
+  <data name="Register_Insurance" xml:space="preserve">
+    <value>Insurance for the service activity</value>
+  </data>
+  <data name="Register_Licenses" xml:space="preserve">
+    <value>Licenses (date of issue, issuer)</value>
+  </data>
+  <data name="Register_Phone" xml:space="preserve">
+    <value>Phone numbers</value>
+  </data>
+  <data name="Register_Ph_Licenses" xml:space="preserve">
+    <value>Licenses</value>
+  </data>
+  <data name="Register_Website" xml:space="preserve">
+    <value>Website</value>
+  </data>
 </root>

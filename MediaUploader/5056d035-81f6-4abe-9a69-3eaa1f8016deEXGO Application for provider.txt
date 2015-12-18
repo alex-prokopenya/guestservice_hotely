@@ -1,0 +1,66 @@
+﻿
+
+
+Application for the tourist service provider
+partner.comment=“applied as service provider”
+
+
+
+
+Company name ________________________________________________________________ partner.name, partner.lname
+
+
+Country, region, city _____________________________________________________________ partner.town=town.inc
+ 
+ 
+ 
+
+Date of establishment ____________________________________________________________ partner.comment=“date of est XX.XX.XXXX”
+ 
+ 
+ 
+
+Licenses (date of issue, issuer) ____________________________________________________ partner.comment=“licenses: xxxxxxx”
+ 
+ 
+ 
+
+Constitutive documents of the company            please apply photocopies to this application (send to mail)
+ 
+
+
+Insurance for the service activity	            please apply photocopies to this application (send to mail)
+ 
+ 
+
+Short description of the company and services provided ________________________________ partner.direction
+ 
+ 
+ 
+
+Contact person, position _________________________________________________________ partner.comment=“contact person: xxxxxxx”
+ 
+ 
+ 
+
+Phone numbers ________________________________________________________________ partner.phones
+ 
+ 
+ 
+
+Fax numbers __________________________________________________________________ partner.faxes
+ 
+ 
+ 
+
+E-mail address _________________________________________________________________
+partner.email
+ 
+ 
+
+Website _______________________________________________________________________ partner.www
+
+
+
+
+Date of application _______________ partner.adate

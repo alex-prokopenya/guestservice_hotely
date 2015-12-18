@@ -1,0 +1,144 @@
+﻿@model GuestService.Models.RegisterProviderModel
+@{
+    ViewBag.Title = AccountStrings.Get("RegisterTitle");
+}  
+<div class="container"> 	  
+	<div class="row bk-main"> 	      
+        <div class="col-lg-12 col-md-12">
+			<h1 class="page-header">@ViewBag.Title</h1>			       
+		</div>
+        @using (Html.BeginForm("registerprovider", "account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken() 
+                       
+            <div class="col-lg-12 col-md-12" style="margin-bottom:15px;">
+			    @AccountStrings.Get("RegisterText")
+		    </div>        
+            <div class="col-lg-6">       
+                @Html.Partial("Form/ValidationSummary")
+            </div>
+            <div class="clearfix"></div> 
+            <div class="col-xs-6">       
+			     
+                    <!--Company name -->
+                    <div class="form-group">
+                        <label class="control-label" for="@Html.NameFor(m => m.CompanyName)">@AccountStrings.Get("Register_CompanyName")</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control", placeholder = AccountStrings.Get("Register_Ph_CompanyName") })
+                            @Html.ValidationMessageFor(m => m.CompanyName)
+                        </div>
+                    </div>	  
+                    <!--Country, region, city -->
+                    <div class="form-group">
+                        <label class="control-label" for="@Html.NameFor(m => m.CountryRegion)">@AccountStrings.Get("Register_CountryRegion")</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.CountryRegion, new { @class = "form-control", placeholder = AccountStrings.Get("Register_Ph_CountryRegion") })
+                            @Html.ValidationMessageFor(m => m.CountryRegion)
+                        </div>
+                    </div>	  
+                   
+                    <!--Date of establishment-->
+                    <div class="form-group">
+                        <label class="control-label" for="@Html.NameFor(m => m.DateEstablish)">@AccountStrings.Get("Register_DateEstablish")</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.DateEstablish, new { @class = "form-control datepicker", placeholder = AccountStrings.Get("Register_Ph_DateEstablish") })
+                            @Html.ValidationMessageFor(m => m.DateEstablish)
+                        </div>
+                    </div>	  
+                    <!--Licenses (date of issue, issuer) -->
+                    <div class="form-group">
+                        <label class="control-label" for="@Html.NameFor(m => m.Licenses)">@AccountStrings.Get("Register_Licenses")</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Licenses, new { @class = "form-control", placeholder = AccountStrings.Get("Register_Ph_Licenses") })
+                            @Html.ValidationMessageFor(m => m.Licenses)
+                        </div>
+                    </div>	
+                   
+                    <!--Short description of the company and services provided-->
+                    <div class="form-group">
+                        <label class="control-label" for="@Html.NameFor(m => m.AboutCompany)">@AccountStrings.Get("Register_AboutCompany")</label>
+                        <div class="controls">
+                            @Html.TextAreaFor(m => m.AboutCompany, new { @class = "form-control", placeholder = AccountStrings.Get("Register_Ph_AboutCompany") })
+                            @Html.ValidationMessageFor(m => m.AboutCompany)
+                        </div>
+                    </div>	  
+                    <!--Contact person, position -->
+                    <div class="form-group">
+                        <label class="control-label" for="@Html.NameFor(m => m.Contact)">@AccountStrings.Get("Register_Contact")</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Contact, new { @class = "form-control", placeholder = AccountStrings.Get("Register_Ph_Contact") })
+                            @Html.ValidationMessageFor(m => m.Contact)
+                        </div>
+                    </div>
+                    <!--Phone numbers -->
+                    <div class="form-group">
+                        <label class="control-label" for="@Html.NameFor(m => m.Phone)">@AccountStrings.Get("Register_Phone")</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = AccountStrings.Get("Register_Ph_Phone") })
+                            @Html.ValidationMessageFor(m => m.Phone)
+                        </div>
+                    </div>	
+                    <!--Fax numbers -->
+                    <div class="form-group">
+                        <label class="control-label" for="@Html.NameFor(m => m.Fax)">@AccountStrings.Get("Register_Fax")</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Fax, new { @class = "form-control", placeholder = AccountStrings.Get("Register_Ph_Fax") })
+                            @Html.ValidationMessageFor(m => m.Fax)
+                        </div>
+                    </div>
+                     
+                    <!--Website -->
+                    <div class="form-group">
+                        <label class="control-label" for="@Html.NameFor(m => m.Website)">@AccountStrings.Get("Register_Website")</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Website, new { @class = "form-control", placeholder = AccountStrings.Get("Register_Ph_Website") })
+                            @Html.ValidationMessageFor(m => m.Website)
+                        </div>
+                    </div>		  
+
+                    <!--E-mail address  -->
+				    <div class="form-group">
+					    <label class="control-label" for="@Html.NameFor(m => m.UserName)">@AccountStrings.Get("Register_Email")</label>
+					    <div class="controls">						        
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = AccountStrings.Get("Register_Ph_Email") })
+                            @Html.ValidationMessageFor(m => m.UserName)
+					    </div>
+				    </div>
+				    <div class="form-group">
+					    <label class="control-label" for="@Html.NameFor(m => m.Password)">@AccountStrings.Get("Register_Password")</label>
+					    <div class="controls">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = AccountStrings.Get("Register_Ph_Password") })
+                            @Html.ValidationMessageFor(m => m.Password)						        
+					    </div>
+				    </div>				
+                    <div class="form-group">
+					    <label class="control-label" for="@Html.NameFor(m => m.ConfirmPassword)">@AccountStrings.Get("Register_ConfirmPassword")</label>
+					    <div class="controls">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = AccountStrings.Get("Register_Ph_ConfirmPassword") })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword)						        
+					    </div>
+				    </div>	     
+                    <!--Constitutive documents of the company-->
+                    <div class="form-group">
+                        <label class="control-label" for="@Html.NameFor(m => m.ConstitutiveDocs)">@AccountStrings.Get("Register_ConstitutiveDocs")</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.ConstitutiveDocs, new { type = "file", @class = "form-control", placeholder = AccountStrings.Get("Register_Ph_ConstitutiveDocs") })
+                            @Html.ValidationMessageFor(m => m.ConstitutiveDocs)
+                        </div>
+                    </div>
+                    <!--Insurance for the service activity-->
+                    <div class="form-group">
+                        <label class="control-label" for="@Html.NameFor(m => m.Insurance)">@AccountStrings.Get("Register_Insurance")</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Insurance, new { type = "file", @class = "form-control", placeholder = AccountStrings.Get("Register_Ph_Insurance") })
+                            @Html.ValidationMessageFor(m => m.Insurance)
+                        </div>
+                    </div>	 
+                     <div class="clearfix" style="margin-bottom:10px;"></div>
+                    <button name="submit" id="submit" value="" type="submit" class="btn btn-large btn-primary">@AccountStrings.Get("Register_RegisterButton")</button>
+            </div>                   
+        }
+    </div>
+</div>
+
+
