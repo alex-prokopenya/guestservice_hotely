@@ -5,7 +5,7 @@
 <div class="container">
 	<div class="row bk-main"> 	     
          <div class="col-lg-12 col-md-12">
-            <h1 class="page-header">Agent area. @ViewBag.Title</h1>	            
+            <h1 class="page-header">Partner area. @ViewBag.Title</h1>	            
 		</div>
 
         @if(!User.Identity.IsAuthenticated)
@@ -15,7 +15,7 @@
                 @Html.AntiForgeryToken()
 
                 <div class="col-lg-12 col-md-12" style="margin-bottom:15px;">
-			        @AccountStrings.ResourceManager.Get("LoginText_1")&nbsp;<a href="@Url.Action("Register", new { returnUrl = ViewBag.ReturnUrl })">@AccountStrings.ResourceManager.Get("LoginText_2")</a>
+			        @AccountStrings.ResourceManager.Get("LoginText_1")&nbsp;<a href="/guestservice_design/en/info/partnership">@AccountStrings.ResourceManager.Get("LoginText_2")</a>
 		        </div>        
                 <div class="col-sm-6">       
                     @Html.Partial("Form/ValidationSummary")
@@ -48,7 +48,7 @@
                
             }
                 <div class="clearfix"></div>  
-                <div class="col-lg-12 col-md-12">       
+                <div class="col-lg-12 col-md-12" style="display:none;">       
                     @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
                 </div>
         }

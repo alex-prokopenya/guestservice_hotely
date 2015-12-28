@@ -282,6 +282,9 @@
   <data name="LoginModel_L_Password" xml:space="preserve">
     <value>Password must be at least {2} characters</value>
   </data>
+  <data name="Register_ChangePassword" xml:space="preserve">
+    <value>We've sent a link to the e-mail address provider to change password.</value>
+  </data>
   <data name="LoginModel_C_ConfirmPassword" xml:space="preserve">
     <value>New password and password confirmation do not match</value>
   </data>
@@ -329,27 +332,6 @@
   </data>
   <data name="ErrorInvalidQuestion" xml:space="preserve">
     <value>The password retrieval question provided is invalid. Please check the value and try again.</value>
-  </data>
-  <data name="Register_Ph_CompanyName" xml:space="preserve">
-    <value>Company name</value>
-  </data>
-  <data name="LoginModel_L_Location" xml:space="preserve">
-    <value>error about location</value>
-  </data>
-  <data name="LoginModel_L_People" xml:space="preserve">
-    <value>error about people</value>
-  </data>
-  <data name="LoginModel_L_Square" xml:space="preserve">
-    <value>error about square</value>
-  </data>
-  <data name="Register_Ph_Location" xml:space="preserve">
-    <value>12.3456; 67.8910</value>
-  </data>
-  <data name="Register_Ph_People" xml:space="preserve">
-    <value>100500</value>
-  </data>
-  <data name="Register_Ph_Square" xml:space="preserve">
-    <value>1050 sqm</value>
   </data>
    <data name="LoginModel_L_AboutCompany" xml:space="preserve">
     <value>Пару строк о компании</value>
@@ -420,4 +402,22 @@
   <data name="Register_Website" xml:space="preserve">
     <value>Website</value>
   </data>
+    <data name="LoginModel_L_Location" xml:space="preserve">
+    <value>error about location</value>
+  </data>
+  <data name="LoginModel_L_People" xml:space="preserve">
+    <value>error about people</value>
+  </data>
+  <data name="LoginModel_L_Square" xml:space="preserve">
+    <value>error about square</value>
+  </data>
+  <data name="Register_Ph_Location" xml:space="preserve">
+    <value>12.3456; 67.8910</value>
+  </data>
+  <data name="Register_Ph_People" xml:space="preserve">
+    <value>100500</value>
+  </data>
+  <data name="Register_Ph_Square" xml:space="preserve">
+    <value>1050 sqm</value>
+	</data>
 </root>

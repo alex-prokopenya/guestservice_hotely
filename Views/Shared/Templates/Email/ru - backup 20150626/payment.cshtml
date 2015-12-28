@@ -1,0 +1,113 @@
+﻿@model GuestService.Data.ReservationState
+
+@using GuestService.Resources
+@using System.Resources
+
+
+<p>
+    Привет! Спасибо за оплату
+</p>
+
+
+<div style="border:1px solid black; width:280px; padding: 15px; margin-left:120px">
+            <img src="cid:logo"><br />
+            <div id='receipt1'>
+                <div class="col-lg-12">
+                    <div class="form-inline">
+                        <div class="form-group" style="vertical-align: baseline;">
+                            <h4 style="color:#b7b7b7;">Booking confirmation</h4>
+                        </div>
+                        <div class="form-group" style="vertical-align: baseline;">
+                            <h2 class="media-heading" style="color: #777777;">@Model.claimId</h2>
+
+                        </div>
+                    </div>
+                    <p>Customer name: @Model.customer.name</p>
+                    <p>Customer address:  @Model.customer.address</p>
+                    <p>Customer phone:  @Model.customer.phone</p>
+                    <p>Agency: @Model.agent</p>
+                    <p>Status: @Model.status.description</p>
+                </div>
+
+                <div class="col-lg-12">
+                    @if (Model.orders != null)
+                    {
+                        foreach (var order in Model.orders)
+                        {
+                            if (order.status != null && order.status.id == 1)
+                            {
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="media" style="margin-bottom: 15px;">
+
+                                            <div class="media-body">
+                                                <h3 class="media-heading" style="color: #777777; margin-bottom:0; text-transform: uppercase;">@order.excursion.name</h3>
+                                                <div style="color: #777777;">
+                                                    <strong>
+                                                        @order.datefrom.ToString("dd.MM.yyyy") - @order.datetill.ToString("dd.MM.yyyy")@if (order.excursion.grouptype != null)
+                                                        {<text>, </text> @order.excursion.grouptype.description }
+                                                    </strong>
+
+
+                                                    @if (order.excursion.time != null)
+                                                    {
+                                                        <br /><span style="color:#b7b7b7;">@SharedStrings.ReservationOrder_ExcursionTime</span> @order.excursion.time.description
+                                                    }
+                                                    @if (order.excursion.language != null)
+                                                    {
+                                                        <br /><span style="color:#b7b7b7;">@SharedStrings.ReservationOrder_ExcursionLang</span> @order.excursion.language.description
+                                                    }
+                                                    <br /><span style="color:#b7b7b7;">@SharedStrings.ReservationOrder_Adult</span> @order.pax.adult@if (@order.pax.child >= 0)
+                                                    {<text>,</text> <span style="color:#b7b7b7;">@SharedStrings.ReservationOrder_Child</span>@order.pax.child}@if (@order.pax.infant >= 0)
+                                                    {<text>,</text> <span style="color:#b7b7b7;">&nbsp;@SharedStrings.ReservationOrder_Infant</span>@order.pax.infant}
+
+                                                    @if (!string.IsNullOrEmpty(order.partner.name))
+                                                    {
+                                                        <br /><span style="color:#b7b7b7;">Provider:</span> @order.partner.name
+                                                    }
+
+                                                    @if (!string.IsNullOrEmpty(order.note))
+                                                    {
+                                                        <br /><span style="color:#b7b7b7;">@SharedStrings.ReservationOrder_Note</span> @order.note
+                                                    }
+
+                                                    @if (!string.IsNullOrEmpty(order.excursion.included))
+                                                    {
+                                                        <br /><span style="color:#b7b7b7;">Included:</span> @order.excursion.included
+                                                    }
+
+
+                                                    @if (!string.IsNullOrEmpty(order.excursion.pickup))
+                                                    {
+                                                        <br /><span style="color:#b7b7b7;">Pickup place/time:</span> @order.excursion.pickup
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+
+                <div id='receipt2'>
+                    <div class="col-lg-6">
+                        <h3 class="panel-title price" style="font-size: 2em;">
+                            <span style="color:#b7b7b7;">Total price</span>
+                            <span style="color:#777777;">@Model.price.total.ToString("### ### ### ##0.00") @Model.price.currency</span>
+                        </h3>
+                    </div>
+                    <div class="col-lg-6">
+                        <h3 class="panel-title price" style="font-size: 2em;">
+                            <span style="color:#b7b7b7;">To pay</span>
+                            <span style="color:#777777;">@Model.price.topay.ToString("### ### ### ##0.00") @Model.price.currency</span>
+                        </h3>
+                    </div>
+                </div>
+                <div id="receipt3">
+                    Date Time: @DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                </div>
+
+  </div>

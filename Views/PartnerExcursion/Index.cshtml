@@ -1,7 +1,6 @@
 ﻿@model GuestService.Models.Excursion.ExcursionIndexContext
 
 @{
-
     if(!string.IsNullOrEmpty(Request.Params["ordernote"]))
     {
 	   System.Web.HttpContext.Current.Session["ordernote"] = Request.Params["ordernote"];
@@ -1365,12 +1364,12 @@
 <div class="container">    
    <div class="row bk-main">            
         <div class="col-lg-12">              
-          <h1 class="page-header">@ViewBag.Title</h1>
+          <h1 class="page-header">Quotas</h1>
                          
           @{
               <ol class="breadcrumb">          
-                 <li class="eb_link"><a href="@Url.Action("index", "partnerexcursion")">@ViewBag.Title</a></li>
-                 <li class="eb_back"><a href="#" data-bind="click: navigateBackClick">@ExcursionStrings.Get("DetailReturnToExcursionList")</a></li>
+				<li><a href="/hotel_cabinet_new/en/partner">Provider area</a></li>
+				<li class="active">Quotas</li>
               </ol>
           }
         </div>             
@@ -1506,7 +1505,7 @@
 
         <div class="row bk-excursion">         
             <div class="col-lg-3 visible-lg col-lg-push-9">         
-                <div class="row bk-l-filters">
+                <div class="row bk-l-filters" style="display:none;">
                     <div class="col-lg-12" data-bind="template: 'excursion-filter-categorygroup'"></div>
                     <div class="col-lg-12" data-bind="template: 'excursion-filter-destination'"></div>
                     <div class="col-lg-12" data-bind="template: 'excursion-filter-departure'"></div>      
@@ -1585,13 +1584,13 @@
                 <!-- /ko -->
                 
                 <!-- ko ifnot: description().pictures && description().pictures.length > 0 -->
-                <div class="col-lg-12" style="padding-right:0;">     
+                <div class="col-lg-12" style="padding-right:0; display:none;">     
                     <div style="width:100%; height:400px; background-color:#cccccc;"></div>
                 </div>
                 <!-- /ko -->
 
                 <!--ko if:cartinfoBookingView() == false -->
-                <div class="col-lg-8 col-xs-12" id="excursionPrices" data-bind="if: prices()"  style="padding-right:0;">
+                <div class="col-lg-8 col-xs-12" id="excursionPrices" data-bind="if: prices()"  style="padding-right:0;width:67%;">
                     <div class="clearfix" style="margin-top:15px;"></div> 
                     <h4 style="color:#777777;">Choose date</h4>  
                     <div id="excursionpricedate" name="excursionpricedate"></div>    

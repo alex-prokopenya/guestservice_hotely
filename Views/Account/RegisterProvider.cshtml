@@ -5,7 +5,7 @@
 <div class="container"> 	  
 	<div class="row bk-main"> 	      
         <div class="col-lg-12 col-md-12">
-			<h1 class="page-header">@ViewBag.Title</h1>			       
+			<h1 class="page-header">Service provider registration</h1>			       
 		</div>
         @using (Html.BeginForm("registerprovider", "account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
@@ -53,7 +53,7 @@
                             @Html.ValidationMessageFor(m => m.Licenses)
                         </div>
                     </div>	
-                   
+                  
                     <!--Short description of the company and services provided-->
                     <div class="form-group">
                         <label class="control-label" for="@Html.NameFor(m => m.AboutCompany)">@AccountStrings.Get("Register_AboutCompany")</label>
@@ -118,14 +118,14 @@
                             @Html.ValidationMessageFor(m => m.ConfirmPassword)						        
 					    </div>
 				    </div>	     
-                    <!--Constitutive documents of the company-->
+					  <!--Constitutive documents of the company-->  
                     <div class="form-group">
                         <label class="control-label" for="@Html.NameFor(m => m.ConstitutiveDocs)">@AccountStrings.Get("Register_ConstitutiveDocs")</label>
                         <div class="controls">
                             @Html.TextBoxFor(m => m.ConstitutiveDocs, new { type = "file", @class = "form-control", placeholder = AccountStrings.Get("Register_Ph_ConstitutiveDocs") })
                             @Html.ValidationMessageFor(m => m.ConstitutiveDocs)
                         </div>
-                    </div>
+                    </div>	  
                     <!--Insurance for the service activity-->
                     <div class="form-group">
                         <label class="control-label" for="@Html.NameFor(m => m.Insurance)">@AccountStrings.Get("Register_Insurance")</label>
@@ -133,7 +133,7 @@
                             @Html.TextBoxFor(m => m.Insurance, new { type = "file", @class = "form-control", placeholder = AccountStrings.Get("Register_Ph_Insurance") })
                             @Html.ValidationMessageFor(m => m.Insurance)
                         </div>
-                    </div>	 
+                    </div>	  
                      <div class="clearfix" style="margin-bottom:10px;"></div>
                     <button name="submit" id="submit" value="" type="submit" class="btn btn-large btn-primary">@AccountStrings.Get("Register_RegisterButton")</button>
             </div>                   

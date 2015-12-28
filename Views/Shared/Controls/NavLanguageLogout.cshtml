@@ -27,14 +27,13 @@
         </div>  
         <div class="collapse navbar-collapse navbar-ex1-collapse">         
             <ul class="nav navbar-nav navbar-right">
-            @{ Html.RenderAction("PageNavigation", "customization"); }
             @{
                 var languages = Sm.System.Mvc.Language.UrlLanguage.SupportedLanguages;
                 var language = Sm.System.Mvc.Language.UrlLanguage.CurrentLanguage;
                 var values = Sm.System.Mvc.HttpRequestBaseExtensions.QueryStringAsRouteValues(Request);   
                 if (languages != null && languages.Length > 1)
                 {
-                <li class="dropdown bk-navbar-language">
+                <li class="dropdown bk-navbar-language" style="display:none;">
                     <a data-toggle="dropdown" class="dropdown-toggle"  href="#"><img src="@Url.Content(string.Format("~/images/flags/{0}.png", language))" />&nbsp;<b class="caret"></b></a>
                         <ul class="dropdown-menu" style="min-width:0;">
                         @foreach (var lang in languages.Where(m => m != language))

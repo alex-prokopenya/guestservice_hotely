@@ -21,7 +21,7 @@
     }
 
     .right-lang {
-        padding-left: 50px;
+        padding-left: 30px;
     }
 
         .right-lang input, .right-lang textarea, .right-lang select {
@@ -29,7 +29,7 @@
         }
 
     .exc_form .left-lang {
-        padding-left: 50px;
+        padding-left: 0px;
         border-right: 1px dotted black;
     }
 
@@ -70,7 +70,7 @@
     } 
 
     .price_row select{
-        width: 150px
+        width: 114px
     }
     .price_row .form-control {
         padding: 5px 0 5px 10px;
@@ -89,7 +89,7 @@
 		width: 75% !important;
 	}
         .for_ind .col-sm-6 .form-control {
-		width: 435px !important;
+		width: 404px !important;
 	}
 </style>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -169,7 +169,7 @@
             @if (GuestService.Settings.IsShowBreadCrumb)
             {
                 <ol class="breadcrumb">
-                    <li><a href="@Context.Request.ApplicationPath.ToString()">@GuestStrings.Get("GuestServicesLink")</a></li>
+					<li><a href="/hotel_cabinet_new/en/partner">Provider area</a></li>
                     <li class="active">@ViewBag.Title</li>
                 </ol>
             }
@@ -329,7 +329,7 @@
                             @{
                                 foreach (var row in Model.Regions)
                                 {
-                                        <option value="@row.Key">@row.Value</option>
+                                    <option value="@row.Key">@row.Value</option>
                                 }
                             }
 
@@ -340,7 +340,7 @@
                     <input type="text" placeholder="type region name" style="display:none" class="form-control" name="exc_region_name" value="">
                 </div>
             </div>
-            <div class="row">
+             <div class="row">
                 <div class="col-sm-12 common-lang" >
                     <label data-ru="Comission, % / Комиссия, %"
                            data-fr="Comission, % / Com, %"
@@ -353,7 +353,7 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-12 prices">
+                <div class="prices">
                         <div class="col-sm-12" style="margin-bottom:20px">
                             <center>
                                 <label data-ru="Price / Цена">
@@ -362,7 +362,7 @@
                             </center>
                         </div>
 
-                    <div class="price_row col-sm-12 ind">
+                    <div class="price_row ind">
 
                         <div class="col-sm-2">
                             <label data-ru="Price type">
@@ -401,8 +401,8 @@
 
                         <span class="for_ind">
                             <div class="col-sm-6">
-                                <label data-ru="All group">
-                                    <span>All group</span>
+                                <label data-ru="Exc price (all participants)">
+                                    <span>Exc price (all participants)</span>
                                     <input type="text" class="form-control intval" name='total[]' value="">
                                 </label>
                             </div>
@@ -478,8 +478,8 @@
                             </label>
                         </div>
                         <div class="col-sm-6">
-                            <label data-ru="Sell date till">
-                                <span>Sell date till</span><br>
+                            <label data-ru="Excursion's weekdays">
+                                <span>Excursion's weekdays (all days by default)</span><br>
                                 <div class="btn-group weekdays" data-toggle="buttons">
                                     <label class="btn btn-default active">
                                         <input checked="checked" type="checkbox" value="1">Mo
@@ -508,7 +508,7 @@
                         </div>
                     </div>
                     <div class="col-sm-12">
-                        <center><button class="btn btn-info" type="button" value="" onclick="addPriceRow()">Add more price row</button></center>
+                        <center><button class="btn btn-primary" type="button" value="" onclick="addPriceRow()">Add more price row</button></center>
                     </div>
                 </div>
             </div>

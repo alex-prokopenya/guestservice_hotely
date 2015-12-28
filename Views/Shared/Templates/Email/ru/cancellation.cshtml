@@ -1,0 +1,20 @@
+﻿@model GuestService.Data.ReservationState
+
+@using GuestService.Resources
+@using System.Resources
+
+
+<p>
+Уважаемый(ая) @Model.customer.name,
+</p>
+<p>
+Ваше бронирование @Model.claimId отменено.</br>
+Благодарим за использованиве сервиса <a href="http://exgo.com/">exgo</a> для бронирования экскурсий. Будем рады новой встрече!
+</p>
+                <div class="col-lg-6" id="receipt3">
+                    <font face="Segoe UI" size="2">
+                        Thank you for booking with EXGO.COM
+                        <br /> <font size="1">@DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")</font>
+                        <br />
+                    </font>
+                </div>

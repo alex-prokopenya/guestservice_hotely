@@ -1,0 +1,20 @@
+﻿@model GuestService.Data.ReservationState
+
+@using GuestService.Resources
+@using System.Resources
+
+
+<p>
+Dear Mr(s) @Model.customer.name,
+</p>
+<p>
+Your booking @Model.claimId has been cancelled.</br>
+Thank you for using <a href="http://exgo.com/">exgo</a> for excursion booking. We hope to see you again soon!
+</p>
+                <div class="col-lg-6" id="receipt3">
+                    <font face="Segoe UI" size="2">
+                        Thank you for booking with EXGO.COM
+                        <br /> <font size="1">@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")</font>
+                        <br />
+                    </font>
+                </div>

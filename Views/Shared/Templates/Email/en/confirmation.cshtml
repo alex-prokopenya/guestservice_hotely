@@ -1,0 +1,118 @@
+﻿@model GuestService.Data.ReservationState
+
+@using GuestService.Resources
+@using System.Resources
+
+
+<p>
+Dear Mr(s) @Model.customer.name,
+</p>
+<p>
+Thank you for booking with ExGo!
+</p>
+<p>
+Your booking reference number: @Model.claimId </br>
+Please click <a href="http://exgo.com/">here</a> to login to your ExGo account in order to print out your voucher, to manage your reservation or to cancel your booking.
+</p>
+<p>
+Your booking:
+</p>
+<div style="border:1px solid black; width:280px; padding: 15px; margin-left:120px">
+    <div id='receipt1'>
+        <div class="col-lg-12">
+            <font face="Segoe UI" size="2">
+                <div class="media" style="margin-bottom: 0px;">
+                    <span class="pull-left">
+                        <img class="media-object" src="cid:logo"></img>
+                    </span>
+                    <div class="media-body"><font size="1">Tel. No: 70-0000-01<br />TIC. No: 12126117B<br />VAT No: 10126117Z</font></div>
+                </div>
+                <div class="form-inline">
+                    <div class="form-group" style="vertical-align: baseline;">
+                        <h4>Booking confirmation</h4>
+                        <div>
+                            Booking #
+                            @Model.claimId
+                        </div>
+                    </div>
+                    <br />Status: @Model.status.description
+                    <br />Customer name: @Model.customer.name
+                    <br />Customer address: @Model.customer.address
+                    <br />Agency: @Model.agent
+                </div>
+            </font>
+
+        </div>
+
+        <div class="col-lg-12">
+            @if (Model.orders != null)
+            {
+                foreach (var order in Model.orders)
+                {
+                    if (order.status != null && order.status.id == 1)
+                    {
+                        <div class="media" style="margin-bottom: 15px;margin-top: 15px">
+                              <div class="media-body">
+                                <font face="Segoe UI" size="2">
+                                    @ExcursionStrings.Title
+                                    <h4 class="media-heading" style="margin-bottom:0;margin-top:0px; text-transform: uppercase;">@order.excursion.name</h4>
+                                    <div>
+                                        <strong> @order.datefrom.ToString("dd.MM.yyyy") @if (order.excursion.grouptype != null)
+                                        {<text>, </text> @order.excursion.grouptype.description } </strong>
+                                        @if (order.excursion.time != null)
+                                        {
+                                            <br /><span>@SharedStrings.ReservationOrder_ExcursionTime</span> @order.excursion.time.description
+                                        }
+                                        @if (order.excursion.language != null)
+                                        {
+                                            <br /><span>@SharedStrings.ReservationOrder_ExcursionLang</span> @order.excursion.language.description
+                                        }
+                                        <br /><span>@SharedStrings.ReservationOrder_Adult</span> @order.pax.adult@if (@order.pax.child >= 0)
+                                        {<text>,</text> <span>@SharedStrings.ReservationOrder_Child</span>@order.pax.child}@if (@order.pax.infant >= 0)
+                                        {<text>,</text> <span>&nbsp;@SharedStrings.ReservationOrder_Infant</span>@order.pax.infant}
+                                        @if (!string.IsNullOrEmpty(order.partner.name))
+                                        {
+                                            <br /><strong><span>Provider:</span> @order.partner.name </strong>
+                                        }
+
+                                        @if (!string.IsNullOrEmpty(order.note))
+                                        {
+                                            <br /><span>@SharedStrings.ReservationOrder_Note</span> @order.note
+                                        }
+
+                                        @if (!string.IsNullOrEmpty(order.excursion.included))
+                                        {
+                                            <br /><span>Included:</span> @order.excursion.included
+                                        }
+                                        @if (!string.IsNullOrEmpty(order.excursion.pickup))
+                                        {
+                                            <br /><span>Pickup place/time:</span> @order.excursion.pickup
+                                        }
+                                    </div>
+                                </font>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+
+
+
+                <div id='receipt2'>
+                    <font face="Segoe UI" size="2">
+                        <div class="col-lg-6">
+                            <strong>Total price @Model.price.total.ToString("### ### ### ##0.00") @Model.price.currency</strong>
+                        </div>
+                    </font>
+                </div>
+                <div class="col-lg-6" id="receipt3">
+                    <font face="Segoe UI" size="2">
+                        Thank you for booking with EXGO.COM
+                        <br /> <font size="1">@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")</font>
+                        <br />
+                    </font>
+                </div>
+
+  </div>

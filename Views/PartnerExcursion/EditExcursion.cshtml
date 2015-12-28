@@ -1,0 +1,713 @@
+﻿@model GuestService.Models.Partner.EditExcursionContext
+@{
+    ViewBag.Title = "Update excursion";
+    //TODO выгрузить данный из реальных таблиц + темповые
+    //TODO фото из двух таблиц
+    //TODO цены старые только удалить, новые добавить сразу в рабочую
+    //TODO exdetplain, только добавить(?)
+}
+<style>
+    .orders_table td {
+        border: 1px solid #bebebe;
+        padding: 5px;
+    }
+
+    .orders_table th {
+        border: 1px solid #bebebe;
+        padding: 5px;
+        background: #cecece;
+    }
+
+    .exc_form .row {
+        padding: 30px;
+        margin: 30px;
+        background: #dedede;
+    }
+
+    .right-lang {
+        padding-left: 30px;
+    }
+
+        .right-lang input, .right-lang textarea, .right-lang select {
+            width: 400px;
+        }
+
+    .exc_form .left-lang {
+        padding-left: 0px;
+        border-right: 1px dotted black;
+    }
+
+    .left-lang input, .left-lang textarea, .left-lang select {
+        width: 400px;
+    }
+
+    .common-lang {
+        padding-left: calc(50% - 250px);
+    }
+
+        .common-lang input, .common-lang textarea, .common-lang select {
+            width: 500px;
+        }
+
+    .common-lang-btn {
+        padding-left: calc(50% - 75px);
+    }
+
+        .common-lang-btn button {
+            width: 150px;
+        }
+
+    .dropzone.dz-clickable {
+        width: 500px;
+    }
+    .price_row {
+        border-bottom: 1px dotted black;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+    }
+
+    .price_row div{
+        margin-bottom:15px
+    }
+    .parent_remove:nth-of-type(2) {
+        display:none
+    } 
+
+    .price_row select{
+        width: 114px
+    }
+    .price_row .form-control {
+        padding: 5px 0 5px 10px;
+    }
+
+    .ind .for_group {
+        display:none
+    
+    }
+
+    .group .for_ind {
+        display:none
+    }
+
+    	.col-sm-9 {
+		width: 75% !important;
+	}
+        .for_ind .col-sm-6 .form-control {
+		width: 404px !important;
+	}
+</style>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="~/css/dropzone.css">
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script src="~/js/dropzone.js"></script>
+
+<script>
+
+    $(document).ready(
+
+        function () {
+
+            $(".weekdays").change(function (e) {
+
+                var days = '';
+
+                $("input", $(this)).each(
+                    function () {
+                        days += (0 + $(this).is(':checked'));
+                    });
+
+                $(this).next().val(days);
+
+            });
+
+            $('#exc_region').change(
+                    function(){
+                        if($(this).val()=='2')
+                            $('input[name=exc_region_name]').show();
+                        else
+                            $('input[name=exc_region_name]').val('').hide();
+                    }
+                );
+
+            $('input[name=opt_lang]').change(function () {
+                var new_lang = $('input[name=opt_lang]:checked').val()
+
+                $('label').each(
+                    function(){
+                        var new_text = $(this).attr('data-'+new_lang);
+
+                        console.log(new_text);
+                        if (new_text != '')
+                            $('span', this).text(new_text);
+                    });
+
+                $('option').each(
+                function () {
+                    var new_text = $(this).attr('data-' + new_lang);
+
+                    if (new_text != '')
+                        $(this).text(new_text);
+                });
+            });
+        }
+    );
+
+    var changeParentClass = function (el) {
+
+        var classname = $(el).find('option:selected').attr('data-parentclass');
+
+        $(el).parents('.price_row').removeClass('ind').removeClass('group').addClass(classname);
+
+    }
+</script>
+
+<div class="container">
+    <div class="bk-main">
+        <div class="col-lg-12">
+            <h1 class="page-header" style="margin-top: 60px;">Edit excursion</h1>
+            @if (GuestService.Settings.IsShowBreadCrumb)
+            {
+                <ol class="breadcrumb">
+					<li><a href="/hotel_cabinet_new/en/partner">Provider area</a></li>
+                    <li class="active">@ViewBag.Title</li>
+                </ol>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 left-lang" style="padding-left:150px; padding-top:50px">
+            Fill this column in English (required)
+        </div>
+        <div class="col-sm-6" style="padding-left:50px; padding-top:37px">
+
+        <!-- ЯЗЫКИ, КОТОРЫЕ ЕСТЬ В ОПИСАНИИ ---->
+
+            Fill this column with another optional language<br>
+            @foreach (var langItem in Model.Languages)
+            {
+                if (langItem.Key != "1")
+                {
+                    <label><input type="radio" name="opt_lang" value="@langItem.Key" checked />&nbsp;@langItem.Value</label>
+                }
+            }
+        </div>
+    </div>
+
+    <div class="col-sm-12 exc_form">
+        <form id="add_excursion" method="post" action="">
+            <input type="hidden" name="ex_id" value="">
+            <div class="row">
+                <div class="col-sm-6 left-lang">
+
+                    @foreach (var name in Model.Names)
+                    {
+                        if (name.Key == 1)
+                        {
+                            <span class="@name.Key@("for-lang") right-lang">
+                                <label>
+                                    <span>@ExcursionStrings.Get("name_title_" + name.Key)</span>
+                                    <input type="text" id="exc_ru_name" class="form-control" name="@name.Key@("_name")" value="@name.Value">
+                                </label>
+                            </span>
+                        }
+                    }
+                </div>
+                <div class="col-sm-6 right-lang">
+
+                    @foreach (var name in Model.Names)
+                    {
+                        if (name.Key != 1)
+                        {
+                            <span class="@name.Key@("for-lang") right-lang">
+                                <label>
+                                    <span>@ExcursionStrings.Get("name_title_" + name.Key)</span>
+                                    <input type="text" id="exc_ru_name" class="form-control" name="@name.Key@("_name")" value="@name.Value">
+                                </label>
+                            </span>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 common-lang">
+
+                    <label 
+                            @foreach (var langItem in Model.Languages)
+                            {
+                                @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("type_title_" + langItem.Key))))
+                            }                          
+                           >
+
+                        <span>Excursion type / Тип экскурсии</span>
+                        <select class="form-control" name="exc_type">
+                            <option value="3" data-ru="Individual / Индивидуальная"
+                                    data-fr="Individual / Individuel"
+                                    data-de="Individual / Privat">
+                                Individual / Индивидуальная
+                            </option>
+
+                            <option value="4"
+                                    data-ru="Group / Групповая"
+                                    data-fr="Group / De groupe"
+                                    data-de="Group / Gruppen">
+                                Group / Групповая
+                            </option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+           
+            <div class="row">
+                <div class="col-sm-12 common-lang">
+                    <label data-ru="Excursion category / Категория экскурсии"
+                           data-fr="Excursion category / Catégorie de l'excursion"
+                           data-de="Excursion category / Kategorie Ausflugs">
+                        <span>Excursion category / Категория экскурсии</span>
+                        <select class="form-control" name="exc_cat">
+                            <option value="2" data-ru="Sea / Морская"
+                                    data-fr="Sea / De mer"
+                                    data-de="Sea / Sea">
+                                Sea / Морская
+                            </option>
+                            <option value="1" data-ru="Land / Наземная"
+                                    data-fr="Land / à terre"
+                                    data-de="Land / Land">
+                                Land / Наземная
+                            </option>
+                            <option value="5" data-ru="Air / Воздушная"
+                                    data-fr="Air / Air"
+                                    data-de="Air / Air">
+                                Air / Воздушная
+                            </option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 left-lang">
+                    <label>
+                        About excursion
+                        <textarea rows="12" class="form-control" name="exc_en_details"></textarea>
+                    </label>
+                </div>
+                <div class="col-sm-6 right-lang">
+                    <label data-ru="Описание экскурсии"
+                           data-fr="Description des excursions"
+                           data-de="Beschreibung von Ausflügen">
+                        <span>Описание экскурсии</span>
+                        <textarea rows="12" class="form-control" name="exc_ru_details"></textarea>
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 common-lang">
+                    <label>
+                        Route
+                        <textarea rows="2" class="form-control" name="exc_en_route"></textarea>
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 common-lang">
+                    <label data-ru="Region / Регион"
+                           data-fr="Region / Zone"
+                           data-de="Region / Bereich">
+                        <span>Region / Регион</span>
+                        <select class="form-control" name="exc_region" id="exc_region">
+                            @{
+                                foreach (var row in Model.Regions)
+                                {
+                                        <option value="@row.Key">@row.Value</option>
+                                }
+                            }
+
+                            <option value="2">-new region-</option>
+                        </select>
+
+                    </label>
+                    <input type="text" placeholder="type region name" style="display:none" class="form-control" name="exc_region_name" value="">
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="prices">
+                        <div class="col-sm-12" style="margin-bottom:20px">
+                            <center>
+                                <label data-ru="Price / Цена">
+                                    <span>Price / Цена</span>
+                                </label>
+                            </center>
+                        </div>
+
+                    <div class="price_row ind">
+
+                        <div class="col-sm-2">
+                            <label data-ru="Price type">
+                                <span>Price type</span>
+                                <select onchange="changeParentClass(this)" class="form-control" name="group_type[]">
+                                    <option selected data-parentclass="ind" value="1" data-ru="Ind">
+                                        Ind
+                                    </option>
+                                    <option data-parentclass="group" value="2" data-ru="Group">
+                                        Group
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <span class="for_group">
+                            <div class="col-sm-2">
+                                <label data-ru="Adult">
+                                    <span>Adult</span>
+                                    <input type="text" class="form-control intval" name="ad_price[]" value="">
+                                </label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label data-ru="Child">
+                                    <span>Child</span>
+                                    <input type="text" class="form-control intval" name="ch_price[]" value="">
+                                </label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label data-ru="Infant">
+                                    <span>Infant</span>
+                                    <input type="text" class="form-control intval" name="inf_price[]" value="">
+                                </label>
+                            </div>
+                        </span>
+
+                        <span class="for_ind">
+                            <div class="col-sm-6">
+                                <label data-ru="Exc price (all participants)">
+                                    <span>Exc price (all participants)</span>
+                                    <input type="text" class="form-control intval" name='total[]' value="">
+                                </label>
+                            </div>
+                        </span>
+
+                        <div class="col-sm-2">
+                            <label data-ru="Currency">
+                                <span>Currency</span>
+                                <select class="form-control" name="currency[]">
+                                    <option value="8" data-ru="eur">
+                                        eur
+                                    </option>
+                                    <option value="5" data-ru="usd">
+                                        usd
+                                    </option>
+
+                                </select>
+                            </label>
+                        </div>
+
+                        <span style="position:absolute; cursor:pointer; display:none" onclick="removeParent(this)" class="parent_remove"> X </span>
+                        <div class="col-sm-2">
+                            <label data-ru="Valid from">
+                                <span>Valid from</span>
+                                <input type="text" class="form-control adate minDate" name="adate[]" value="">
+                            </label>
+                        </div>
+                        <div class="col-sm-2">
+                            <label data-ru="Valid till">
+                                <span>Valid till</span>
+                                <input type="text" class="form-control edate maxDate" name="edate[]" value="">
+                            </label>
+                        </div>
+                        <div class="col-sm-2">
+                            <label data-ru="Exc language">
+                                <span>Exc language</span>
+                                <select class="form-control" name="pr_lang[]">
+                                    <option value="-2147483647" data-ru="Any">
+                                        Any
+                                    </option>
+                                    @{
+                                        foreach (var row in Model.Languages)
+                                        {
+                                            <option value="@row.Key">@row.Value</option>
+                                        }
+                                    }
+                                </select>
+                            </label>
+                        </div>
+                       
+                        <div class="col-sm-2">
+                            <label data-ru="Group from (pax)">
+                                <span>Group from (pax)</span>
+                                <input type="text" class="form-control intval" name="group_from[]" value="">
+                            </label>
+                        </div>
+                        <div class="col-sm-2">
+                            <label data-ru="Group till (pax)">
+                                <span>Group till (pax)</span>
+                                <input type="text" class="form-control intval" name="group_to[]" value="">
+                            </label>
+                        </div>
+                        <div class="col-sm-2">
+                            <label data-ru="Sell date from">
+                                <span>Sell date from</span>
+                                <input type="text" class="form-control sdateFrom minDate" name="sdate_from[]" value="">
+                            </label>
+                        </div>
+                        <div class="col-sm-2">
+                            <label data-ru="Sell date till">
+                                <span>Sell date till</span>
+                                <input type="text" class="form-control sdateTo maxDate" name="sdate_to[]" value="">
+                            </label>
+                        </div>
+                        <div class="col-sm-6">
+                            <label data-ru="Excursion's weekdays">
+                                <span>Excursion's weekdays (all days by default)</span><br>
+                                <div class="btn-group weekdays" data-toggle="buttons">
+                                    <label class="btn btn-default active">
+                                        <input checked="checked" type="checkbox" value="1">Mo
+                                    </label>
+                                    <label class="btn btn-default active">
+                                        <input checked="checked" type="checkbox" value="2">Tu
+                                    </label>
+                                    <label class="btn btn-default active">
+                                        <input checked="checked" type="checkbox" value="3">We
+                                    </label>
+                                    <label class="btn btn-default active">
+                                        <input checked="checked" type="checkbox" value="4">Th
+                                    </label>
+                                    <label class="btn btn-default active">
+                                        <input checked="checked" type="checkbox" value="5">Fr
+                                    </label>
+                                    <label class="btn btn-default active">
+                                        <input checked="checked" type="checkbox"  value="6">Sa
+                                    </label>
+                                    <label class="btn btn-default active">
+                                        <input checked="checked" type="checkbox"  value="7">Su
+                                    </label>
+                                </div>
+                                <input type="hidden" name="days[]" value="1111111">
+                             </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <center><button class="btn btn-primary" type="button" value="" onclick="addPriceRow()">Add more price row</button></center>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-sm-12 common-lang">
+                <label data-ru="Photos, min 2000px width / Фото, ширина минимум 2000px"
+                       data-fr="Photos, min 2000px width / Photo, la largeur minimum 2000px"
+                       data-de="Photos, min 2000px width / Foto, minimale Breite 2000px">
+                    <span>Photos, min 2000px width / Фото, ширина минимум 2000px</span>
+
+                </label>
+                <!-- Change /upload-target to your upload address -->
+            <form id="myAwesomeDropzone" action="@Url.ApiActionLink("uploadimage", "partnerexcursion")" class="dropzone"></form>
+            <script>
+                var priceRow = "";
+                jQuery(function (e) {
+
+                    $('.intval').change(function () {
+                            $(this).val(parseInt($(this).val()) || 0);
+                        });
+
+                    priceRow =  '<div class="price_row col-sm-12 ind">' + $('.price_row').first().html() + '</div>';
+
+                    var dates = jQuery('.adate, .edate').datepicker(
+                    {
+                        onSelect:
+                               function (selectedDate) {
+                                   var $this = $(this),
+                                       option = $this.hasClass("minDate") ? "minDate" : "maxDate",
+                                       adjust = $this.hasClass("maxDate") ? 1 : -1,
+                                       base_date = new Date(selectedDate),
+                                       new_date = new Date();
+                                   new_date.setDate(base_date.getDate());
+                                   dates.not(this).datepicker("option", option, new_date);
+                               },
+                        dateFormat: "yy-mm-dd"
+                    });
+
+                   var dates2 = jQuery('.sdateFrom, .sdateTo').datepicker(
+                   {
+                       onSelect:
+                              function (selectedDate) {
+                                  var $this = $(this),
+                                      option = $this.hasClass("minDate") ? "minDate" : "maxDate",
+                                      adjust = $this.hasClass("maxDate") ? 1 : -1,
+                                      base_date = new Date(selectedDate),
+                                      new_date = new Date();
+                                  new_date.setDate(base_date.getDate());
+                                  dates2.not(this).datepicker("option", option, new_date);
+                              },
+                       dateFormat: "yy-mm-dd"
+                   });
+
+                  
+                });
+
+                var addPriceRow = function () {
+                   
+                    $(priceRow).insertAfter($('.price_row').last());
+
+                    $('.parent_remove').show();
+                    $('.parent_remove').first().hide();
+
+                    setTimeout(function () {
+                        var dates = jQuery('.adate, .edate', $('.price_row').last()).datepicker(
+                        {
+                            onSelect:
+                                   function (selectedDate) {
+                                       var $this = $(this),
+                                           option = $this.hasClass("minDate") ? "minDate" : "maxDate",
+                                           adjust = $this.hasClass("maxDate") ? 1 : -1,
+                                           base_date = new Date(selectedDate),
+                                           new_date = new Date();
+                                       new_date.setDate(base_date.getDate());
+                                       dates.not(this).datepicker("option", option, new_date);
+                                   },
+                            dateFormat: "yy-mm-dd"
+                        });
+
+                        var dates2 = jQuery('.sdateFrom, .sdateTo', $('.price_row').last()).datepicker(
+                        {
+                            onSelect:
+                                   function (selectedDate) {
+                                       var $this = $(this),
+                                           option = $this.hasClass("minDate") ? "minDate" : "maxDate",
+                                           adjust = $this.hasClass("maxDate") ? 1 : -1,
+                                           base_date = new Date(selectedDate),
+                                           new_date = new Date();
+                                       new_date.setDate(base_date.getDate());
+                                       dates2.not(this).datepicker("option", option, new_date);
+                                   },
+                            dateFormat: "yy-mm-dd"
+                        });
+
+                        $(".weekdays", $('.price_row').last()).change(function (e) {
+
+                            var days = '';
+
+                            $("input", $(this)).each(
+                                function () {
+                                    days += (0 + $(this).is(':checked'));
+                                });
+
+                            $(this).next().val(days);
+
+                        });
+
+                    }, 1000);
+                }
+
+                var minImageWidth = 2000;
+                var fileNames = Array();
+
+                Dropzone.options.myAwesomeDropzone = {
+                        paramName: "file", // The name that will be used to transfer the file
+                        maxFilesize: 3, // MB
+                        addRemoveLinks: true,
+                        removedfile: function (file) {
+
+                            var name = fileNames[file.name];
+
+                            if(typeof(name)!='undefined')
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '@Url.ApiActionLink("removeimage", "partnerexcursion")',
+                                    data: "id=" + name,
+                                    dataType: 'html'
+                                });
+
+                            fileNames[file.name] = false;
+
+                            var _ref;
+                            return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+                        },
+
+                        success: function (file, response) {
+
+                            fileNames[file.name] = response;
+                        },
+
+                        init: function () {
+                            // Register for the thumbnail callback.
+                            // When the thumbnail is created the image dimensions are set.
+                            this.on("thumbnail", function (file) {
+
+                                if (file.width < minImageWidth) {
+                                    file.rejectDimensions()
+                                }
+                                else {
+                                    file.acceptDimensions();
+                                }
+                            });
+                        },
+
+                        accept: function (file, done) {
+                            if (file.type.indexOf('image/jpeg') == -1)
+                            {
+                                done("Only jpeg images, please");
+                            }
+                            else if (file.size > 3 * 1024 * 1024)//check size
+                            {
+                                done("Unfortunately, the file is very large. Try to upload a file less than 1MB");
+                            }
+                            else {
+                                file.acceptDimensions = function () { done() };
+                                file.rejectDimensions = function () { done("Invalid dimension."); };
+                            }
+                        }
+                    };
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
+    <script>
+        var removeParent = function (el) {
+
+            $(el).parent().remove();
+        }
+        var sendPhotos = function () {
+
+            var res = "";
+
+            for (var key in fileNames) {
+
+                if (fileNames[key] != false)
+                    res += "&photos[]=" + fileNames[key];
+            }
+
+            return res;
+        }
+        var submitForm = function () {
+            var info = $('#add_excursion').serialize();
+            var patt1 = /%5B/i;
+            var patt2 = /%5D/i;
+
+            var res = info.replace(patt1, "[").replace(patt2, "]");
+            console.log(res);
+
+            $.get(      '@Url.ApiActionLink("addexcursion", "partnerexcursion")',
+                        res
+                        + "&lang=" + $('input[name=opt_lang]:checked').val()
+                        + sendPhotos(), 
+                        function () {
+
+                            alert('okey! redirect after click...');
+                            location.href = '@Url.Action("index", "partner")';
+                        }
+                    );
+
+        };
+        </script>
+
+        <div class="col-sm-12 common-lang-btn">
+            <button class="btn btn-primary" type="submit" value="" onclick="submitForm()">Save excursion</button>
+        </div>
+
+</div>
