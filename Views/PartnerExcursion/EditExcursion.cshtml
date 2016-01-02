@@ -1,10 +1,24 @@
 ﻿@model GuestService.Models.Partner.EditExcursionContext
 @{
-    ViewBag.Title = "Update excursion";
+    ViewBag.Title = "Edit excursion";
     //TODO выгрузить данный из реальных таблиц + темповые
     //TODO фото из двух таблиц
     //TODO цены старые только удалить, новые добавить сразу в рабочую
     //TODO exdetplain, только добавить(?)
+
+    var types = ",";
+
+    foreach (int type in Model.Types)
+    {
+        types += (type + ",");
+    }
+
+    var descriptions = new Dictionary<string, string>();
+
+    foreach (var descItem in Model.Descriptions)
+    {
+        descriptions[descItem.Key.ToString()] = descItem.Value;
+    }
 }
 <style>
     .orders_table td {
@@ -132,25 +146,46 @@
             $('input[name=opt_lang]').change(function () {
                 var new_lang = $('input[name=opt_lang]:checked').val()
 
-                $('label').each(
-                    function(){
-                        var new_text = $(this).attr('data-'+new_lang);
+               
 
-                        console.log(new_text);
-                        if (new_text != '')
-                            $('span', this).text(new_text);
-                    });
-
-                $('option').each(
-                function () {
-                    var new_text = $(this).attr('data-' + new_lang);
-
-                    if (new_text != '')
-                        $(this).text(new_text);
-                });
+                apply_lang(new_lang);
             });
+
+            apply_lang(2);
         }
     );
+
+
+    var apply_lang = function (new_lang) {
+
+        $('label').each(
+                   function () {
+                       var new_text = $(this).attr('data-' + new_lang);
+
+                       // console.log(new_text);
+                       if (new_text != '')
+                           $('span', this).text(new_text);
+                   });
+
+        $('option').each(
+        function () {
+            var new_text = $(this).attr('data-' + new_lang);
+
+            if (new_text != '')
+                $(this).text(new_text);
+        });
+
+        $(".name_ru,.name_en,.for-lang").hide();
+
+        if (new_lang == 2)
+            $("." + new_lang + "for-lang,.name_ru").show();
+        else
+        {
+            $("." + new_lang + "for-lang,.name_en").show();
+            $('#exc_en_name_copy').val($('#exc_en_name').val());
+        }
+
+    };
 
     var changeParentClass = function (el) {
 
@@ -188,15 +223,17 @@
             {
                 if (langItem.Key != "1")
                 {
-                    <label><input type="radio" name="opt_lang" value="@langItem.Key" checked />&nbsp;@langItem.Value</label>
+                    <label><input @(langItem.Key == "2" ? new HtmlString("checked=\"checked\""): new HtmlString(""))  type="radio" name="opt_lang" value="@langItem.Key"/>&nbsp;@langItem.Value</label>
                 }
             }
         </div>
     </div>
 
     <div class="col-sm-12 exc_form">
-        <form id="add_excursion" method="post" action="">
-            <input type="hidden" name="ex_id" value="">
+        <form id="edit_excursion" method="post" action="">
+            <input type="hidden" name="ex_id" value="@Model.ExcursionId">
+            <input type="hidden" name="ex_copy_id" value="@Model.CopyExcursionId">
+
             <div class="row">
                 <div class="col-sm-6 left-lang">
 
@@ -204,10 +241,10 @@
                     {
                         if (name.Key == 1)
                         {
-                            <span class="@name.Key@("for-lang") right-lang">
+                            <span class="right-lang">
                                 <label>
                                     <span>@ExcursionStrings.Get("name_title_" + name.Key)</span>
-                                    <input type="text" id="exc_ru_name" class="form-control" name="@name.Key@("_name")" value="@name.Value">
+                                    <input   type="text" id="exc_en_name" class="form-control" name="en_name" value="@name.Value">
                                 </label>
                             </span>
                         }
@@ -217,16 +254,23 @@
 
                     @foreach (var name in Model.Names)
                     {
-                        if (name.Key != 1)
+                        if (name.Key == 2)
                         {
-                            <span class="@name.Key@("for-lang") right-lang">
+                            <span class="name_ru right-lang">
                                 <label>
                                     <span>@ExcursionStrings.Get("name_title_" + name.Key)</span>
-                                    <input type="text" id="exc_ru_name" class="form-control" name="@name.Key@("_name")" value="@name.Value">
+                                    <input type="text" id="exc_ru_name" class="form-control" name="ru_name" value="@name.Value">
                                 </label>
                             </span>
                         }
                     }
+
+                    <span class="name_en right-lang" style="display:none">
+                        <label>
+                            <span>@ExcursionStrings.Get("name_title_1")</span>
+                            <input type="text" disabled id="exc_en_name_copy" class="form-control" name="" value="">
+                        </label>
+                    </span>
                 </div>
             </div>
             <div class="row">
@@ -241,16 +285,37 @@
 
                         <span>Excursion type / Тип экскурсии</span>
                         <select class="form-control" name="exc_type">
-                            <option value="3" data-ru="Individual / Индивидуальная"
-                                    data-fr="Individual / Individuel"
-                                    data-de="Individual / Privat">
+                           
+                            <option value="3"
+                                    
+                                     @if (types.Contains(",3,")){
+
+                                      @(" selected ")
+                                  }
+
+                                    @foreach (var langItem in Model.Languages)
+                                    {
+                                        @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("type_ind_option_" + langItem.Key))))
+                                    }   
+                                    
+                                >
                                 Individual / Индивидуальная
                             </option>
 
                             <option value="4"
-                                    data-ru="Group / Групповая"
-                                    data-fr="Group / De groupe"
-                                    data-de="Group / Gruppen">
+
+                                     @if (types.Contains(",4,")){
+
+                                      @(" selected ")
+                                  }
+                              
+
+                                    @foreach (var langItem in Model.Languages)
+                                    {
+                                        @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("type_group_option_" + langItem.Key))))
+                                    } 
+                                    
+                               >
                                 Group / Групповая
                             </option>
                         </select>
@@ -260,24 +325,58 @@
            
             <div class="row">
                 <div class="col-sm-12 common-lang">
-                    <label data-ru="Excursion category / Категория экскурсии"
-                           data-fr="Excursion category / Catégorie de l'excursion"
-                           data-de="Excursion category / Kategorie Ausflugs">
+                    <label 
+                            @foreach (var langItem in Model.Languages)
+                            {
+                                @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("category_title_" + langItem.Key))))
+                            } 
+                           >
+
                         <span>Excursion category / Категория экскурсии</span>
                         <select class="form-control" name="exc_cat">
-                            <option value="2" data-ru="Sea / Морская"
-                                    data-fr="Sea / De mer"
-                                    data-de="Sea / Sea">
+                            <option value="2" 
+                                    
+                                  @if (types.Contains(",2,")){
+
+                                      @(" selected ")
+                                  }
+
+
+                                    @foreach (var langItem in Model.Languages)
+                                    {
+                                        @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("category_sea_option_" + langItem.Key))))
+                                    } 
+                            >
                                 Sea / Морская
                             </option>
-                            <option value="1" data-ru="Land / Наземная"
-                                    data-fr="Land / à terre"
-                                    data-de="Land / Land">
+                            <option value="1"
+
+                                     @if (types.Contains(",1,")){
+
+                                      @(" selected ")
+                                  }
+                                  
+                                    @foreach (var langItem in Model.Languages)
+                                    {
+                                        @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("category_land_option_" + langItem.Key))))
+                                    } 
+                    
+                                >
                                 Land / Наземная
                             </option>
-                            <option value="5" data-ru="Air / Воздушная"
-                                    data-fr="Air / Air"
-                                    data-de="Air / Air">
+                            <option value="5"
+                                    
+                                     @if (types.Contains(",5,")){
+
+                                      @(" selected ")
+                                  }
+                                   
+                                    @foreach (var langItem in Model.Languages)
+                                    {
+                                        @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("category_air_option_" + langItem.Key))))
+                                    } 
+                    
+                             >
                                 Air / Воздушная
                             </option>
                         </select>
@@ -288,39 +387,54 @@
                 <div class="col-sm-6 left-lang">
                     <label>
                         About excursion
-                        <textarea rows="12" class="form-control" name="exc_en_details"></textarea>
+                        <textarea rows="12" class="form-control" name="exc_1_details">
+@foreach (var desc in Model.Descriptions)
+                        {
+                                if (desc.Key == 1)
+                                {
+                                    @desc.Value
+                                }
+                        }</textarea>
                     </label>
                 </div>
                 <div class="col-sm-6 right-lang">
-                    <label data-ru="Описание экскурсии"
-                           data-fr="Description des excursions"
-                           data-de="Beschreibung von Ausflügen">
-                        <span>Описание экскурсии</span>
-                        <textarea rows="12" class="form-control" name="exc_ru_details"></textarea>
-                    </label>
+
+                    @foreach (var desc in Model.Languages)
+                    {
+                        if (desc.Key != "1")
+                        {
+                               <span class="@desc.Key@("for-lang") for-lang right-lang">
+                                   <span>@ExcursionStrings.Get("about_title_" + desc.Key)</span>
+                                   <textarea rows="12" class="form-control" name="exc_@(desc.Key)_details">@(descriptions.ContainsKey(desc.Key) ? descriptions[desc.Key]:"")</textarea>
+                               </span>
+                        }
+                    }
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-sm-12 common-lang">
                     <label>
                         Route
-                        <textarea rows="2" class="form-control" name="exc_en_route"></textarea>
+                        <textarea rows="2" class="form-control" name="exc_en_route">@Model.Route</textarea>
                     </label>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-sm-12 common-lang">
-                    <label data-ru="Region / Регион"
-                           data-fr="Region / Zone"
-                           data-de="Region / Bereich">
+                    <label 
+                           @foreach (var langItem in Model.Languages)
+                            {
+                                @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("region_title_" + langItem.Key))))
+                            } 
+                           >
                         <span>Region / Регион</span>
                         <select class="form-control" name="exc_region" id="exc_region">
                             @{
+                                //выбранный регион
                                 foreach (var row in Model.Regions)
                                 {
-                                        <option value="@row.Key">@row.Value</option>
+                                        <option @( Model.Region.ToString() == row.Key ? "selected":"") value="@row.Key">@row.Value</option>
                                 }
                             }
 
@@ -333,171 +447,265 @@
             </div>
         
             <div class="row">
-                <div class="prices">
+              @if (Model.OldPrices.Length > 0)
+              {
+                    <div class="old_prices">
+
                         <div class="col-sm-12" style="margin-bottom:20px">
                             <center>
-                                <label data-ru="Price / Цена">
-                                    <span>Price / Цена</span>
+                                <label 
+                                        @foreach (var langItem in Model.Languages)
+                                        {
+                                            @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("old_price_title_" + langItem.Key))))
+                                        } 
+                                       >
+                                    <span>Inserted Price / Внесенные цены</span>
                                 </label>
                             </center>
                         </div>
 
-                    <div class="price_row ind">
-
-                        <div class="col-sm-2">
-                            <label data-ru="Price type">
-                                <span>Price type</span>
-                                <select onchange="changeParentClass(this)" class="form-control" name="group_type[]">
-                                    <option selected data-parentclass="ind" value="1" data-ru="Ind">
-                                        Ind
-                                    </option>
-                                    <option data-parentclass="group" value="2" data-ru="Group">
-                                        Group
-                                    </option>
-                                </select>
-                            </label>
-                        </div>
-
-                        <span class="for_group">
+                        <div class="old_price_header ind">
                             <div class="col-sm-2">
-                                <label data-ru="Adult">
-                                    <span>Adult</span>
-                                    <input type="text" class="form-control intval" name="ad_price[]" value="">
-                                </label>
+                                dates
                             </div>
                             <div class="col-sm-2">
-                                <label data-ru="Child">
-                                    <span>Child</span>
-                                    <input type="text" class="form-control intval" name="ch_price[]" value="">
-                                </label>
+                                type
                             </div>
                             <div class="col-sm-2">
-                                <label data-ru="Infant">
-                                    <span>Infant</span>
-                                    <input type="text" class="form-control intval" name="inf_price[]" value="">
-                                </label>
+                                summ
                             </div>
-                        </span>
-
-                        <span class="for_ind">
-                            <div class="col-sm-6">
-                                <label data-ru="Exc price (all participants)">
-                                    <span>Exc price (all participants)</span>
-                                    <input type="text" class="form-control intval" name='total[]' value="">
-                                </label>
+                            <div class="col-sm-2">
+                                lang
                             </div>
-                        </span>
-
-                        <div class="col-sm-2">
-                            <label data-ru="Currency">
-                                <span>Currency</span>
-                                <select class="form-control" name="currency[]">
-                                    <option value="8" data-ru="eur">
-                                        eur
-                                    </option>
-                                    <option value="5" data-ru="usd">
-                                        usd
-                                    </option>
-
-                                </select>
-                            </label>
+                            <div class="col-sm-2">
+                                group
+                            </div>
+                            <div class="col-sm-1">
+                                weekdays
+                            </div>
+                            <div class="col-sm-1">
+                                Remove btn
+                            </div>
                         </div>
 
-                        <span style="position:absolute; cursor:pointer; display:none" onclick="removeParent(this)" class="parent_remove"> X </span>
-                        <div class="col-sm-2">
-                            <label data-ru="Valid from">
-                                <span>Valid from</span>
-                                <input type="text" class="form-control adate minDate" name="adate[]" value="">
-                            </label>
-                        </div>
-                        <div class="col-sm-2">
-                            <label data-ru="Valid till">
-                                <span>Valid till</span>
-                                <input type="text" class="form-control edate maxDate" name="edate[]" value="">
-                            </label>
-                        </div>
-                        <div class="col-sm-2">
-                            <label data-ru="Exc language">
-                                <span>Exc language</span>
-                                <select class="form-control" name="pr_lang[]">
-                                    <option value="-2147483647" data-ru="Any">
-                                        Any
-                                    </option>
-                                    @{
-                                        foreach (var row in Model.Languages)
+                        @foreach (var priceItem in Model.OldPrices)
+                        {
+                            <div class="old_price_row ind">
+                                <div class="col-sm-2">
+                                    @priceItem.Value.Dates
+                                </div>
+                                <div class="col-sm-2">
+                                    @priceItem.Value.Type
+                                </div>
+                                <div class="col-sm-2">
+                                    @priceItem.Value.Summ
+                                </div>
+                                <div class="col-sm-2">
+                                    @priceItem.Value.Lang
+                                </div>
+                                <div class="col-sm-2">
+                                    @priceItem.Value.Group
+                                </div>
+                                <div class="col-sm-1">
+                                    @priceItem.Value.Weekdays
+                                </div>
+                                <div class="col-sm-1">
+                                    <a class="remove-price" href="#" data-priceid="@priceItem.Key">Remove</a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+              }
+
+                <div class="prices">
+                        <div class="col-sm-12" style="margin-bottom:20px">
+                            <center>
+                                <label 
+                                        @foreach (var langItem in Model.Languages)
                                         {
-                                            <option value="@row.Key">@row.Value</option>
-                                        }
-                                    }
-                                </select>
-                            </label>
+                                            @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("new_price_title_" + langItem.Key))))
+                                        } 
+                                       >
+                                    <span>New Prices / Новые цены</span>
+                                </label>
+                            </center>
                         </div>
-                       
-                        <div class="col-sm-2">
-                            <label data-ru="Group from (pax)">
-                                <span>Group from (pax)</span>
-                                <input type="text" class="form-control intval" name="group_from[]" value="">
-                            </label>
-                        </div>
-                        <div class="col-sm-2">
-                            <label data-ru="Group till (pax)">
-                                <span>Group till (pax)</span>
-                                <input type="text" class="form-control intval" name="group_to[]" value="">
-                            </label>
-                        </div>
-                        <div class="col-sm-2">
-                            <label data-ru="Sell date from">
-                                <span>Sell date from</span>
-                                <input type="text" class="form-control sdateFrom minDate" name="sdate_from[]" value="">
-                            </label>
-                        </div>
-                        <div class="col-sm-2">
-                            <label data-ru="Sell date till">
-                                <span>Sell date till</span>
-                                <input type="text" class="form-control sdateTo maxDate" name="sdate_to[]" value="">
-                            </label>
-                        </div>
-                        <div class="col-sm-6">
-                            <label data-ru="Excursion's weekdays">
-                                <span>Excursion's weekdays (all days by default)</span><br>
-                                <div class="btn-group weekdays" data-toggle="buttons">
-                                    <label class="btn btn-default active">
-                                        <input checked="checked" type="checkbox" value="1">Mo
-                                    </label>
-                                    <label class="btn btn-default active">
-                                        <input checked="checked" type="checkbox" value="2">Tu
-                                    </label>
-                                    <label class="btn btn-default active">
-                                        <input checked="checked" type="checkbox" value="3">We
-                                    </label>
-                                    <label class="btn btn-default active">
-                                        <input checked="checked" type="checkbox" value="4">Th
-                                    </label>
-                                    <label class="btn btn-default active">
-                                        <input checked="checked" type="checkbox" value="5">Fr
-                                    </label>
-                                    <label class="btn btn-default active">
-                                        <input checked="checked" type="checkbox"  value="6">Sa
-                                    </label>
-                                    <label class="btn btn-default active">
-                                        <input checked="checked" type="checkbox"  value="7">Su
+
+                        <div class="price_row ind">
+                            <div class="col-sm-2">
+                                <label data-ru="Price type">
+                                    <span>Price type</span>
+                                    <select onchange="changeParentClass(this)" class="form-control" name="group_type[]">
+                                        <option selected data-parentclass="ind" value="1" data-ru="Ind">
+                                            Ind
+                                        </option>
+                                        <option data-parentclass="group" value="2" data-ru="Group">
+                                            Group
+                                        </option>
+                                    </select>
+                                </label>
+                            </div>
+
+                            <span class="for_group">
+                                <div class="col-sm-2">
+                                    <label data-ru="Adult">
+                                        <span>Adult</span>
+                                        <input type="text" class="form-control intval" name="ad_price[]" value="">
                                     </label>
                                 </div>
-                                <input type="hidden" name="days[]" value="1111111">
-                             </label>
+                                <div class="col-sm-2">
+                                    <label data-ru="Child">
+                                        <span>Child</span>
+                                        <input type="text" class="form-control intval" name="ch_price[]" value="">
+                                    </label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label data-ru="Infant">
+                                        <span>Infant</span>
+                                        <input type="text" class="form-control intval" name="inf_price[]" value="">
+                                    </label>
+                                </div>
+                            </span>
+
+                            <span class="for_ind">
+                                <div class="col-sm-6">
+                                    <label data-ru="Exc price (all participants)">
+                                        <span>Exc price (all participants)</span>
+                                        <input type="text" class="form-control intval" name='total[]' value="">
+                                    </label>
+                                </div>
+                            </span>
+
+                            <div class="col-sm-2">
+                                <label data-ru="Currency">
+                                    <span>Currency</span>
+                                    <select class="form-control" name="currency[]">
+                                        <option value="8" data-ru="eur">
+                                            eur
+                                        </option>
+                                        <option value="5" data-ru="usd">
+                                            usd
+                                        </option>
+
+                                    </select>
+                                </label>
+                            </div>
+
+                            <span style="position:absolute; cursor:pointer; display:none" onclick="removeParent(this)" class="parent_remove"> X </span>
+                            <div class="col-sm-2">
+                                <label data-ru="Valid from">
+                                    <span>Valid from</span>
+                                    <input type="text" class="form-control adate minDate" name="adate[]" value="">
+                                </label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label data-ru="Valid till">
+                                    <span>Valid till</span>
+                                    <input type="text" class="form-control edate maxDate" name="edate[]" value="">
+                                </label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label data-ru="Exc language">
+                                    <span>Exc language</span>
+                                    <select class="form-control" name="pr_lang[]">
+                                        <option value="-2147483647" data-ru="Any">
+                                            Any
+                                        </option>
+                                        @{
+                                            foreach (var row in Model.Languages)
+                                            {
+                                                <option value="@row.Key">@row.Value</option>
+                                            }
+                                        }
+                                    </select>
+                                </label>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <label data-ru="Group from (pax)">
+                                    <span>Group from (pax)</span>
+                                    <input type="text" class="form-control intval" name="group_from[]" value="">
+                                </label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label data-ru="Group till (pax)">
+                                    <span>Group till (pax)</span>
+                                    <input type="text" class="form-control intval" name="group_to[]" value="">
+                                </label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label data-ru="Sell date from">
+                                    <span>Sell date from</span>
+                                    <input type="text" class="form-control sdateFrom minDate" name="sdate_from[]" value="">
+                                </label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label data-ru="Sell date till">
+                                    <span>Sell date till</span>
+                                    <input type="text" class="form-control sdateTo maxDate" name="sdate_to[]" value="">
+                                </label>
+                            </div>
+                            <div class="col-sm-6">
+                                <label data-ru="Excursion's weekdays">
+                                    <span>Excursion's weekdays (all days by default)</span><br>
+                                    <div class="btn-group weekdays" data-toggle="buttons">
+                                        <label class="btn btn-default active">
+                                            <input checked="checked" type="checkbox" value="1">Mo
+                                        </label>
+                                        <label class="btn btn-default active">
+                                            <input checked="checked" type="checkbox" value="2">Tu
+                                        </label>
+                                        <label class="btn btn-default active">
+                                            <input checked="checked" type="checkbox" value="3">We
+                                        </label>
+                                        <label class="btn btn-default active">
+                                            <input checked="checked" type="checkbox" value="4">Th
+                                        </label>
+                                        <label class="btn btn-default active">
+                                            <input checked="checked" type="checkbox" value="5">Fr
+                                        </label>
+                                        <label class="btn btn-default active">
+                                            <input checked="checked" type="checkbox" value="6">Sa
+                                        </label>
+                                        <label class="btn btn-default active">
+                                            <input checked="checked" type="checkbox" value="7">Su
+                                        </label>
+                                    </div>
+                                    <input type="hidden" name="days[]" value="1111111">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <center><button class="btn btn-primary" type="button" value="" onclick="addPriceRow()">Add more price row</button></center>
                         </div>
                     </div>
-                    <div class="col-sm-12">
-                        <center><button class="btn btn-primary" type="button" value="" onclick="addPriceRow()">Add more price row</button></center>
-                    </div>
+                </div>
+
+        </form>
+        @if (Model.OldPhotos.Length > 0)
+        {
+            <div class="row">
+            
+                <div class="photo_row ind col-sm-12">
+                    @foreach (var photoItem in Model.OldPhotos)
+                    {
+                        <div class="photo-item" style="width:300px;float:left">
+                            <img src="/api/ru/excursion/editimage/@(photoItem.Key)?i=@(photoItem.Value ? "1" : "0")&w=290&h=150" />
+                       
+                            <a class="remove-image" href="#" data-istemp="@photoItem.Value" data-photoid="@photoItem.Key">Remove</a>
+                        </div>
+                    }
                 </div>
             </div>
-        </form>
+        }
         <div class="row">
             <div class="col-sm-12 common-lang">
-                <label data-ru="Photos, min 2000px width / Фото, ширина минимум 2000px"
-                       data-fr="Photos, min 2000px width / Photo, la largeur minimum 2000px"
-                       data-de="Photos, min 2000px width / Foto, minimale Breite 2000px">
+                <label
+                         @foreach (var langItem in Model.Languages)
+                         {
+                                 @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("photos_title_" + langItem.Key))))
+                         } 
+                       >
                     <span>Photos, min 2000px width / Фото, ширина минимум 2000px</span>
 
                 </label>
@@ -506,6 +714,57 @@
             <script>
                 var priceRow = "";
                 jQuery(function (e) {
+
+                    $('#exc_en_name').keyup(function () {
+                        $('#exc_en_name_copy').val($('#exc_en_name').val());
+                    });
+
+                    $('#exc_en_name_copy').val($('#exc_en_name').val());
+
+                    $('.remove-image').click(function () {
+                        //ajax
+
+                        $.ajax({
+                            type: 'GET',
+                            url: '@Url.ApiActionLink("deletephoto", "partnerexcursion")',
+                            data: "id=" + $(this).attr('data-photoid') + "&ismain="+$(this).attr('data-istemp') ,
+                            dataType: 'html'
+                        });
+
+                        $(this).parent().fadeOut(function () {
+
+                                                    $(this).remove();
+
+                                                    if ($('.photo-item').length == 0)
+                                                        $('.photo_row').parent().remove();
+                                                });
+
+                        return false;
+                    });
+
+
+                    $('.remove-price').click(function () {
+                        //ajax
+
+                        $.ajax({
+                            type: 'GET',
+                            url: '@Url.ApiActionLink("deleteprice", "partnerexcursion")',
+                            data: "id=" + $(this).attr('data-priceid'),
+                            dataType: 'html'
+                        });
+
+
+                        $(this).parent().parent().fadeOut(function () {
+
+                            $(this).remove();
+
+                            if ($('.old_price_row').length == 0)
+                                $('.old_prices').remove();
+                        });
+                        
+                        return false;
+                    });
+
 
                     $('.intval').change(function () {
                             $(this).val(parseInt($(this).val()) || 0);
@@ -685,21 +944,22 @@
             return res;
         }
         var submitForm = function () {
-            var info = $('#add_excursion').serialize();
+
+            var info = $('#edit_excursion').serialize();
             var patt1 = /%5B/i;
             var patt2 = /%5D/i;
 
             var res = info.replace(patt1, "[").replace(patt2, "]");
             console.log(res);
 
-            $.get(      '@Url.ApiActionLink("addexcursion", "partnerexcursion")',
+            $.post(      '@Url.ApiActionLink("editexcursion", "partnerexcursion")',
                         res
                         + "&lang=" + $('input[name=opt_lang]:checked').val()
                         + sendPhotos(), 
                         function () {
 
-                            alert('okey! redirect after click...');
-                            location.href = '@Url.Action("index", "partner")';
+                            alert('okey!');
+                            location.reload();
                         }
                     );
 
