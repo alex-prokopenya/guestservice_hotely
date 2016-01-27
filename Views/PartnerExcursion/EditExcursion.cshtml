@@ -477,7 +477,7 @@
                             </center>
                         </div>
 
-                        <div class="old_price_header ind">
+                        <div class="old_price_header row ind">
                             <div class="col-sm-2">
                                 dates
                             </div>
@@ -503,7 +503,7 @@
 
                         @foreach (var priceItem in Model.OldPrices)
                         {
-                            <div class="old_price_row ind">
+                            <div class="old_price_row row ind">
                                 <div class="col-sm-2">
                                     @priceItem.Value.Dates
                                 </div>
@@ -514,7 +514,7 @@
                                     @priceItem.Value.Summ
                                 </div>
                                 <div class="col-sm-2">
-                                    @priceItem.Value.Lang
+                                    @priceItem.Value.Lang / @priceItem.Value.Region
                                 </div>
                                 <div class="col-sm-2">
                                     @priceItem.Value.Group
@@ -549,10 +549,10 @@
                                 <label data-ru="Price type">
                                     <span>Price type</span>
                                     <select onchange="changeParentClass(this)" class="form-control" name="group_type[]">
-                                        <option selected data-parentclass="ind" value="1" data-ru="Ind">
+                                        <option selected data-parentclass="ind" value="2" data-ru="Ind">
                                             Ind
                                         </option>
-                                        <option data-parentclass="group" value="2" data-ru="Group">
+                                        <option data-parentclass="group" value="1" data-ru="Group">
                                             Group
                                         </option>
                                     </select>

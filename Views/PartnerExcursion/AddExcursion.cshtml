@@ -340,10 +340,13 @@
                             @{
                                 foreach (var row in Model.Regions)
                                 {
-                                    <option value="@row.Key">@row.Value</option>
+                                    if (row.Key > 0)
+                                    {
+                                       <option value="@row.Key">@row.Value</option>
+
+                                    }
                                 }
                             }
-
                             <option value="2">-new region-</option>
                         </select>
 
@@ -379,10 +382,10 @@
                             <label data-ru="Price type">
                                 <span>Price type</span>
                                 <select onchange="changeParentClass(this)" class="form-control" name="group_type[]">
-                                    <option selected data-parentclass="ind" value="1" data-ru="Ind">
+                                    <option selected data-parentclass="ind" value="2" data-ru="Ind">
                                         Ind
                                     </option>
-                                    <option data-parentclass="group" value="2" data-ru="Group">
+                                    <option data-parentclass="group" value="1" data-ru="Group">
                                         Group
                                     </option>
                                 </select>
