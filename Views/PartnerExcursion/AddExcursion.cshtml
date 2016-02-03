@@ -3,11 +3,13 @@
     ViewBag.Title = "Add new excursion";
 }
 <style>
-     .dz-error .dz-error-message {
+    .btn-group > .btn:hover, .btn-group-vertical > .btn:hover, .btn-group > .btn:focus, .btn-group-vertical > .btn:focus, .btn-group > .btn:active, .btn-group-vertical > .btn:active, .btn-group > .btn.active, .btn-group-vertical > .btn.active {
+        z-index: 1;
+    }
 
-    opacity: 1 !important;
-    top: 44px !important;
- 
+    .dz-error .dz-error-message {
+        opacity: 1 !important;
+        top: 44px !important;
     }
 
     .dropzone .dz-preview .dz-error-message:after {
@@ -57,7 +59,7 @@
         }
 
     .common-lang-btn {
-        padding-left: calc(50% - 75px);
+        padding-left: calc(50% - 155px);
     }
 
         .common-lang-btn button {
@@ -67,41 +69,44 @@
     .dropzone.dz-clickable {
         width: 500px;
     }
+
     .price_row {
         border-bottom: 1px dotted black;
         margin-bottom: 20px;
         padding-bottom: 20px;
     }
 
-    .price_row div{
-        margin-bottom:15px
-    }
-    .parent_remove:nth-of-type(2) {
-        display:none
-    } 
+        .price_row div {
+            margin-bottom: 15px;
+        }
 
-    .price_row select{
-        width: 114px
+    .parent_remove:nth-of-type(2) {
+        display: none;
     }
+
+    .price_row select {
+        width: 114px;
+    }
+
     .price_row .form-control {
         padding: 5px 0 5px 10px;
     }
 
     .ind .for_group {
-        display:none
-    
+        display: none;
     }
 
     .group .for_ind {
-        display:none
+        display: none;
     }
 
-    	.col-sm-9 {
-		width: 75% !important;
-	}
-        .for_ind .col-sm-6 .form-control {
-		width: 404px !important;
-	}
+    .col-sm-9 {
+        width: 75% !important;
+    }
+
+    .for_ind .col-sm-6 .form-control {
+        width: 404px !important;
+    }
 </style>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="~/css/dropzone.css">
@@ -112,7 +117,7 @@
 
     $(document).ready(
 
-      
+
 
         function () {
 
@@ -180,7 +185,7 @@
             @if (GuestService.Settings.IsShowBreadCrumb)
             {
                 <ol class="breadcrumb">
-					<li><a href="/hotel_cabinet_new/en/partner">Provider area</a></li>
+                    <li><a href="/hotel_cabinet_new/en/partner">Provider area</a></li>
                     <li class="active">@ViewBag.Title</li>
                 </ol>
             }
@@ -246,7 +251,7 @@
                     </label>
                 </div>
             </div>
-           
+
             <div class="row">
                 <div class="col-sm-12 common-lang">
                     <label data-ru="Excursion category / Категория экскурсии"
@@ -273,6 +278,90 @@
                     </label>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-sm-12 common-lang">
+
+                    <label data-ru="Guide / Услуги гида"
+                           data-fr="Guide / Услуги гида de"
+                           data-de="Guide / Услуги гида fr">
+
+                        <span>Guide / Услуги гида</span>
+                        <select class="form-control" name="guide">
+
+                            <option value="2" data-ru="Incl / Входят"
+                                    data-fr="Incl / Входят fr"
+                                    data-de="Incl / Входят de">
+                                Incl / Входят
+                            </option>
+                            <option value="1" data-ru="Escort / Escort"
+                                    data-fr="Escort / Escort fr"
+                                    data-de="Escort / Escort de">
+                                Escort / Escort
+                            </option>
+                            <option value="0" data-ru="Not Incl / No"
+                                    data-fr="Incl / No fr"
+                                    data-de="Incl / No de">
+                                No / No
+                            </option>
+
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 common-lang">
+
+                    <label data-ru="Food / Food"
+                           data-fr="Food / Food de"
+                           data-de="Food / Food fr">
+
+                        <span>Food / Food</span>
+                        <select class="form-control" name="food">
+                            <option value="1" data-ru="Incl / Входят"
+                                    data-fr="Incl / Входят fr"
+                                    data-de="Incl / Входят de">
+                                Incl / Входят
+                            </option>
+                            <option value="0" data-ru="Not Incl / No"
+                                    data-fr="Incl / No fr"
+                                    data-de="Incl / No de">
+                                No / No
+                            </option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 common-lang">
+
+                    <label data-ru="entry fees / entry fees "
+                           data-fr="entry fees / entry fees de"
+                           data-de="entry fees / entry fees fr">
+
+                        <span>entry fees / entry fees</span>
+                        <select class="form-control" name="entryfees">
+
+                            <option value="1" data-ru="Incl / Входят"
+                                    data-fr="Incl / Входят fr"
+                                    data-de="Incl / Входят de">
+                                Incl / Входят
+                            </option>
+
+                            <option value="0" data-ru="Not Incl / No"
+                                    data-fr="Incl / No fr"
+                                    data-de="Incl / No de">
+                                No / No
+                            </option>
+
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+
             <div class="row">
                 <div class="col-sm-6 left-lang">
                     <label>
@@ -289,6 +378,23 @@
                     </label>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-6 left-lang">
+                    <label>
+                        Route description
+                        <textarea rows="12" class="form-control" name="exc_en_routetext"></textarea>
+                    </label>
+                </div>
+                <div class="col-sm-6 right-lang">
+                    <label data-ru="Описание маршрута"
+                           data-fr="Description des excursions"
+                           data-de="Beschreibung von Ausflügen">
+                        <span>Описание маршрута</span>
+                        <textarea rows="12" class="form-control" name="exc_ru_routetext"></textarea>
+                    </label>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-sm-6 left-lang">
                     <label>
@@ -329,38 +435,37 @@
                     </label>
                 </div>
             </div>
+            <!--
+                        <div class="row">
+                            <div class="col-sm-12 common-lang">
+                                <label data-ru="Region / Регион"
+                                       data-fr="Region / Zone"
+                                       data-de="Region / Bereich">
+                                    <span>Region / Регион</span>
+                                    <select class="form-control" name="exc_region" id="exc_region">
+                                        @{
+                                            foreach (var row in Model.Regions)
+                                            {
+                                                    <option value="@row.Key">@row.Value</option>
+                                            }
+                                        }
+
+                                        <option value="2">-new region-</option>
+                                    </select>
+
+                                </label>
+                                <input type="text" placeholder="type region name" style="display:none" class="form-control" name="exc_region_name" value="">
+                            </div>
+                        </div>
+            -->
 
             <div class="row">
                 <div class="col-sm-12 common-lang">
-                    <label data-ru="Region / Регион"
-                           data-fr="Region / Zone"
-                           data-de="Region / Bereich">
-                        <span>Region / Регион</span>
-                        <select class="form-control" name="exc_region" id="exc_region">
-                            @{
-                                foreach (var row in Model.Regions)
-                                {
-                                    if (row.Key > 0)
-                                    {
-                                       <option value="@row.Key">@row.Value</option>
-
-                                    }
-                                }
-                            }
-                            <option value="2">-new region-</option>
-                        </select>
-
-                    </label>
-                    <input type="text" placeholder="type region name" style="display:none" class="form-control" name="exc_region_name" value="">
-                </div>
-            </div>
-             <div class="row">
-                <div class="col-sm-12 common-lang" >
                     <label data-ru="Comission, % / Комиссия, %"
                            data-fr="Comission, % / Com, %"
                            data-de="Comission, % / Com, %">
                         <span>Comission, % / Комиссия, %</span>
-                        
+
                         <input placeholder="10" type="text" id="exc_comis" class="form-control" name="exc_comis" value="">
                     </label>
                 </div>
@@ -368,13 +473,13 @@
 
             <div class="row">
                 <div class="prices">
-                        <div class="col-sm-12" style="margin-bottom:20px">
-                            <center>
-                                <label data-ru="Price / Цена">
-                                    <span>Price / Цена</span>
-                                </label>
-                            </center>
-                        </div>
+                    <div class="col-sm-12" style="margin-bottom:20px">
+                        <center>
+                            <label data-ru="Price / Цена">
+                                <span>Price / Цена</span>
+                            </label>
+                        </center>
+                    </div>
 
                     <div class="price_row ind">
 
@@ -436,20 +541,6 @@
                                 </select>
                             </label>
                         </div>
-
-                        <span style="position:absolute; cursor:pointer; display:none" onclick="removeParent(this)" class="parent_remove"> X </span>
-                        <div class="col-sm-2">
-                            <label data-ru="Valid from">
-                                <span>Valid from</span>
-                                <input type="text" class="form-control adate minDate" name="adate[]" value="">
-                            </label>
-                        </div>
-                        <div class="col-sm-2">
-                            <label data-ru="Valid till">
-                                <span>Valid till</span>
-                                <input type="text" class="form-control edate maxDate" name="edate[]" value="">
-                            </label>
-                        </div>
                         <div class="col-sm-2">
                             <label data-ru="Exc language">
                                 <span>Exc language</span>
@@ -466,7 +557,21 @@
                                 </select>
                             </label>
                         </div>
-                       
+                        <span style="position:absolute; cursor:pointer; display:none" onclick="removeParent(this)" class="parent_remove"> X </span>
+
+                        <div class="col-sm-2">
+                            <label data-ru="Valid from">
+                                <span>Valid from</span>
+                                <input type="text" class="form-control adate minDate" name="adate[]" value="">
+                            </label>
+                        </div>
+                        <div class="col-sm-2">
+                            <label data-ru="Valid till">
+                                <span>Valid till</span>
+                                <input type="text" class="form-control edate maxDate" name="edate[]" value="">
+                            </label>
+                        </div>
+
                         <div class="col-sm-2">
                             <label data-ru="Group from (pax)">
                                 <span>Group from (pax)</span>
@@ -491,6 +596,25 @@
                                 <input type="text" class="form-control sdateTo maxDate" name="sdate_to[]" value="">
                             </label>
                         </div>
+
+                        <div class="col-sm-2">
+                            <label data-ru="Region / Регион"
+                                   data-fr="Region / Zone"
+                                   data-de="Region / Bereich">
+                                <span>Region / Регион</span>
+                                <select class="form-control" name="price_region[]">
+
+                                    @{
+                                        foreach (var row in Model.Regions)
+                                        {
+                                            <option value="@row.Key">@row.Value</option>
+                                        }
+                                    }
+
+                                </select>
+                            </label>
+                        </div>
+
                         <div class="col-sm-6">
                             <label data-ru="Excursion's weekdays">
                                 <span>Excursion's weekdays (all days by default)</span><br>
@@ -511,14 +635,14 @@
                                         <input checked="checked" type="checkbox" value="5">Fr
                                     </label>
                                     <label class="btn btn-default active">
-                                        <input checked="checked" type="checkbox"  value="6">Sa
+                                        <input checked="checked" type="checkbox" value="6">Sa
                                     </label>
                                     <label class="btn btn-default active">
-                                        <input checked="checked" type="checkbox"  value="7">Su
+                                        <input checked="checked" type="checkbox" value="7">Su
                                     </label>
                                 </div>
                                 <input type="hidden" name="days[]" value="1111111">
-                             </label>
+                            </label>
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -536,8 +660,8 @@
 
                 </label>
                 <!-- Change /upload-target to your upload address -->
-            <form id="myAwesomeDropzone" action="@Url.ApiActionLink("uploadimage", "partnerexcursion")" class="dropzone"></form>
-            <script>
+                <form id="myAwesomeDropzone" action="@Url.ApiActionLink("uploadimage", "partnerexcursion")" class="dropzone"></form>
+                <script>
                 var priceRow = "";
                 jQuery(function (e) {
 
@@ -577,11 +701,11 @@
                        dateFormat: "yy-mm-dd"
                    });
 
-                  
+
                 });
 
                 var addPriceRow = function () {
-                   
+
                     $(priceRow).insertAfter($('.price_row').last());
 
                     $('.parent_remove').show();
@@ -729,7 +853,7 @@
             $.get(      '@Url.ApiActionLink("addexcursion", "partnerexcursion")',
                         res
                         + "&lang=" + $('input[name=opt_lang]:checked').val()
-                        + sendPhotos(), 
+                        + sendPhotos(),
                         function () {
 
                             alert('okey! redirect after click...');
@@ -738,10 +862,10 @@
                     );
 
         };
-        </script>
+    </script>
 
-        <div class="col-sm-12 common-lang-btn">
-            <button class="btn btn-primary" type="submit" value="" onclick="submitForm()">Save excursion</button>
-        </div>
+    <div class="col-sm-12 common-lang-btn">
+        <button class="btn btn-primary" type="submit" value="" onclick="submitForm()">Save excursion</button>
+    </div>
 
 </div>

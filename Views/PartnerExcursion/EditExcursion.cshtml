@@ -1,10 +1,8 @@
 ﻿@model GuestService.Models.Partner.EditExcursionContext
 @{
     ViewBag.Title = "Edit excursion";
-    //TODO выгрузить данный из реальных таблиц + темповые
-    //TODO фото из двух таблиц
-    //TODO цены старые только удалить, новые добавить сразу в рабочую
-    //TODO exdetplain, только добавить(?)
+    //TODO добавить food, guide, entry
+    //TODO добавить stuff, route, cancel
 
     var types = ",";
 
@@ -18,6 +16,30 @@
     foreach (var descItem in Model.Descriptions)
     {
         descriptions[descItem.Key.ToString()] = descItem.Value;
+    }
+
+
+    var routes = new Dictionary<string, string>();
+
+    foreach (var routeItem in Model.Routes)
+    {
+        routes[routeItem.Key.ToString()] = routeItem.Value;
+    }
+
+
+    var cancels = new Dictionary<string, string>();
+
+    foreach (var cancelItem in Model.Cancel)
+    {
+        cancels[cancelItem.Key.ToString()] = cancelItem.Value;
+    }
+
+
+    var stuffs = new Dictionary<string, string>();
+
+    foreach (var stuffItem in Model.Stuffs)
+    {
+        stuffs[stuffItem.Key.ToString()] = stuffItem.Value;
     }
 }
 <style>
@@ -396,12 +418,90 @@
                     </label>
                 </div>
             </div>
+
+
+            <div class="row">
+                <div class="col-sm-12 common-lang">
+
+                    <label @foreach (var langItem in Model.Languages) { @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("guide_title_" + langItem.Key))))  }>
+
+                        <span>Guide / Услуги гида</span>
+                        <select class="form-control" name="guide">
+
+                            <option value="2"
+                                    @if (Model.Guide==2) {  @(" selected ")  }
+                                    @foreach (var langItem in Model.Languages) { @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("guide_inc_option_" + langItem.Key))))  }>
+                                Incl / Входят
+                            </option>
+
+                            <option value="1"
+                                    @if (Model.Guide == 1) {  @(" selected ")   }
+                                    @foreach (var langItem in Model.Languages) { @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("guide_escort_option_" + langItem.Key))))   }>
+                                Escort / Escort
+                            </option>
+
+                            <option value="0"
+                                    @if (Model.Guide == 0) {  @(" selected ")   }
+                                    @foreach (var langItem in Model.Languages) { @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("guide_no_option_" + langItem.Key))))   }>
+                                No / No
+                            </option>
+
+                        </select>
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 common-lang">
+
+                    <label @foreach (var langItem in Model.Languages) { @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("food_title_" + langItem.Key))))   }>
+                    <span>Food / Food</span>
+
+                        <select class="form-control" name="food">
+                            <option value="1"
+                                    @if (Model.Food == 1) {  @(" selected ")   }
+                                    @foreach (var langItem in Model.Languages) { @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("food_inc_option_" + langItem.Key))))   }>
+                                Incl / Входят
+                            </option>
+                            <option value="0"
+                                    @if (Model.Food == 0) {  @(" selected ")   }
+                                    @foreach (var langItem in Model.Languages) { @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("food_no_option_" + langItem.Key))))    }>
+                                No / No
+                            </option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 common-lang">
+
+                    <label @foreach (var langItem in Model.Languages) { @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("fees_title_" + langItem.Key))))    }>
+                        <span>entry fees / entry fees</span>
+                        <select class="form-control" name="entryfees">
+
+                            <option value="1"
+                                    @if (Model.EntryFees == 1) {  @(" selected ")    }
+                                    @foreach (var langItem in Model.Languages) { @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("fees_inc_option_" + langItem.Key))))    }>
+                                Incl / Входят
+                            </option>
+                            <option value="0"
+                                    @if (Model.EntryFees == 0) {  @(" selected ")    }
+                                    @foreach (var langItem in Model.Languages) { @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("fees_no_option_" + langItem.Key))))   }>
+                                No / No
+                            </option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-sm-6 left-lang">
                     <label>
                         About excursion
                         <textarea rows="12" class="form-control" name="exc_1_details">
-@foreach (var desc in Model.Descriptions)
+                        @foreach (var desc in Model.Descriptions)
                         {
                                 if (desc.Key == 1)
                                 {
@@ -424,6 +524,99 @@
                     }
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-sm-6 left-lang">
+                    <label>
+                        About route
+                        <textarea rows="12" class="form-control" name="exc_1_routes">
+                            @foreach (var desc in Model.Routes)
+                            {
+                                if (desc.Key == 1)
+                                {
+                                    @desc.Value
+                                }
+                            }
+                        </textarea>
+                    </label>
+                </div>
+                <div class="col-sm-6 right-lang">
+
+                    @foreach (var desc in Model.Languages)
+                    {
+                        if (desc.Key != "1")
+                        {
+                            <span class="@desc.Key@("for-lang") for-lang right-lang">
+                                <span>@ExcursionStrings.Get("route_title_" + desc.Key)</span>
+                                <textarea rows="12" class="form-control" name="exc_@(desc.Key)_routes">@(routes.ContainsKey(desc.Key) ? routes[desc.Key] : "")</textarea>
+                            </span>
+                        }
+                    }
+                </div>
+            </div>
+
+             <div class="row">
+                <div class="col-sm-6 left-lang">
+                    <label>
+                        About cancel
+                        <textarea rows="12" class="form-control" name="exc_1_cancels">
+                            @foreach (var desc in Model.Cancel)
+                            {
+                                if (desc.Key == 1)
+                                {
+                                    @desc.Value
+                                }
+                            }
+                        </textarea>
+                    </label>
+                </div>
+                <div class="col-sm-6 right-lang">
+
+                    @foreach (var desc in Model.Languages)
+                    {
+                        if (desc.Key != "1")
+                        {
+                            <span class="@desc.Key@("for-lang") for-lang right-lang">
+                                <span>@ExcursionStrings.Get("cancel_title_" + desc.Key)</span>
+                                <textarea rows="12" class="form-control" name="exc_@(desc.Key)_cancels">@(cancels.ContainsKey(desc.Key) ? cancels[desc.Key] : "")</textarea>
+                            </span>
+                        }
+                    }
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-6 left-lang">
+                    <label>
+                        About stuff
+                        <textarea rows="12" class="form-control" name="exc_1_stuffs">
+                            @foreach (var desc in Model.Stuffs)
+                            {
+                                if (desc.Key == 1)
+                                {
+                                    @desc.Value
+                                }
+                            }
+                        </textarea>
+                    </label>
+                </div>
+                <div class="col-sm-6 right-lang">
+
+                    @foreach (var desc in Model.Languages)
+                    {
+                        if (desc.Key != "1")
+                        {
+                            <span class="@desc.Key@("for-lang") for-lang right-lang">
+                                <span>@ExcursionStrings.Get("stuff_title_" + desc.Key)</span>
+                                <textarea rows="12" class="form-control" name="exc_@(desc.Key)_stuffs">@(stuffs.ContainsKey(desc.Key) ? stuffs[desc.Key] : "")</textarea>
+                            </span>
+                        }
+                    }
+                </div>
+            </div>
+
+
             <div class="row">
                 <div class="col-sm-12 common-lang">
                     <label>
