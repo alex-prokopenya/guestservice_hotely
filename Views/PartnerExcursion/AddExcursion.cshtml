@@ -100,6 +100,14 @@
         display: none;
     }
 
+    .procent .for_netto {
+        display: none;
+    }
+
+    .netto .for_procent {
+        display: none;
+    }
+
     .col-sm-9 {
         width: 75% !important;
     }
@@ -170,11 +178,14 @@
 
         var classname = $(el).find('option:selected').attr('data-parentclass');
 
-        //console.log(classname);
-
         $(el).parents('.price_row').removeClass('ind').removeClass('group').addClass(classname);
+    }
 
-       // console.log();
+    var changeParentCommissionClass = function (el) {
+
+        var classname = $(el).find('option:selected').attr('data-parentclass');
+
+        $(el).parents('.price_row').removeClass('procent').removeClass('netto').addClass(classname);
     }
 </script>
 
@@ -481,7 +492,7 @@
                         </center>
                     </div>
 
-                    <div class="price_row ind">
+                    <div class="price_row ind procent">
 
                         <div class="col-sm-2">
                             <label data-ru="Price type">
@@ -558,6 +569,67 @@
                             </label>
                         </div>
                         <span style="position:absolute; cursor:pointer; display:none" onclick="removeParent(this)" class="parent_remove"> X </span>
+
+                        <div class="col-sm-2">
+                            <label data-ru="Comission type">
+                                <span>Comission type</span>
+                                <select onchange="changeParentCommissionClass(this)" class="form-control" name="comission_type[]">
+                                    <option selected data-parentclass="procent" value="1" data-ru="comission %">
+                                        comission %
+                                    </option>
+                                    <option data-parentclass="netto" value="2" data-ru="brutto/netto">
+                                        brutto/netto
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <span class="for_netto">
+                            <span class="for_group">
+                                <div class="col-sm-2">
+                                    <label data-ru="Adult / NETTO ">
+                                        <span>Adult / NETTO </span>
+                                        <input type="text" class="form-control intval" name="netto_ad_price[]" value="">
+                                    </label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label data-ru="Child / NETTO ">
+                                        <span>Child / NETTO </span>
+                                        <input type="text" class="form-control intval" name="netto_ch_price[]" value="">
+                                    </label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label data-ru="Infant / NETTO ">
+                                        <span>Infant / NETTO </span>
+                                        <input type="text" class="form-control intval" name="netto_inf_price[]" value="">
+                                    </label>
+                                </div>
+                               
+                            </span>
+
+                            <span class="for_ind">
+                                <div class="col-sm-6">
+                                    <label data-ru="Exc price (all participants) / NETTO ">
+                                        <span>Exc price (all participants) / NETTO </span>
+                                        <input type="text" class="form-control intval" name='netto_total[]' value="">
+                                    </label>
+                                </div>
+                                
+                            </span>
+                            <div class="col-sm-4">&nbsp;<br>&nbsp;<br>&nbsp;</div>
+                        </span>
+
+                        <span class="for_procent">
+
+                                <div class="col-sm-6">
+                                    <label data-ru="comission %">
+                                        <span>comission %</span>
+                                        <input style="width:404px" placeholder="10" type="text" class="form-control" name="price_comis[]" value="">
+                                    </label>
+                                </div>
+                                <div class="col-sm-4">&nbsp;<br>&nbsp;<br>&nbsp;</div>
+                            
+                        </span>
 
                         <div class="col-sm-2">
                             <label data-ru="Valid from">

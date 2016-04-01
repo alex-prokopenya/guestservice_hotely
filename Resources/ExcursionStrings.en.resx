@@ -420,4 +420,8 @@
   <data name="ExtraFiltersDepartures" xml:space="preserve">
     <value>Departure from</value>
   </data>
+  
+   <data name="ChangesNotConfirmed" xml:space="preserve">
+    <value>абырвалг</value>
+  </data>
 </root>
