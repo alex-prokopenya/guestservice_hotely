@@ -1,8 +1,10 @@
 ﻿@model GuestService.Models.Partner.EditExcursionContext
 @{
     ViewBag.Title = "Edit excursion";
-    //TODO добавить food, guide, entry
-    //TODO добавить stuff, route, cancel
+    //TODO выгрузить данный из реальных таблиц + темповые
+    //TODO фото из двух таблиц
+    //TODO цены старые только удалить, новые добавить сразу в рабочую
+    //TODO exdetplain, только добавить(?)
 
     var types = ",";
 
@@ -17,8 +19,8 @@
     {
         descriptions[descItem.Key.ToString()] = descItem.Value;
     }
-
-
+	
+	
     var routes = new Dictionary<string, string>();
 
     foreach (var routeItem in Model.Routes)
@@ -43,6 +45,9 @@
     }
 }
 <style>
+.btn-group > .btn:hover, .btn-group-vertical > .btn:hover, .btn-group > .btn:focus, .btn-group-vertical > .btn:focus, .btn-group > .btn:active, .btn-group-vertical > .btn:active, .btn-group > .btn.active, .btn-group-vertical > .btn.active {
+    z-index: 1;
+}
 
 
     .dz-error .dz-error-message {
@@ -99,7 +104,7 @@
         }
 
     .common-lang-btn {
-        padding-left: calc(50% - 155px);
+        padding-left: calc(50% - 150px);
     }
 
         .common-lang-btn button {
@@ -143,8 +148,15 @@
 	}
         .for_ind .col-sm-6 .form-control {
 		width: 404px !important;
-	}
-</style>
+	}  
+	.procent .for_netto {
+        display: none;
+    }
+
+    .netto .for_procent {
+        display: none;
+    }
+	</style>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="~/css/dropzone.css">
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
@@ -180,8 +192,6 @@
 
             $('input[name=opt_lang]').change(function () {
                 var new_lang = $('input[name=opt_lang]:checked').val()
-
-               
 
                 apply_lang(new_lang);
             });
@@ -229,6 +239,12 @@
         $(el).parents('.price_row').removeClass('ind').removeClass('group').addClass(classname);
 
     }
+	var changeParentCommissionClass = function (el) {
+
+        var classname = $(el).find('option:selected').attr('data-parentclass');
+
+        $(el).parents('.price_row').removeClass('procent').removeClass('netto').addClass(classname);
+    }
 </script>
 
 <div class="container">
@@ -238,7 +254,7 @@
             @if (GuestService.Settings.IsShowBreadCrumb)
             {
                 <ol class="breadcrumb">
-					<li><a href="/hotel_cabinet_new/en/partner">Provider area</a></li>
+					<li><a href="/management/en/partner">Provider area</a></li>
                     <li class="active">@ViewBag.Title</li>
                 </ol>
             }
@@ -266,9 +282,9 @@
 
     <div class="col-sm-12 exc_form">
         <form id="edit_excursion" method="post" action="">
-            <input type="hidden" name="ex_id" value="@Model.ExcursionId">
+			<input type="hidden" name="ex_id" value="@Model.ExcursionId">
             <input type="hidden" name="ex_copy_id" value="@Model.CopyExcursionId">
-
+			
             <div class="row">
                 <div class="col-sm-6 left-lang">
 
@@ -276,7 +292,7 @@
                     {
                         if (name.Key == 1)
                         {
-                            <span class="right-lang">
+                            <span class="left-lang">
                                 <label>
                                     <span>@ExcursionStrings.Get("name_title_" + name.Key)</span>
                                     <input   type="text" id="exc_en_name" class="form-control" name="en_name" value="@name.Value">
@@ -291,7 +307,7 @@
                     {
                         if (name.Key == 2)
                         {
-                            <span class="name_ru right-lang">
+                            <span class="name_ru left-lang">
                                 <label>
                                     <span>@ExcursionStrings.Get("name_title_" + name.Key)</span>
                                     <input type="text" id="exc_ru_name" class="form-control" name="ru_name" value="@name.Value">
@@ -418,8 +434,7 @@
                     </label>
                 </div>
             </div>
-
-
+			
             <div class="row">
                 <div class="col-sm-12 common-lang">
 
@@ -495,23 +510,23 @@
                     </label>
                 </div>
             </div>
-
+			
             <div class="row">
                 <div class="col-sm-6 left-lang">
                     <label>
-                        About excursion
+                        Excursion description
                         <textarea rows="12" class="form-control" name="exc_1_details">
-                        @foreach (var desc in Model.Descriptions)
+						@foreach (var desc in Model.Descriptions)
                         {
                                 if (desc.Key == 1)
                                 {
                                     @desc.Value
                                 }
-                        }</textarea>
+                        }
+						</textarea>
                     </label>
                 </div>
                 <div class="col-sm-6 right-lang">
-
                     @foreach (var desc in Model.Languages)
                     {
                         if (desc.Key != "1")
@@ -524,11 +539,12 @@
                     }
                 </div>
             </div>
-
-            <div class="row">
+			
+			
+			<div class="row">
                 <div class="col-sm-6 left-lang">
                     <label>
-                        About route
+                        Route description
                         <textarea rows="12" class="form-control" name="exc_1_routes">
                             @foreach (var desc in Model.Routes)
                             {
@@ -558,7 +574,7 @@
              <div class="row">
                 <div class="col-sm-6 left-lang">
                     <label>
-                        About cancel
+                        Cancellation/return policy
                         <textarea rows="12" class="form-control" name="exc_1_cancels">
                             @foreach (var desc in Model.Cancel)
                             {
@@ -589,7 +605,7 @@
             <div class="row">
                 <div class="col-sm-6 left-lang">
                     <label>
-                        About stuff
+                        Special requirements
                         <textarea rows="12" class="form-control" name="exc_1_stuffs">
                             @foreach (var desc in Model.Stuffs)
                             {
@@ -615,8 +631,8 @@
                     }
                 </div>
             </div>
-
-
+			
+			
             <div class="row">
                 <div class="col-sm-12 common-lang">
                     <label>
@@ -625,7 +641,7 @@
                     </label>
                 </div>
             </div>
-
+<!--
             <div class="row">
                 <div class="col-sm-12 common-lang">
                     <label 
@@ -651,9 +667,9 @@
                     <input type="text" placeholder="type region name" style="display:none" class="form-control" name="exc_region_name" value="">
                 </div>
             </div>
-        
+        -->
             <div class="row">
-              @if (Model.OldPrices.Length > 0)
+            @if (Model.OldPrices.Length > 0)
               {
                     <div class="old_prices">
 
@@ -671,28 +687,30 @@
                         </div>
 
                         <div class="old_price_header row ind">
-                            <div class="col-sm-2">
-                                dates
+                            <div class="col-sm-2" style="border-bottom: 1px dotted #000;">
+                                Dates
                             </div>
-                            <div class="col-sm-2">
-                                type
+                            <div class="col-sm-2" style="border-bottom: 1px dotted #000;">
+                                Type
                             </div>
-                            <div class="col-sm-2">
-                                summ
+                            <div class="col-sm-2" style="border-bottom: 1px dotted #000;">
+                                Price
                             </div>
-                            <div class="col-sm-2">
-                                lang
+                            <div class="col-sm-2" style="border-bottom: 1px dotted #000;">
+                               <nobr> Language / Region </nobr>
                             </div>
-                            <div class="col-sm-2">
-                                group
+                            <div class="col-sm-2" style="border-bottom: 1px dotted #000;">
+                                Group
                             </div>
-                            <div class="col-sm-1">
-                                weekdays
+                            <div class="col-sm-1" style="border-bottom: 1px dotted #000;">
+                                Weekdays
                             </div>
-                            <div class="col-sm-1">
-                                Remove btn
+                            <div class="col-sm-1" style="border-bottom: 1px dotted #000;">
+                                Remove
                             </div>
                         </div>
+						
+
 
                         @foreach (var priceItem in Model.OldPrices)
                         {
@@ -704,10 +722,12 @@
                                     @priceItem.Value.Type
                                 </div>
                                 <div class="col-sm-2">
-                                    @priceItem.Value.Summ
+                                    Market:  @priceItem.Value.MarketSumm <br>
+                                    Published:  @priceItem.Value.Summ <br>
+                                    Natto:   @priceItem.Value.NettoSumm <br>
                                 </div>
                                 <div class="col-sm-2">
-                                    @priceItem.Value.Lang / @priceItem.Value.Region
+                                    <nobr>@priceItem.Value.Lang / @priceItem.Value.Region</nobr>
                                 </div>
                                 <div class="col-sm-2">
                                     @priceItem.Value.Group
@@ -724,7 +744,7 @@
               }
 
                 <div class="prices">
-                        <div class="col-sm-12" style="margin-bottom:20px">
+                        <div class="col-sm-12" style="margin-bottom:20px; border-bottom: 1px dotted #000;">
                             <center>
                                 <label 
                                         @foreach (var langItem in Model.Languages)
@@ -737,7 +757,7 @@
                             </center>
                         </div>
 
-                        <div class="price_row ind">
+                        <div class="price_row ind procent">
                             <div class="col-sm-2">
                                 <label data-ru="Price type">
                                     <span>Price type</span>
@@ -796,20 +816,6 @@
                                     </select>
                                 </label>
                             </div>
-
-                            <span style="position:absolute; cursor:pointer; display:none" onclick="removeParent(this)" class="parent_remove"> X </span>
-                            <div class="col-sm-2">
-                                <label data-ru="Valid from">
-                                    <span>Valid from</span>
-                                    <input type="text" class="form-control adate minDate" name="adate[]" value="">
-                                </label>
-                            </div>
-                            <div class="col-sm-2">
-                                <label data-ru="Valid till">
-                                    <span>Valid till</span>
-                                    <input type="text" class="form-control edate maxDate" name="edate[]" value="">
-                                </label>
-                            </div>
                             <div class="col-sm-2">
                                 <label data-ru="Exc language">
                                     <span>Exc language</span>
@@ -824,6 +830,80 @@
                                             }
                                         }
                                     </select>
+                                </label>
+                            </div>
+                            <span style="position:absolute; cursor:pointer; display:none" onclick="removeParent(this)" class="parent_remove"> X </span>
+
+                            <div class="col-sm-2">
+                                <label data-ru="Comission type">
+                                    <span>Comission type</span>
+                                    <select onchange="changeParentCommissionClass(this)" class="form-control" name="comission_type[]">
+                                        <option selected data-parentclass="procent" value="1" data-ru="comission %">
+                                            comission %
+                                        </option>
+                                        <option data-parentclass="netto" value="2" data-ru="brutto/netto">
+                                            brutto/netto
+                                        </option>
+                                    </select>
+                                </label>
+                            </div>
+
+                            <span class="for_netto">
+                                <span class="for_group">
+                                    <div class="col-sm-2">
+                                        <label data-ru="Adult / NETTO ">
+                                            <span>Adult / NETTO </span>
+                                            <input type="text" class="form-control intval" name="netto_ad_price[]" value="">
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label data-ru="Child / NETTO ">
+                                            <span>Child / NETTO </span>
+                                            <input type="text" class="form-control intval" name="netto_ch_price[]" value="">
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label data-ru="Infant / NETTO ">
+                                            <span>Infant / NETTO </span>
+                                            <input type="text" class="form-control intval" name="netto_inf_price[]" value="">
+                                        </label>
+                                    </div>
+
+                                </span>
+
+                                <span class="for_ind">
+                                    <div class="col-sm-6">
+                                        <label data-ru="Exc price (all participants) / NETTO ">
+                                            <span>Exc price (all participants) / NETTO </span>
+                                            <input type="text" class="form-control intval" name='netto_total[]' value="">
+                                        </label>
+                                    </div>
+
+                                </span>
+                                <div class="col-sm-4">&nbsp;<br>&nbsp;<br>&nbsp;</div>
+                            </span>
+
+                            <span class="for_procent">
+
+                                <div class="col-sm-6">
+                                    <label data-ru="comission %">
+                                        <span>comission %</span>
+                                        <input style="width:404px" placeholder="10" type="text" class="form-control" name="price_comis[]" value="">
+                                    </label>
+                                </div>
+                                <div class="col-sm-4">&nbsp;<br>&nbsp;<br>&nbsp;</div>
+
+                            </span>
+                            <div class="col-sm-2">
+                                <label data-ru="Valid from">
+                                    <span>Valid from</span>
+                                    <input type="text" class="form-control adate minDate" name="adate[]" value="">
+                                </label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label data-ru="Valid till">
+                                    <span>Valid till</span>
+                                    <input type="text" class="form-control edate maxDate" name="edate[]" value="">
                                 </label>
                             </div>
 
@@ -851,6 +931,33 @@
                                     <input type="text" class="form-control sdateTo maxDate" name="sdate_to[]" value="">
                                 </label>
                             </div>
+				<div class="col-sm-2">
+                    <label 
+                           @foreach (var langItem in Model.Languages)
+                            {
+                                @(new HtmlString(string.Format(" data-{0}=\"{1}\" ", @langItem.Key, @ExcursionStrings.Get("region_title_" + langItem.Key))))
+                            } 
+                           >
+                        <span>Region / Регион</span>
+                        <select class="form-control" name="price_region[]" >
+						   
+                            @{
+                                //выбранный регион
+                                foreach (var row in Model.Regions)
+                                {
+                                       <option value="@row.Key">@row.Value</option>
+
+                                    
+                                }
+                            }
+
+                        
+                        </select>
+
+                    </label>
+                   
+                </div>
+							
                             <div class="col-sm-6">
                                 <label data-ru="Excursion's weekdays">
                                     <span>Excursion's weekdays (all days by default)</span><br>
@@ -887,6 +994,17 @@
                     </div>
                 </div>
 
+            <div class="row">
+                <div class="col-sm-12 common-lang">
+                    <label data-ru="video url"
+                           data-fr="video url"
+                           data-de="video url">
+                        <span>video url</span>
+
+                        <input placeholder="https://..." type="text" id="exc_video" class="form-control" name="exc_video" value="@Model.VideoUrl">
+                    </label>
+                </div>
+            </div>
         </form>
         @if (Model.OldPhotos.Length > 0)
         {
@@ -896,7 +1014,7 @@
                     @foreach (var photoItem in Model.OldPhotos)
                     {
                         <div class="photo-item" style="width:300px;float:left">
-                            <img src="/api/ru/excursion/editimage/@(photoItem.Key)?i=@(photoItem.Value ? "1" : "0")&w=290&h=150" />
+                            <img src="@Url.ApiActionLink("editimage", "excursion")/@(photoItem.Key)?i=@(photoItem.Value ? "1" : "0")&w=290&h=150" />
                        
                             <a class="remove-image" href="#" data-istemp="@photoItem.Value" data-photoid="@photoItem.Key">Remove</a>
                         </div>
@@ -976,7 +1094,7 @@
                             $(this).val(parseInt($(this).val()) || 0);
                         });
 
-                    priceRow =  '<div class="price_row col-sm-12 ind">' + $('.price_row').first().html() + '</div>';
+                    priceRow =  '<div class="price_row col-sm-12 ind procent">' + $('.price_row').first().html() + '</div>';
 
                     var dates = jQuery('.adate, .edate').datepicker(
                     {
@@ -1131,7 +1249,6 @@
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-
     <script>
         var removeParent = function (el) {
 
@@ -1150,7 +1267,6 @@
             return res;
         }
         var submitForm = function () {
-
             var info = $('#edit_excursion').serialize();
             var patt1 = /%5B/i;
             var patt2 = /%5D/i;
@@ -1164,8 +1280,8 @@
                         + sendPhotos(), 
                         function () {
 
-                            alert('okey!');
-                            location.reload();
+                            alert('Changes to excursion has been saved. Please note that some changes (i.e. new pictures) require check by EXGO manager and will appear in booking system after approval.');
+                            location.href='@Url.Action("editlist","partnerexcursion")';
                         }
                     );
 
@@ -1174,7 +1290,7 @@
 
         <div class="col-sm-12 common-lang-btn">
             <button class="btn btn-primary" type="submit" value="" onclick="submitForm()">Save excursion</button>
-            <a href="@Url.Action("editlist","partnerexcursion")"><button class="btn btn-primary" type="submit" value="" onclick="">Cancel</button></a>
+			<a href="@Url.Action("editlist","partnerexcursion")"><button class="btn btn-primary" type="submit" value="" onclick="">Cancel</button></a>
         </div>
 
 </div>
