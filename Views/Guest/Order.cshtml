@@ -213,10 +213,50 @@
     
                         
                   
-                </div>                    
+                </div>
             }
-            
-        }
+
+                            <script>
+                                    function ShowAnnButton() {
+                                        $("#reason").show();
+                                        $("#sendAnn").show();
+                                        $("#showAnnSetiing").hide();
+                                    }
+
+                                    function doSendMessage() {
+                                            site.service.ajax.post('@Url.Action("cancelorder", "payment")', {
+                                            reason: $("#reason").val(),
+                                            claimId: $("#claimId").val()
+                                        },
+                                            function (result) {
+                                                if( result && result.ok ) {
+                                                    $("#reason").hide();
+                                                    $("#sendAnn").hide();
+                                                    $("#success").show();
+                                                    location.reload();
+                                                } else {
+                                                    alert("error");
+                                                }
+                                            }
+                                        );
+                                    }
+
+                         </script>
+
+                               
+                                    if (GuestService.Settings.isShowButtonAnnulationStatuses.Contains(Model.Claim.status.id.ToString()))
+                                    {
+                                        <div style="margin-bottom:10px; margin-top:10px;">
+                                            <span class="media-heading" id="success" style="color: #777777;display:none;">The request for cancellation sent successfully.</span>
+                                            @Html.TextBox("reason", null, new { @style = "display:none; width:300px; height:36px;", @placeholder = "Enter reason for cancellation..." })
+                                            <input type="hidden" id="claimId" name="claimId" value="@Model.Claim.claimId" />
+                                            <input type="submit" id="sendAnn" value="Send" style="display:none" class="btn btn-large btn-primary" onclick="doSendMessage()" />
+                                            <button id="showAnnSetiing" type="submit" class="btn btn-large btn-primary" onclick="ShowAnnButton()">Send cancellation for order</button>
+                                        </div>
+                                    }
+                                
+
+                    }
         
         @if (Model.ExcursionTransfers != null && Model.ExcursionTransfers.Count > 0)
         {
@@ -229,6 +269,10 @@
                 }
             </div>
         }
+
+
+
+
         </div>
 
     </div>
