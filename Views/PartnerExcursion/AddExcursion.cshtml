@@ -3,6 +3,22 @@
     ViewBag.Title = "Add new excursion";
 }
 <style>
+
+     .glyphicon.spinning {
+            animation: spin 1s infinite linear;
+            -webkit-animation: spin2 1s infinite linear;
+  }
+
+   @@keyframes spin {
+                from { transform: scale(1) rotate(0deg); }
+                to { transform: scale(1) rotate(360deg); }
+   }
+
+   @@-webkit-keyframes spin2 {
+                from { -webkit-transform: rotate(0deg); }
+                to { -webkit-transform: rotate(360deg); }
+   }
+
     .btn-group > .btn:hover, .btn-group-vertical > .btn:hover, .btn-group > .btn:focus, .btn-group-vertical > .btn:focus, .btn-group > .btn:active, .btn-group-vertical > .btn:active, .btn-group > .btn.active, .btn-group-vertical > .btn.active {
         z-index: 1;
     }
@@ -63,7 +79,7 @@
     }
 
         .common-lang-btn button {
-            width: 150px;
+            width: 170px;
         }
 
     .dropzone.dz-clickable {
@@ -940,7 +956,7 @@
                         + "&lang=" + $('input[name=opt_lang]:checked').val()
                         + sendPhotos(),
                         function () {
-
+                            $('.wait').hide();
                             alert('okey! redirect after click...');
                             location.href = '@Url.Action("index", "partner")';
                         }
@@ -950,7 +966,10 @@
     </script>
 
     <div class="col-sm-12 common-lang-btn">
-        <button class="btn btn-primary" type="submit" value="" onclick="submitForm()">Save excursion</button>
+        <button class="btn btn-primary" type="submit" value="" onclick=" $('.wait', this).show(); submitForm()">
+            Save excursion
+            <span class="wait" style='font-size:60%; display:none'><span class="glyphicon glyphicon-refresh spinning"></span> please wait</span>
+        </button>
     </div>
 
 </div>

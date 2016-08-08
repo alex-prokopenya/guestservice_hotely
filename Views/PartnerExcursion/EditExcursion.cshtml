@@ -45,6 +45,22 @@
     }
 }
 <style>
+
+  .glyphicon.spinning {
+            animation: spin 1s infinite linear;
+            -webkit-animation: spin2 1s infinite linear;
+  }
+
+   @@keyframes spin {
+                from { transform: scale(1) rotate(0deg); }
+                to { transform: scale(1) rotate(360deg); }
+   }
+
+   @@-webkit-keyframes spin2 {
+                from { -webkit-transform: rotate(0deg); }
+                to { -webkit-transform: rotate(360deg); }
+   }
+
 .btn-group > .btn:hover, .btn-group-vertical > .btn:hover, .btn-group > .btn:focus, .btn-group-vertical > .btn:focus, .btn-group > .btn:active, .btn-group-vertical > .btn:active, .btn-group > .btn.active, .btn-group-vertical > .btn.active {
     z-index: 1;
 }
@@ -107,8 +123,8 @@
         padding-left: calc(50% - 150px);
     }
 
-        .common-lang-btn button {
-            width: 150px;
+    .common-lang-btn button {
+            width: 170px;
         }
 
     .dropzone.dz-clickable {
@@ -156,6 +172,8 @@
     .netto .for_procent {
         display: none;
     }
+
+
 	</style>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="~/css/dropzone.css">
@@ -1279,18 +1297,27 @@
                         + "&lang=" + $('input[name=opt_lang]:checked').val()
                         + sendPhotos(), 
                         function () {
-
+                            $('.wait').hide();
                             alert('Changes to excursion has been saved. Please note that some changes (i.e. new pictures) require check by EXGO manager and will appear in booking system after approval.');
-                            location.href='@Url.Action("editlist","partnerexcursion")';
+                            location.href = '@Url.Action("editlist","partnerexcursion")';
+                            //$('.wait').hide();
                         }
                     );
 
         };
         </script>
 
+
+
         <div class="col-sm-12 common-lang-btn">
-            <button class="btn btn-primary" type="submit" value="" onclick="submitForm()">Save excursion</button>
+            
+            <button class="btn btn-primary" type="submit" value="" onclick=" $('.wait',this).show(); submitForm()">
+                Save excursion
+                <span class="wait" style='font-size:60%; display:none'><span class="glyphicon glyphicon-refresh spinning"></span> please wait</span>
+            </button>
+
 			<a href="@Url.Action("editlist","partnerexcursion")"><button class="btn btn-primary" type="submit" value="" onclick="">Cancel</button></a>
+
         </div>
 
 </div>
